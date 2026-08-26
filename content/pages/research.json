@@ -1,0 +1,23 @@
+{
+  "_meta": {
+    "description": "Copy and labels for the Research page."
+  },
+  "en": {
+    "heroTitle": "Research Overview",
+    "heroDescription": "Use this page to explain your themes, methods, and ongoing work beyond the short summary on the homepage.",
+    "interestsTitle": "Research Interests",
+    "interestsEyebrow": "Focus Areas",
+    "experienceTitle": "Research Experience",
+    "experienceEyebrow": "Experience",
+    "collaboration": "Interested in collaboration, advising, or internships? Point visitors to the Contact page."
+  },
+  "zh": {
+    "heroTitle": "科研概览",
+    "heroDescription": "这个页面适合用来展开介绍你的研究主题、方法路线和正在推进的工作。",
+    "interestsTitle": "研究兴趣",
+    "interestsEyebrow": "关注方向",
+    "experienceTitle": "科研经历",
+    "experienceEyebrow": "经历",
+    "collaboration": "如果希望接收合作、指导或实习咨询，可以把访客引导到联系页面。"
+  }
+}

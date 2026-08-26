@@ -1,0 +1,258 @@
+"use client";
+
+import { useMemo, useState } from "react";
+
+import { FilterToolbar } from "@/components/filter-toolbar";
+import { ProjectCard } from "@/components/project-card";
+import { Section } from "@/components/section";
+import { ArrowRightIcon } from "@/components/icons";
+import type { ProjectEntry, ProjectGroup, ProjectsPageCopy, UpdateEntry } from "@/lib/content-types";
+import type { Locale } from "@/lib/locale";
+
+type ProjectLabelFilter = "all" | "ongoing" | "featured";
+
+type ProjectDerivedMeta = {
+  startYear: number | null;
+  endYear: number | null;
+  years: number[];
+  isOngoing: boolean;
+  isFeatured: boolean;
+  hasStars: boolean;
+  starCount: number | null;
+};
+
+type DerivedProject = ProjectEntry & {
+  derived: ProjectDerivedMeta;
+};
+
+type ProjectGroupWithDerived = Omit<ProjectGroup, "items"> & {
+  items: DerivedProject[];
+};
+
+type ProjectBadge = {
+  label: string;
+  variant?: "default" | "accent";
+};
+
+type ProjectsClientProps = {
+  locale: Locale;
+  groups: ProjectGroup[];
+  updates: UpdateEntry[];
+  copy: ProjectsPageCopy[Locale];
+};
+
+const FEATURE_THRESHOLD = 15;
+const PRESENT_REGEX = /(present|至今)/i;
+const ALL_FILTER_VALUE = "all" as const;
+
+function buildYearRange(startYear: number | null, endYear: number | null, isOngoing: boolean, currentYear: number) {
+  if (!startYear && !endYear) return [];
+  const effectiveStart = startYear ?? endYear;
+  if (!effectiveStart) return [];
+
+  const resolvedEnd = isOngoing ? Math.max(currentYear, effectiveStart) : endYear ?? effectiveStart;
+  const years: number[] = [];
+  for (let year = effectiveStart; year <= resolvedEnd; year += 1) {
+    years.push(year);
+  }
+  return years;
+}
+
+function deriveProject(project: ProjectEntry): DerivedProject {
+  const yearMatches = project.period.match(/\d{4}/g)?.map(Number) ?? [];
+  const startYear = yearMatches[0] ?? null;
+  const endYear = yearMatches.length > 1 ? yearMatches[yearMatches.length - 1] : yearMatches[0] ?? null;
+  const isOngoing = PRESENT_REGEX.test(project.period);
+  const years = buildYearRange(startYear, endYear, isOngoing, new Date().getFullYear());
+  const rawStars = project.metrics?.stars ?? null;
+  const parsedStars = rawStars === null || rawStars === undefined ? null : Number(rawStars);
+  const hasStars = typeof parsedStars === "number" && !Number.isNaN(parsedStars);
+  const starCount = hasStars ? parsedStars : null;
+  const isFeatured = typeof starCount === "number" && starCount >= FEATURE_THRESHOLD;
+
+  return {
+    ...project,
+    derived: {
+      startYear,
+      endYear: endYear ?? startYear ?? null,
+      years,
+      isOngoing,
+      isFeatured,
+      hasStars,
+      starCount
+    }
+  };
+}
+
+function compareProjects(a: DerivedProject, b: DerivedProject) {
+  const endYearA = a.derived.endYear ?? a.derived.startYear ?? 0;
+  const endYearB = b.derived.endYear ?? b.derived.startYear ?? 0;
+  if (endYearA !== endYearB) {
+    return endYearB - endYearA;
+  }
+
+  if (a.derived.isOngoing !== b.derived.isOngoing) {
+    return a.derived.isOngoing ? -1 : 1;
+  }
+
+  if (a.derived.hasStars !== b.derived.hasStars) {
+    return a.derived.hasStars ? -1 : 1;
+  }
+
+  if (a.derived.hasStars && b.derived.hasStars && a.derived.starCount !== b.derived.starCount) {
+    return (b.derived.starCount ?? 0) - (a.derived.starCount ?? 0);
+  }
+
+  return a.name.localeCompare(b.name);
+}
+
+function decorateGroup(group: ProjectGroup): ProjectGroupWithDerived {
+  return {
+    ...group,
+    items: group.items.map(deriveProject).sort(compareProjects)
+  };
+}
+
+export function ProjectsClient({ locale, groups, updates, copy }: ProjectsClientProps) {
+  const [yearFilter, setYearFilter] = useState<string>(ALL_FILTER_VALUE);
+  const [labelFilter, setLabelFilter] = useState<ProjectLabelFilter>(ALL_FILTER_VALUE);
+
+  const decoratedGroups = useMemo<ProjectGroupWithDerived[]>(() => groups.map(decorateGroup), [groups]);
+
+  const yearOptions = useMemo(() => {
+    const uniqueYears = new Set<string>();
+    decoratedGroups.forEach((group) => {
+      group.items.forEach((item) => {
+        item.derived.years.forEach((year) => uniqueYears.add(String(year)));
+      });
+    });
+
+    return [ALL_FILTER_VALUE, ...Array.from(uniqueYears).sort((a, b) => Number(b) - Number(a))];
+  }, [decoratedGroups]);
+
+  const filteredGroups = useMemo(() => {
+    return decoratedGroups
+      .map((group) => {
+        const filteredItems = group.items.filter((item) => {
+          const matchesYear =
+            yearFilter === ALL_FILTER_VALUE ||
+            item.derived.years.some((year) => String(year) === yearFilter);
+
+          const matchesLabel =
+            labelFilter === "all" ||
+            (labelFilter === "ongoing" && item.derived.isOngoing) ||
+            (labelFilter === "featured" && item.derived.isFeatured);
+
+          return matchesYear && matchesLabel;
+        });
+
+        return { ...group, items: filteredItems };
+      })
+      .filter((group) => group.items.length > 0);
+  }, [decoratedGroups, yearFilter, labelFilter]);
+
+  return (
+    <div className="space-y-7">
+      <section className="space-y-3 rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-white p-8 shadow-[0_24px_60px_-45px_rgba(30,64,175,0.45)] dark:border-slate-800 dark:bg-gradient-to-br dark:from-slate-900/80 dark:via-slate-900/60 dark:to-slate-900/40">
+        <h1 className="text-3xl font-semibold text-blue-900 dark:text-white">{copy.heroTitle}</h1>
+        <p className="text-base leading-relaxed text-blue-900/70 dark:text-slate-300">
+          {copy.heroDescription}
+        </p>
+      </section>
+
+      <div className="space-y-6">
+        <FilterToolbar
+          className="shadow-[0_16px_40px_-38px_rgba(15,23,42,0.55)]"
+          groups={[
+            {
+              id: "year",
+              label: copy.filters.year,
+              value: yearFilter,
+              options: yearOptions.map((year) => ({
+                value: year,
+                label: year === ALL_FILTER_VALUE ? copy.filters.all : year
+              })),
+              onChange: setYearFilter
+            },
+            {
+              id: "tags",
+              label: copy.filters.label,
+              value: labelFilter,
+              options: [
+                { value: ALL_FILTER_VALUE, label: copy.filters.all },
+                { value: "ongoing", label: copy.filters.ongoing },
+                { value: "featured", label: copy.filters.featured }
+              ],
+              onChange: (value) => setLabelFilter(value as ProjectLabelFilter)
+            }
+          ]}
+        />
+
+        {filteredGroups.length ? (
+          filteredGroups.map((group) => (
+            <Section
+              key={group.title}
+              title={group.title}
+              eyebrow={
+                group.kind === "open-source"
+                  ? copy.groupLabels["open-source"]
+                  : copy.groupLabels[group.kind as keyof typeof copy.groupLabels] ?? copy.groupLabels.default
+              }
+            >
+              <div className="grid gap-6 md:grid-cols-2">
+                {group.items.map((project) => {
+                  const badges: ProjectBadge[] = [];
+                  if (project.derived.isFeatured) {
+                    badges.push({ label: copy.badges.featured, variant: "accent" });
+                  }
+                  if (project.derived.isOngoing) {
+                    badges.push({ label: copy.badges.ongoing, variant: "default" });
+                  }
+
+                  return <ProjectCard key={project.name} project={project} badges={badges} />;
+                })}
+              </div>
+            </Section>
+          ))
+        ) : (
+          <div className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-6 text-center text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-300">
+            {copy.empty}
+          </div>
+        )}
+      </div>
+
+      <Section title={copy.sections.updates.title} eyebrow={copy.sections.updates.eyebrow}>
+        <div className="space-y-3">
+          {updates.map((update, index) => {
+            const hasUsableLink = update.link && update.link !== "#";
+            const updateKey = hasUsableLink
+              ? `${update.link}-${index}`
+              : `${update.date}-${update.type}-${update.title}-${index}`;
+
+            return (
+              <a
+                key={updateKey}
+                href={update.link}
+                className="group flex items-start gap-4 rounded-xl px-4 py-3 transition-all hover:bg-slate-50 dark:hover:bg-slate-900/50"
+              >
+                <div className="w-20 flex-shrink-0 pt-0.5 text-xs font-medium text-slate-600 dark:text-slate-300">
+                  {update.date}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-base font-medium text-slate-900 transition-colors group-hover:text-brand dark:text-slate-50">
+                    {update.title}
+                  </h3>
+                  <p className="mt-1 text-base text-slate-600 dark:text-slate-300">{update.summary}</p>
+                </div>
+                <ArrowRightIcon
+                  aria-hidden="true"
+                  className="h-4 w-4 flex-shrink-0 text-slate-600 opacity-0 transition-opacity group-hover:opacity-100 dark:text-slate-300"
+                />
+              </a>
+            );
+          })}
+        </div>
+      </Section>
+    </div>
+  );
+}

@@ -1,0 +1,48 @@
+{
+  "_meta": {
+    "description": "Profile information in English and Chinese. Update both locales for consistency.",
+    "fields": {
+      "name": "Full name string",
+      "nativeName": "Optional secondary language name",
+      "aka": "Optional preferred nickname shown on English pages only",
+      "title": "Short professional title",
+      "affiliation": "Current institution, lab, or company",
+      "location": "City, Country",
+      "keywords": "Array of 2-4 short research keywords",
+      "social": "Array of { label, href } links",
+      "cvLink": "Relative URL to a downloadable CV under /public",
+      "avatar": "Optional path to an image under /public"
+    }
+  },
+  "en": {
+    "name": "Alex Chen",
+    "nativeName": "陈明远",
+    "aka": "Alex",
+    "title": "Ph.D. Student in Robotics",
+    "affiliation": "Example University",
+    "location": "Shanghai, China",
+    "keywords": ["Robot Learning", "Embodied AI", "Field Robotics"],
+    "social": [
+      { "label": "GitHub", "href": "https://github.com/your-handle" },
+      { "label": "Google Scholar", "href": "https://scholar.google.com/citations?user=YOUR_ID" },
+      { "label": "ORCID", "href": "https://orcid.org/0000-0000-0000-0000" }
+    ],
+    "avatar": "/images/avatar-placeholder.svg",
+    "cvLink": "/files/sample-cv.pdf"
+  },
+  "zh": {
+    "name": "陈明远",
+    "nativeName": "Alex Chen",
+    "title": "机器人方向博士研究生",
+    "affiliation": "示例大学",
+    "location": "中国·上海",
+    "keywords": ["机器人学习", "具身智能", "野外机器人"],
+    "social": [
+      { "label": "GitHub", "href": "https://github.com/your-handle" },
+      { "label": "Google Scholar", "href": "https://scholar.google.com/citations?user=YOUR_ID" },
+      { "label": "ORCID", "href": "https://orcid.org/0000-0000-0000-0000" }
+    ],
+    "avatar": "/images/avatar-placeholder.svg",
+    "cvLink": "/files/sample-cv.pdf"
+  }
+}

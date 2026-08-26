@@ -1,0 +1,59 @@
+{
+  "_meta": {
+    "description": "Copy and labels for the Projects page."
+  },
+  "en": {
+    "heroTitle": "Project Portfolio",
+    "heroDescription": "Showcase academic work, open-source tools, and side projects in one place. Period strings drive sorting, and GitHub stars can be synced automatically if you enable the workflow.",
+    "filters": {
+      "year": "Year",
+      "label": "Tag",
+      "all": "All",
+      "ongoing": "Ongoing",
+      "featured": "Featured"
+    },
+    "badges": {
+      "ongoing": "Ongoing",
+      "featured": "Featured"
+    },
+    "empty": "No projects match the selected filters.",
+    "sections": {
+      "updates": {
+        "title": "Recent Project Updates",
+        "eyebrow": "Activity Log"
+      }
+    },
+    "groupLabels": {
+      "academic": "Academic",
+      "open-source": "Open Source",
+      "default": "Projects"
+    }
+  },
+  "zh": {
+    "heroTitle": "项目集锦",
+    "heroDescription": "在同一个页面展示学术工作、开源工具和个人项目。项目排序由时间字段驱动；如果启用工作流，还可以自动同步 GitHub stars。",
+    "filters": {
+      "year": "年份",
+      "label": "标签",
+      "all": "全部",
+      "ongoing": "进行中",
+      "featured": "精选"
+    },
+    "badges": {
+      "ongoing": "进行中",
+      "featured": "精选"
+    },
+    "empty": "暂无符合当前筛选条件的项目。",
+    "sections": {
+      "updates": {
+        "title": "项目动态",
+        "eyebrow": "更新记录"
+      }
+    },
+    "groupLabels": {
+      "academic": "学术项目",
+      "open-source": "开源项目",
+      "default": "项目"
+    }
+  }
+}

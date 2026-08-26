@@ -1,0 +1,49 @@
+{
+  "_meta": {
+    "description": "Copy and labels for the Home page."
+  },
+  "en": {
+    "heroIntro": "I am Alex Chen, a robotics Ph.D. student working on embodied AI systems that can perceive, plan, and recover reliably in the real world. This template is designed to help you present your research, publications, projects, and writing with minimal code edits.",
+    "buttons": {
+      "cv": "View CV",
+      "publications": "View Publications",
+      "projects": "Explore Projects"
+    },
+    "highlights": {
+      "title": "At a Glance",
+      "focusLabel": "Current focus",
+      "focusValue": "Embodied AI for reliable long-horizon robot tasks",
+      "contactLabel": "Email",
+      "contactValue": "Reveal email",
+      "locationLabel": "Based in"
+    },
+    "sections": {
+      "updates": { "title": "Recent Updates", "eyebrow": "Activity" },
+      "projects": { "title": "Highlighted Projects", "eyebrow": "Projects", "action": "All projects" },
+      "publications": { "title": "Latest Writing", "eyebrow": "Publications", "action": "All entries" },
+      "awards": { "title": "Honors & Awards", "eyebrow": "Recognition", "action": "Full CV" }
+    }
+  },
+  "zh": {
+    "heroIntro": "我是陈明远，一名从事具身智能方向研究的机器人博士生，关注自主系统在真实环境中的感知、规划与恢复能力。这个模板旨在帮助你用尽量少的代码修改，快速搭建展示研究、论文、项目与写作内容的个人主页。",
+    "buttons": {
+      "cv": "查看简历",
+      "publications": "浏览论文",
+      "projects": "查看项目"
+    },
+    "highlights": {
+      "title": "工作速览",
+      "focusLabel": "当前重点",
+      "focusValue": "面向长时程任务的具身智能系统",
+      "contactLabel": "联系邮箱",
+      "contactValue": "点击显示邮箱",
+      "locationLabel": "常驻城市"
+    },
+    "sections": {
+      "updates": { "title": "近期动态", "eyebrow": "动态" },
+      "projects": { "title": "精选项目", "eyebrow": "项目", "action": "全部项目" },
+      "publications": { "title": "近期写作", "eyebrow": "成果", "action": "查看全部" },
+      "awards": { "title": "荣誉与奖项", "eyebrow": "荣誉", "action": "完整简历" }
+    }
+  }
+}

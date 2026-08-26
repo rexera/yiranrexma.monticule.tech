@@ -1,0 +1,62 @@
+{
+  "_meta": {
+    "description": "Awards and honors list for the Honors section.",
+    "fields": {
+      "awards": "Array of award entries sorted by year desc",
+      "AwardItem": {
+        "title": "Award name",
+        "issuer": "Issuing body",
+        "year": "Year string",
+        "notes": "Optional extra note"
+      }
+    }
+  },
+  "en": {
+    "awards": [
+      {
+        "title": "Graduate Fellowship",
+        "issuer": "Example University",
+        "year": "2026"
+      },
+      {
+        "title": "Best Student Paper Finalist",
+        "issuer": "Example Robotics Symposium",
+        "year": "2025"
+      },
+      {
+        "title": "Outstanding Undergraduate Thesis",
+        "issuer": "Example Institute of Technology",
+        "year": "2024"
+      },
+      {
+        "title": "National Scholarship",
+        "issuer": "Ministry of Education",
+        "year": "2023"
+      }
+    ]
+  },
+  "zh": {
+    "awards": [
+      {
+        "title": "研究生奖学金",
+        "issuer": "示例大学",
+        "year": "2026"
+      },
+      {
+        "title": "最佳学生论文提名",
+        "issuer": "示例机器人研讨会",
+        "year": "2025"
+      },
+      {
+        "title": "优秀本科毕业论文",
+        "issuer": "示例理工学院",
+        "year": "2024"
+      },
+      {
+        "title": "国家奖学金",
+        "issuer": "教育主管部门",
+        "year": "2023"
+      }
+    ]
+  }
+}

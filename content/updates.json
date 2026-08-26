@@ -1,0 +1,100 @@
+{
+  "_meta": {
+    "description": "Recent updates shown on the Home page quick feed.",
+    "fields": {
+      "updates": "Array of { date, type, title, summary, link }"
+    }
+  },
+  "en": {
+    "updates": [
+      {
+        "date": "2026-04-20",
+        "type": "Commit",
+        "title": "chore: align node runtime to 24",
+        "summary": "Authored by ronchy",
+        "link": "https://github.com/Ronchy2000/Academic-Homepage-Template/commit/d62558af994c2df311c4a84f20d406fd487432cc"
+      },
+      {
+        "date": "2026-04-10",
+        "type": "Commit",
+        "title": "docs: 优化文档",
+        "summary": "Authored by ronchy",
+        "link": "https://github.com/Ronchy2000/Academic-Homepage-Template/commit/269de057f25d94414859f1d39fcbad023f904991"
+      },
+      {
+        "date": "2026-04-10",
+        "type": "Commit",
+        "title": "docs: add vercel link",
+        "summary": "Authored by ronchy",
+        "link": "https://github.com/Ronchy2000/Academic-Homepage-Template/commit/e8d9b726e91ce71d0123de919164ab1f1e0cc3a7"
+      },
+      {
+        "date": "2026-04-10",
+        "type": "Commit",
+        "title": "docs: 优化使用步骤",
+        "summary": "Authored by ronchy",
+        "link": "https://github.com/Ronchy2000/Academic-Homepage-Template/commit/d41a14a15ec14dbb593b61a597e7b7bf01e9b178"
+      },
+      {
+        "date": "2026-04-10",
+        "type": "Commit",
+        "title": "docs: 优化文档说明",
+        "summary": "Authored by ronchy",
+        "link": "https://github.com/Ronchy2000/Academic-Homepage-Template/commit/59e7c32425f52a0acb204385bb2d22a232f724a7"
+      },
+      {
+        "date": "2026-04-10",
+        "type": "Commit",
+        "title": "feat: academic homepage template",
+        "summary": "Authored by ronchy",
+        "link": "https://github.com/Ronchy2000/Academic-Homepage-Template/commit/1585672ba9b38a51eef7482a5dd2a0edb8189cd7"
+      }
+    ]
+  },
+  "zh": {
+    "updates": [
+      {
+        "date": "2026-04-20",
+        "type": "提交",
+        "title": "chore: align node runtime to 24",
+        "summary": "由 ronchy 提交",
+        "link": "https://github.com/Ronchy2000/Academic-Homepage-Template/commit/d62558af994c2df311c4a84f20d406fd487432cc"
+      },
+      {
+        "date": "2026-04-10",
+        "type": "提交",
+        "title": "docs: 优化文档",
+        "summary": "由 ronchy 提交",
+        "link": "https://github.com/Ronchy2000/Academic-Homepage-Template/commit/269de057f25d94414859f1d39fcbad023f904991"
+      },
+      {
+        "date": "2026-04-10",
+        "type": "提交",
+        "title": "docs: add vercel link",
+        "summary": "由 ronchy 提交",
+        "link": "https://github.com/Ronchy2000/Academic-Homepage-Template/commit/e8d9b726e91ce71d0123de919164ab1f1e0cc3a7"
+      },
+      {
+        "date": "2026-04-10",
+        "type": "提交",
+        "title": "docs: 优化使用步骤",
+        "summary": "由 ronchy 提交",
+        "link": "https://github.com/Ronchy2000/Academic-Homepage-Template/commit/d41a14a15ec14dbb593b61a597e7b7bf01e9b178"
+      },
+      {
+        "date": "2026-04-10",
+        "type": "提交",
+        "title": "docs: 优化文档说明",
+        "summary": "由 ronchy 提交",
+        "link": "https://github.com/Ronchy2000/Academic-Homepage-Template/commit/59e7c32425f52a0acb204385bb2d22a232f724a7"
+      },
+      {
+        "date": "2026-04-10",
+        "type": "提交",
+        "title": "feat: academic homepage template",
+        "summary": "由 ronchy 提交",
+        "link": "https://github.com/Ronchy2000/Academic-Homepage-Template/commit/1585672ba9b38a51eef7482a5dd2a0edb8189cd7"
+      }
+    ]
+  }
+}

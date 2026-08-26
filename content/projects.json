@@ -1,0 +1,213 @@
+{
+  "_meta": {
+    "description": "Academic and open-source projects for the Projects page.",
+    "fields": {
+      "groups": "Array of { title, kind, items }",
+      "ProjectItem": {
+        "name": "Project title",
+        "summary": "One-sentence description",
+        "period": "Time range string",
+        "role": "Your role",
+        "tags": "Array of short tags",
+        "links": "Array of { label, href }",
+        "metrics": "Optional stats such as stars, users, demos"
+      }
+    }
+  },
+  "en": {
+    "groups": [
+      {
+        "title": "Academic Projects",
+        "kind": "academic",
+        "items": [
+          {
+            "name": "Embodied Lab Assistant",
+            "summary": "Mobile manipulation pipeline for instruction-following tasks in cluttered indoor research spaces.",
+            "period": "2025 – Present",
+            "role": "Project Lead",
+            "tags": ["Embodied AI", "Manipulation", "ROS 2"],
+            "links": [
+              { "label": "Project Page", "href": "https://example.com/projects/embodied-lab-assistant" },
+              { "label": "Paper", "href": "#" }
+            ],
+            "metrics": {
+              "users": "3 labs"
+            }
+          },
+          {
+            "name": "Heterogeneous Inspection Fleet",
+            "summary": "Shared mapping and task allocation system for wheeled and aerial robots in semi-structured facilities.",
+            "period": "2024 – 2025",
+            "role": "Research Engineer",
+            "tags": ["Multi-Robot", "Planning", "Deployment"],
+            "links": [
+              { "label": "Overview", "href": "https://example.com/projects/inspection-fleet" },
+              { "label": "Dataset", "href": "https://example.com/datasets/inspection-fleet" }
+            ],
+            "metrics": {
+              "scenes": 18
+            }
+          },
+          {
+            "name": "Learning-Based Navigation Benchmark",
+            "summary": "Evaluation suite for comparing hybrid navigation stacks under dynamic obstacles and noisy localization.",
+            "period": "2023 – 2024",
+            "role": "Graduate Research Assistant",
+            "tags": ["Navigation", "Benchmarking", "Safety"],
+            "links": [
+              { "label": "Code", "href": "https://github.com/your-handle/navigation-benchmark" },
+              { "label": "Results", "href": "https://example.com/results/navigation-benchmark" }
+            ],
+            "metrics": {
+              "stars": 24
+            }
+          }
+        ]
+      },
+      {
+        "title": "Open-source & Personal Tools",
+        "kind": "open-source",
+        "items": [
+          {
+            "name": "Academic Homepage Starter",
+            "summary": "The public website template used to manage profile, publications, projects, and blog posts from structured content files.",
+            "period": "2026 – Present",
+            "role": "Maintainer",
+            "tags": ["Next.js", "Template", "Documentation"],
+            "links": [
+              { "label": "GitHub", "href": "https://github.com/your-handle/academic-homepage-template" }
+            ],
+            "metrics": {
+              "stars": 42
+            }
+          },
+          {
+            "name": "Experiment Ops Toolkit",
+            "summary": "Small scripts for experiment bookkeeping, run summaries, and report generation across research projects.",
+            "period": "2025 – Present",
+            "role": "Author",
+            "tags": ["Python", "Automation", "Research Ops"],
+            "links": [
+              { "label": "GitHub", "href": "https://github.com/your-handle/experiment-ops-toolkit" }
+            ],
+            "metrics": {
+              "stars": 17
+            }
+          },
+          {
+            "name": "Lab Notes Knowledge Base",
+            "summary": "Searchable documentation system for onboarding students, storing setup steps, and tracking recurring pitfalls.",
+            "period": "2024",
+            "role": "Contributor",
+            "tags": ["Docs", "Knowledge Base", "Community"],
+            "links": [
+              { "label": "GitHub", "href": "https://github.com/your-org/lab-notes" },
+              { "label": "Docs", "href": "https://example.com/docs/lab-notes" }
+            ],
+            "metrics": {
+              "stars": 11
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "zh": {
+    "groups": [
+      {
+        "title": "学术项目",
+        "kind": "academic",
+        "items": [
+          {
+            "name": "具身实验室助手",
+            "summary": "面向复杂室内研究场景的指令跟随型移动操控系统。",
+            "period": "2025 – 至今",
+            "role": "项目负责人",
+            "tags": ["具身智能", "操控", "ROS 2"],
+            "links": [
+              { "label": "项目页", "href": "https://example.com/projects/embodied-lab-assistant" },
+              { "label": "论文", "href": "#" }
+            ],
+            "metrics": {
+              "users": "3 个实验室"
+            }
+          },
+          {
+            "name": "异构巡检机器人集群",
+            "summary": "为轮式与飞行机器人设计共享建图与任务分配系统，以适应半结构化设施环境。",
+            "period": "2024 – 2025",
+            "role": "研究工程师",
+            "tags": ["多机器人", "规划", "部署"],
+            "links": [
+              { "label": "概览", "href": "https://example.com/projects/inspection-fleet" },
+              { "label": "数据集", "href": "https://example.com/datasets/inspection-fleet" }
+            ],
+            "metrics": {
+              "scenes": 18
+            }
+          },
+          {
+            "name": "学习型导航评测基准",
+            "summary": "对混合导航系统在动态障碍与定位噪声条件下的表现进行统一评测。",
+            "period": "2023 – 2024",
+            "role": "研究助理",
+            "tags": ["导航", "评测", "安全"],
+            "links": [
+              { "label": "代码", "href": "https://github.com/your-handle/navigation-benchmark" },
+              { "label": "结果", "href": "https://example.com/results/navigation-benchmark" }
+            ],
+            "metrics": {
+              "stars": 24
+            }
+          }
+        ]
+      },
+      {
+        "title": "开源与个人工具",
+        "kind": "open-source",
+        "items": [
+          {
+            "name": "Academic Homepage Starter",
+            "summary": "用于维护个人简介、论文、项目与博客内容的公开网站模板。",
+            "period": "2026 – 至今",
+            "role": "维护者",
+            "tags": ["Next.js", "模板", "文档"],
+            "links": [
+              { "label": "GitHub", "href": "https://github.com/your-handle/academic-homepage-template" }
+            ],
+            "metrics": {
+              "stars": 42
+            }
+          },
+          {
+            "name": "实验运营工具箱",
+            "summary": "用于实验记录、运行总结和报告生成的小型自动化脚本集合。",
+            "period": "2025 – 至今",
+            "role": "作者",
+            "tags": ["Python", "自动化", "科研效率"],
+            "links": [
+              { "label": "GitHub", "href": "https://github.com/your-handle/experiment-ops-toolkit" }
+            ],
+            "metrics": {
+              "stars": 17
+            }
+          },
+          {
+            "name": "实验室笔记知识库",
+            "summary": "用于学生入门、环境配置和常见问题沉淀的可检索文档系统。",
+            "period": "2024",
+            "role": "贡献者",
+            "tags": ["文档", "知识库", "社区"],
+            "links": [
+              { "label": "GitHub", "href": "https://github.com/your-org/lab-notes" },
+              { "label": "文档", "href": "https://example.com/docs/lab-notes" }
+            ],
+            "metrics": {
+              "stars": 11
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

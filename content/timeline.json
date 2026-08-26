@@ -1,0 +1,99 @@
+{
+  "_meta": {
+    "description": "Education and professional experience timeline entries.",
+    "fields": {
+      "education": "Array of education entries",
+      "experience": "Array of internship, industry, or lab experience entries",
+      "TimelineItem": {
+        "title": "Institution or role title",
+        "period": "Date range",
+        "location": "City, Country",
+        "details": "Bullet strings"
+      }
+    }
+  },
+  "en": {
+    "education": [
+      {
+        "title": "Ph.D. in Robotics · Example University",
+        "period": "2024 – Present",
+        "location": "Shanghai, China",
+        "details": [
+          "Research focus: embodied AI, robot learning, and real-world evaluation.",
+          "Coursework: advanced robotics, probabilistic inference, reinforcement learning."
+        ]
+      },
+      {
+        "title": "B.Eng. in Automation · Example Institute of Technology",
+        "period": "2020 – 2024",
+        "location": "Hangzhou, China",
+        "details": [
+          "Capstone project on adaptive navigation in dynamic indoor environments.",
+          "Built a foundation in control, embedded systems, and computer vision."
+        ]
+      }
+    ],
+    "experience": [
+      {
+        "title": "Robotics Research Intern · Example Robotics Lab",
+        "period": "2025 Summer",
+        "location": "Shenzhen, China",
+        "details": [
+          "Evaluated recovery policies for manipulation under sensor drift.",
+          "Contributed benchmarking tools used across several internal demos."
+        ]
+      },
+      {
+        "title": "Software Engineering Intern · Example AI Company",
+        "period": "2024 Summer",
+        "location": "Shanghai, China",
+        "details": [
+          "Improved experiment tracking flows and deployment automation.",
+          "Reduced repetitive manual setup for model evaluation pipelines."
+        ]
+      }
+    ]
+  },
+  "zh": {
+    "education": [
+      {
+        "title": "示例大学 · 机器人学博士",
+        "period": "2024 – 至今",
+        "location": "中国·上海",
+        "details": [
+          "研究方向：具身智能、机器人学习与真实环境评测。",
+          "主修课程：高级机器人学、概率推断、强化学习。"
+        ]
+      },
+      {
+        "title": "示例理工学院 · 自动化学士",
+        "period": "2020 – 2024",
+        "location": "中国·杭州",
+        "details": [
+          "毕业设计聚焦动态室内环境中的自适应导航。",
+          "系统学习控制、嵌入式系统与计算机视觉。"
+        ]
+      }
+    ],
+    "experience": [
+      {
+        "title": "示例机器人实验室 · 机器人研究实习生",
+        "period": "2025 暑期",
+        "location": "中国·深圳",
+        "details": [
+          "评估感知漂移条件下的移动操控恢复策略。",
+          "开发多组内部演示共用的评测工具。"
+        ]
+      },
+      {
+        "title": "示例 AI 公司 · 软件工程实习生",
+        "period": "2024 暑期",
+        "location": "中国·上海",
+        "details": [
+          "改进实验追踪流程与部署自动化。",
+          "降低模型评测流水线的重复手工配置成本。"
+        ]
+      }
+    ]
+  }
+}

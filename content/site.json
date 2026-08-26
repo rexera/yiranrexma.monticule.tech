@@ -1,0 +1,13 @@
+{
+  "_meta": {
+    "description": "Global site-level settings. Edit this file first when you decide whether the site should be bilingual or single-language, and how the first-visit locale should be chosen.",
+    "fields": {
+      "i18n.mode": "One of: bilingual, en-only, zh-only",
+      "i18n.primaryLocale": "In bilingual mode: set en or zh to force the first-visit default locale. Leave it empty to enable browser-language auto-detection on first visit. The template default is an empty string."
+    }
+  },
+  "i18n": {
+    "mode": "bilingual",
+    "primaryLocale": ""
+  }
+}

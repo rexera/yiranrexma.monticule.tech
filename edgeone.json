@@ -1,0 +1,18 @@
+{
+  "installCommand": "npm ci",
+  "buildCommand": "EDGEONE=1 npm run build",
+  "outputDirectory": "out",
+  "nodeVersion": "22.11.0",
+  "redirects": [
+    {
+      "source": "/en",
+      "destination": "/en/",
+      "statusCode": 308
+    },
+    {
+      "source": "/zh",
+      "destination": "/zh/",
+      "statusCode": 308
+    }
+  ]
+}

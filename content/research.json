@@ -1,0 +1,131 @@
+{
+  "_meta": {
+    "description": "Research interests and experience timeline. Interests feed the Research page; experiences populate the detailed narrative cards.",
+    "fields": {
+      "interests": "Array of { title, description } cards",
+      "experiences": "Array of { title, period, role, advisor, funding, summary, bullets, tags }"
+    }
+  },
+  "en": {
+    "interests": [
+      {
+        "title": "Embodied AI Systems",
+        "description": "Integrating perception, planning, and control in long-horizon physical tasks."
+      },
+      {
+        "title": "Robot Learning",
+        "description": "Sample-efficient policy learning for manipulation, navigation, and adaptation."
+      },
+      {
+        "title": "Human-Robot Collaboration",
+        "description": "Interfaces and autonomy strategies for safe, interpretable teamwork."
+      },
+      {
+        "title": "Edge Deployment",
+        "description": "Moving modern autonomy pipelines onto real devices with tight compute budgets."
+      }
+    ],
+    "experiences": [
+      {
+        "title": "Adaptive Mobile Manipulation for Cluttered Labs",
+        "period": "2025 – Present",
+        "role": "Lead Student Researcher",
+        "advisor": "Prof. Lina Zhao",
+        "funding": "Lab Seed Grant",
+        "summary": "Building perception-driven manipulation policies that remain stable under shifting layouts and sparse demonstrations.",
+        "bullets": [
+          "Combined language-conditioned task prompts with vision-based affordance maps.",
+          "Reduced reset time by introducing reusable evaluation scenes and scripted calibration checks."
+        ],
+        "tags": ["Manipulation", "Vision-Language", "Robotics"]
+      },
+      {
+        "title": "Multi-Robot Inspection in Semi-Structured Environments",
+        "period": "2024 – 2025",
+        "role": "Research Engineer",
+        "advisor": "Dr. Aaron Wu",
+        "funding": "Industry Collaboration",
+        "summary": "Designed coordination logic for heterogeneous robots performing inspection rounds across changing indoor facilities.",
+        "bullets": [
+          "Implemented map-sharing and fallback routing for intermittent connectivity.",
+          "Benchmarked task completion under degraded sensing and delayed communication."
+        ],
+        "tags": ["Multi-Robot", "Inspection", "Autonomy"]
+      },
+      {
+        "title": "Learning-Based Navigation Stack for Service Robots",
+        "period": "2023 – 2024",
+        "role": "Graduate Research Assistant",
+        "advisor": "Prof. Lina Zhao",
+        "funding": "Graduate Fellowship",
+        "summary": "Explored hybrid navigation pipelines that blend classical planners with learned scene priors.",
+        "bullets": [
+          "Added safety envelopes around low-confidence detections in crowded hallways.",
+          "Improved recovery behavior after localization loss through state-aware replanning."
+        ],
+        "tags": ["Navigation", "Learning", "Deployment"]
+      }
+    ]
+  },
+  "zh": {
+    "interests": [
+      {
+        "title": "具身智能系统",
+        "description": "将感知、规划与控制统一到长时程物理任务中，提升真实环境下的执行可靠性。"
+      },
+      {
+        "title": "机器人学习",
+        "description": "关注操控、导航与自适应任务中的高样本效率学习方法。"
+      },
+      {
+        "title": "人机协作",
+        "description": "研究可解释、安全且具备协作意识的交互与自治策略。"
+      },
+      {
+        "title": "边缘部署",
+        "description": "将现代自主系统能力压缩到算力受限的真实设备中。"
+      }
+    ],
+    "experiences": [
+      {
+        "title": "面向实验室复杂场景的自适应移动操控",
+        "period": "2025 – 至今",
+        "role": "学生负责人",
+        "advisor": "导师：赵琳教授",
+        "funding": "实验室种子基金",
+        "summary": "构建由感知驱动的移动操控策略，使系统在布局频繁变化和示例稀缺时仍保持稳定表现。",
+        "bullets": [
+          "结合语言条件任务提示与视觉可供性地图进行动作生成。",
+          "通过可复用评测场景和脚本化标定流程降低实验重置成本。"
+        ],
+        "tags": ["操控", "视觉语言", "机器人"]
+      },
+      {
+        "title": "半结构化环境中的多机器人巡检",
+        "period": "2024 – 2025",
+        "role": "研究工程师",
+        "advisor": "合作导师：吴安然博士",
+        "funding": "产学合作项目",
+        "summary": "为异构机器人设计协同巡检逻辑，以适应设施环境持续变化和不稳定通信条件。",
+        "bullets": [
+          "实现地图共享与断连回退路径策略。",
+          "系统评估感知退化和通信延迟下的任务完成率。"
+        ],
+        "tags": ["多机器人", "巡检", "自主系统"]
+      },
+      {
+        "title": "服务机器人学习型导航系统",
+        "period": "2023 – 2024",
+        "role": "研究助理",
+        "advisor": "导师：赵琳教授",
+        "funding": "研究生奖学金",
+        "summary": "探索结合经典规划器与学习先验的混合式导航系统。",
+        "bullets": [
+          "在拥挤走廊场景中为低置信度感知结果加入安全缓冲策略。",
+          "通过状态感知重规划改进定位丢失后的恢复行为。"
+        ],
+        "tags": ["导航", "学习", "部署"]
+      }
+    ]
+  }
+}
