@@ -12,7 +12,7 @@
         "type": "Publication",
         "title": "CLASE: Chinese Stylistic Evaluation",
         "summary": "A hybrid, reference-free framework combining interpretable linguistic features with experience-guided LLM-as-a-judge scoring, with legal Chinese as the testbed.",
-        "link": "https://doi.org/10.63317/2xrbbj7oaghv"
+        "link": "https://aclanthology.org/2026.lrec-1.46/"
       },
       {
         "date": "2026-04-20",
@@ -79,7 +79,7 @@
         "type": "论文",
         "title": "CLASE: Chinese Stylistic Evaluation",
         "summary": "混合式无参考中文风格评测框架：可解释语言学特征 + 经验引导的 LLM 评分，以法律中文为测试床。",
-        "link": "https://doi.org/10.63317/2xrbbj7oaghv"
+        "link": "https://aclanthology.org/2026.lrec-1.46/"
       },
       {
         "date": "2026-04-20",

@@ -24,7 +24,7 @@
         "type": "J",
         "title": "CLASE: Chinese LegAlese Stylistic Evaluation",
         "authors": "Yiran Rex Ma",
-        "venue": "Formal publication (DOI: 10.63317/2xrbbj7oaghv)",
+        "venue": "LREC 2026 (ACL Anthology)",
         "year": "2026",
         "tags": [
           "LLM Evaluation",
@@ -34,8 +34,8 @@
         ],
         "links": [
           {
-            "label": "DOI",
-            "href": "https://doi.org/10.63317/2xrbbj7oaghv"
+            "label": "ACL Anthology",
+            "href": "https://aclanthology.org/2026.lrec-1.46/"
           }
         ],
         "notes": "Hybrid, reference-free evaluation of stylistic fidelity in Chinese legal text, combining linguistic features with experience-guided LLM-as-a-judge scoring; experiments on 200 legal documents.",
@@ -160,7 +160,7 @@
         "type": "J",
         "title": "CLASE: Chinese LegAlese Stylistic Evaluation",
         "authors": "Yiran Rex Ma",
-        "venue": "Formal publication (DOI: 10.63317/2xrbbj7oaghv)",
+        "venue": "LREC 2026 (ACL Anthology)",
         "year": "2026",
         "tags": [
           "LLM Evaluation",
@@ -170,8 +170,8 @@
         ],
         "links": [
           {
-            "label": "DOI",
-            "href": "https://doi.org/10.63317/2xrbbj7oaghv"
+            "label": "ACL Anthology",
+            "href": "https://aclanthology.org/2026.lrec-1.46/"
           }
         ],
         "notes": "Hybrid, reference-free evaluation of stylistic fidelity in Chinese legal text, combining linguistic features with experience-guided LLM-as-a-judge scoring; experiments on 200 legal documents.",
