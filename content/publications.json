@@ -12,7 +12,8 @@
         "year": "Year string",
         "tags": "Array of topic tags",
         "links": "Array of { label, href }",
-        "notes": "Optional short note"
+        "notes": "Optional short note",
+        "slug": "Kebab-case page slug for the article-style detail page"
       }
     }
   },
@@ -21,44 +22,134 @@
       {
         "id": "J.1",
         "type": "J",
-        "title": "Learning Robust Recovery Policies for Long-Horizon Mobile Manipulation",
-        "authors": "Alex Chen*, Lina Zhao, Aaron Wu",
-        "venue": "IEEE Robotics and Automation Letters",
+        "title": "CLASE: Chinese LegAlese Stylistic Evaluation",
+        "authors": "Yiran Rex Ma",
+        "venue": "Formal publication (DOI: 10.63317/2xrbbj7oaghv)",
         "year": "2026",
-        "tags": ["Robot Learning", "Manipulation"],
-        "links": [{ "label": "Preprint", "href": "https://arxiv.org/abs/2401.00001" }],
-        "notes": "Student first author"
-      },
-      {
-        "id": "C.1",
-        "type": "C",
-        "title": "Task-Aware Coordination for Heterogeneous Inspection Robots",
-        "authors": "Alex Chen, Priya Nair, Aaron Wu",
-        "venue": "IEEE International Conference on Robotics and Automation (ICRA)",
-        "year": "2025",
-        "tags": ["Multi-Robot", "Inspection"],
-        "links": [{ "label": "Project", "href": "https://example.com/projects/inspection" }]
+        "tags": [
+          "LLM Evaluation",
+          "Legal NLP",
+          "Stylistics",
+          "Chinese"
+        ],
+        "links": [
+          {
+            "label": "DOI",
+            "href": "https://doi.org/10.63317/2xrbbj7oaghv"
+          }
+        ],
+        "notes": "Hybrid, reference-free evaluation of stylistic fidelity in Chinese legal text, combining linguistic features with experience-guided LLM-as-a-judge scoring; experiments on 200 legal documents.",
+        "slug": "clase"
       },
       {
         "id": "S.1",
         "type": "S",
-        "title": "Language-Guided Affordance Models for Adaptive Lab Assistance",
-        "authors": "Alex Chen*, Lina Zhao",
-        "venue": "Under review",
+        "title": "Towards Computational Chinese Paleography",
+        "authors": "Yiran Rex Ma",
+        "venue": "arXiv preprint",
         "year": "2026",
-        "tags": ["Embodied AI", "Vision-Language"],
-        "links": [{ "label": "Draft", "href": "#" }],
-        "notes": "Replace with your own manuscript status"
+        "tags": [
+          "Chinese Paleography",
+          "Digital Humanities",
+          "Position Paper",
+          "Multimodal"
+        ],
+        "links": [
+          {
+            "label": "arXiv",
+            "href": "https://arxiv.org/abs/2601.06753"
+          }
+        ],
+        "notes": "Position paper charting the computational turn in Chinese paleography, from automating isolated visual tasks toward integrated, human-centric digital research ecosystems.",
+        "slug": "pal-review"
       },
       {
-        "id": "P.1",
-        "type": "P",
-        "title": "Method for Cooperative Recovery Planning in Mobile Manipulation Systems",
-        "authors": "Lina Zhao, Alex Chen, Aaron Wu",
-        "venue": "Example patent application information",
+        "id": "C.1",
+        "type": "C",
+        "title": "Pun2Pun: Textual-Visual Chinese-English Pun Translation via Linguistic Reasoning",
+        "authors": "Yiran Rex Ma",
+        "venue": "ACL 2025 Student Research Workshop",
         "year": "2025",
-        "tags": ["Patent", "Planning"],
-        "links": [{ "label": "Patent", "href": "#" }]
+        "tags": [
+          "Pun Translation",
+          "Benchmark",
+          "Chinese-English",
+          "Multimodal"
+        ],
+        "links": [
+          {
+            "label": "ACL Anthology",
+            "href": "https://aclanthology.org/2025.acl-srw.23/"
+          }
+        ],
+        "notes": "Benchmark for Chinese-English pun translation over text and images, with the Constant-Variable Optimization (CVO) translation strategy and the Overlap (Ovl) metric.",
+        "slug": "pun2pun"
+      },
+      {
+        "id": "C.2",
+        "type": "C",
+        "title": "Do Androids Question Electric Sheep? A Multi-Agent Simulation of Philosophical Reflection",
+        "authors": "Yiran Rex Ma",
+        "venue": "ACL 2025 Student Research Workshop",
+        "year": "2025",
+        "tags": [
+          "Multi-Agent",
+          "LLM Reasoning",
+          "Table Reasoning",
+          "Reflection"
+        ],
+        "links": [
+          {
+            "label": "ACL Anthology",
+            "href": "https://aclanthology.org/2025.acl-srw.9/"
+          }
+        ],
+        "notes": "Philosopher and Symposium frameworks simulate self- and group-reflection for multi-persona agents; identifies an \"overthinking threshold\" beyond which deliberation yields diminishing returns.",
+        "slug": "androids-question"
+      },
+      {
+        "id": "C.3",
+        "type": "C",
+        "title": "PanelTR: Zero-Shot Table Reasoning Through Multi-Agent Discussion",
+        "authors": "Yiran Rex Ma",
+        "venue": "International Joint Conference on Neural Networks (IJCNN)",
+        "year": "2025",
+        "tags": [
+          "Table Reasoning",
+          "Multi-Agent",
+          "Zero-Shot",
+          "LLM"
+        ],
+        "links": [
+          {
+            "label": "DOI",
+            "href": "https://doi.org/10.1109/IJCNN64981.2025.11228106"
+          }
+        ],
+        "notes": "Five LLM scientist personas investigate, self-review, and peer-review their way through table QA and fact verification, outperforming vanilla LLMs and rivaling supervised models without task-specific training.",
+        "slug": "paneltr"
+      },
+      {
+        "id": "S.2",
+        "type": "S",
+        "title": "Constituent Order Differences in Adverbials, in English and Chinese News",
+        "authors": "Yiran Rex Ma",
+        "venue": "arXiv preprint",
+        "year": "2025",
+        "tags": [
+          "Contrastive Linguistics",
+          "Word Order",
+          "English-Chinese",
+          "Corpus Study"
+        ],
+        "links": [
+          {
+            "label": "arXiv",
+            "href": "https://arxiv.org/abs/2508.14054"
+          }
+        ],
+        "notes": "LLM-annotated comparable corpora show English news favors core-information-first narration with postposed adverbials, while Chinese news favors background-first presentation with preposed ones.",
+        "slug": "constituent-order"
       }
     ]
   },
@@ -67,44 +158,134 @@
       {
         "id": "J.1",
         "type": "J",
-        "title": "面向长时程移动操控的鲁棒恢复策略学习",
-        "authors": "陈明远*, 赵琳, 吴安然",
-        "venue": "IEEE Robotics and Automation Letters",
+        "title": "CLASE: Chinese LegAlese Stylistic Evaluation",
+        "authors": "Yiran Rex Ma",
+        "venue": "Formal publication (DOI: 10.63317/2xrbbj7oaghv)",
         "year": "2026",
-        "tags": ["机器人学习", "操控"],
-        "links": [{ "label": "预印本", "href": "https://arxiv.org/abs/2401.00001" }],
-        "notes": "学生一作"
-      },
-      {
-        "id": "C.1",
-        "type": "C",
-        "title": "面向异构巡检机器人的任务感知协同方法",
-        "authors": "陈明远, Priya Nair, 吴安然",
-        "venue": "IEEE International Conference on Robotics and Automation (ICRA)",
-        "year": "2025",
-        "tags": ["多机器人", "巡检"],
-        "links": [{ "label": "项目页", "href": "https://example.com/projects/inspection" }]
+        "tags": [
+          "LLM Evaluation",
+          "Legal NLP",
+          "Stylistics",
+          "Chinese"
+        ],
+        "links": [
+          {
+            "label": "DOI",
+            "href": "https://doi.org/10.63317/2xrbbj7oaghv"
+          }
+        ],
+        "notes": "Hybrid, reference-free evaluation of stylistic fidelity in Chinese legal text, combining linguistic features with experience-guided LLM-as-a-judge scoring; experiments on 200 legal documents.",
+        "slug": "clase"
       },
       {
         "id": "S.1",
         "type": "S",
-        "title": "面向实验室协助任务的语言引导可供性模型",
-        "authors": "陈明远*, 赵琳",
-        "venue": "审稿中",
+        "title": "Towards Computational Chinese Paleography",
+        "authors": "Yiran Rex Ma",
+        "venue": "arXiv preprint",
         "year": "2026",
-        "tags": ["具身智能", "视觉语言"],
-        "links": [{ "label": "草稿", "href": "#" }],
-        "notes": "请替换为你自己的论文状态"
+        "tags": [
+          "Chinese Paleography",
+          "Digital Humanities",
+          "Position Paper",
+          "Multimodal"
+        ],
+        "links": [
+          {
+            "label": "arXiv",
+            "href": "https://arxiv.org/abs/2601.06753"
+          }
+        ],
+        "notes": "Position paper charting the computational turn in Chinese paleography, from automating isolated visual tasks toward integrated, human-centric digital research ecosystems.",
+        "slug": "pal-review"
       },
       {
-        "id": "P.1",
-        "type": "P",
-        "title": "一种面向移动操控系统的协同恢复规划方法",
-        "authors": "赵琳, 陈明远, 吴安然",
-        "venue": "示例专利申请信息",
+        "id": "C.1",
+        "type": "C",
+        "title": "Pun2Pun: Textual-Visual Chinese-English Pun Translation via Linguistic Reasoning",
+        "authors": "Yiran Rex Ma",
+        "venue": "ACL 2025 Student Research Workshop",
         "year": "2025",
-        "tags": ["专利", "规划"],
-        "links": [{ "label": "专利", "href": "#" }]
+        "tags": [
+          "Pun Translation",
+          "Benchmark",
+          "Chinese-English",
+          "Multimodal"
+        ],
+        "links": [
+          {
+            "label": "ACL Anthology",
+            "href": "https://aclanthology.org/2025.acl-srw.23/"
+          }
+        ],
+        "notes": "Benchmark for Chinese-English pun translation over text and images, with the Constant-Variable Optimization (CVO) translation strategy and the Overlap (Ovl) metric.",
+        "slug": "pun2pun"
+      },
+      {
+        "id": "C.2",
+        "type": "C",
+        "title": "Do Androids Question Electric Sheep? A Multi-Agent Simulation of Philosophical Reflection",
+        "authors": "Yiran Rex Ma",
+        "venue": "ACL 2025 Student Research Workshop",
+        "year": "2025",
+        "tags": [
+          "Multi-Agent",
+          "LLM Reasoning",
+          "Table Reasoning",
+          "Reflection"
+        ],
+        "links": [
+          {
+            "label": "ACL Anthology",
+            "href": "https://aclanthology.org/2025.acl-srw.9/"
+          }
+        ],
+        "notes": "Philosopher and Symposium frameworks simulate self- and group-reflection for multi-persona agents; identifies an \"overthinking threshold\" beyond which deliberation yields diminishing returns.",
+        "slug": "androids-question"
+      },
+      {
+        "id": "C.3",
+        "type": "C",
+        "title": "PanelTR: Zero-Shot Table Reasoning Through Multi-Agent Discussion",
+        "authors": "Yiran Rex Ma",
+        "venue": "International Joint Conference on Neural Networks (IJCNN)",
+        "year": "2025",
+        "tags": [
+          "Table Reasoning",
+          "Multi-Agent",
+          "Zero-Shot",
+          "LLM"
+        ],
+        "links": [
+          {
+            "label": "DOI",
+            "href": "https://doi.org/10.1109/IJCNN64981.2025.11228106"
+          }
+        ],
+        "notes": "Five LLM scientist personas investigate, self-review, and peer-review their way through table QA and fact verification, outperforming vanilla LLMs and rivaling supervised models without task-specific training.",
+        "slug": "paneltr"
+      },
+      {
+        "id": "S.2",
+        "type": "S",
+        "title": "Constituent Order Differences in Adverbials, in English and Chinese News",
+        "authors": "Yiran Rex Ma",
+        "venue": "arXiv preprint",
+        "year": "2025",
+        "tags": [
+          "Contrastive Linguistics",
+          "Word Order",
+          "English-Chinese",
+          "Corpus Study"
+        ],
+        "links": [
+          {
+            "label": "arXiv",
+            "href": "https://arxiv.org/abs/2508.14054"
+          }
+        ],
+        "notes": "LLM-annotated comparable corpora show English news favors core-information-first narration with postposed adverbials, while Chinese news favors background-first presentation with preposed ones.",
+        "slug": "constituent-order"
       }
     ]
   }

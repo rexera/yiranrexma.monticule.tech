@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -63,13 +64,16 @@ export function SiteHeader({ navItems, profileName, currentLocale = "en" }: Site
 
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 text-slate-700 shadow-[0_10px_40px_-30px_rgba(15,23,42,0.4)] backdrop-blur-lg dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-200">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 md:px-8 xl:max-w-7xl xl:px-10 2xl:max-w-[1500px] 2xl:px-12">
+      <div className="mx-auto flex w-full max-w-[1500px] items-center justify-between px-4 py-3 sm:px-6 lg:px-10">
         <div className="flex items-center gap-6">
           <Link
             href={homeHref as any}
-            className="inline-flex items-center text-sm font-semibold text-slate-700/90 hover:text-slate-900 dark:text-slate-200/90 dark:hover:text-white"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700/90 hover:text-slate-900 dark:text-slate-200/90 dark:hover:text-white"
             aria-label={profileName ?? "Academic Homepage"}
           >
+            {/* Cropped so the artwork fills the frame; h-5 matches the
+                text-sm line box, per the brand spec. */}
+            <Image src="/images/monticule-icon.svg" alt="" width={880} height={320} className="h-5 w-auto shrink-0" />
             <span className="whitespace-nowrap">{profileName ?? "Academic Homepage"}</span>
           </Link>
           <nav className="hidden items-center gap-3 md:flex">
@@ -114,7 +118,7 @@ export function SiteHeader({ navItems, profileName, currentLocale = "en" }: Site
           <ThemeToggle variant="subtle" />
         </div>
       </div>
-      <nav className="flex items-center gap-2 overflow-x-auto border-t border-slate-200 px-4 py-2 scrollbar-hide md:hidden dark:border-slate-800">
+      <nav className="flex items-center gap-2 overflow-x-auto border-t border-slate-200 px-4 py-2 scrollbar-hide sm:px-6 md:hidden dark:border-slate-800">
         {navItems.map((item) => renderLink(item, "mobile"))}
       </nav>
     </header>

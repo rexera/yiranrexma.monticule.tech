@@ -1,16 +1,10 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import rehypeKatex from "rehype-katex";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-import { compileMDX } from "next-mdx-remote/rsc";
-
-import { Callout } from "@/components/callout";
-import { MDXContent } from "@/components/mdx-content";
-import { Section } from "@/components/section";
-import { Table } from "@/components/table";
+import { ArticleShell } from "@/components/article-shell";
+import { TableOfContents } from "@/components/toc";
+import { Tag } from "@/components/tag";
 import { getAllBlogSlugs, getBlogPostWithFallback } from "@/lib/blog";
+import { extractToc, renderMdx } from "@/lib/mdx";
 import { LOCALES, normalizeLocale } from "@/lib/locale";
 
 type PageParams = { locale: string; slug: string };
@@ -45,40 +39,29 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  const { content } = await compileMDX({
-    source: post.content,
-    options: {
-      mdxOptions: {
-        remarkPlugins: [remarkGfm, remarkMath],
-        rehypePlugins: [rehypeKatex]
-      }
-    },
-    components: {
-      Callout,
-      Table
-    }
-  });
+  const content = await renderMdx(post.content);
+  const toc = extractToc(post.content);
 
-  const back =
-    locale === "zh"
-      ? { prefix: "返回", label: "博客列表", suffix: "查看更多内容。" }
-      : { prefix: "Return to the ", label: "blog index", suffix: " for more entries." };
+  const backLabel = locale === "zh" ? "返回博客" : "Back to blog";
+  const tocTitle = locale === "zh" ? "本文目录" : "On this page";
 
   return (
-    <div className="space-y-16">
-      <Section title={post.title} description={post.summary} eyebrow={post.date}>
-        <MDXContent>
-          {content}
-          <p className="pt-6">
-            {back.prefix}
-            <Link href={`/${locale}/blog` as any} className="text-brand hover:text-brand-foreground">
-              {back.label}
-            </Link>
-            {back.suffix}
-          </p>
-        </MDXContent>
-      </Section>
-    </div>
+    <ArticleShell
+      locale={locale}
+      backLabel={backLabel}
+      backHref={`/${locale}/blog`}
+      title={post.title}
+      meta={
+        <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+          <time className="tabular-nums">{post.date}</time>
+          {post.tags.map((tag) => (
+            <Tag key={tag} label={tag} />
+          ))}
+        </div>
+      }
+      toc={<TableOfContents entries={toc} title={tocTitle} />}
+    >
+      {content}
+    </ArticleShell>
   );
 }
-

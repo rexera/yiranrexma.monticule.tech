@@ -7,11 +7,8 @@ import awardsJson from "@/content/awards.json";
 import updatesJson from "@/content/updates.json";
 import blogPageJson from "@/content/pages/blog.json";
 import homePageJson from "@/content/pages/home.json";
-import researchPageJson from "@/content/pages/research.json";
-import projectsPageJson from "@/content/pages/projects.json";
 import publicationsPageJson from "@/content/pages/publications.json";
 import cvPageJson from "@/content/pages/cv.json";
-import contactPageJson from "@/content/pages/contact.json";
 import experiencePageJson from "@/content/pages/experience.json";
 
 import type {
@@ -25,11 +22,8 @@ import type {
   UpdatesContent,
   BlogPageCopy,
   HomePageCopy,
-  ResearchPageCopy,
-  ProjectsPageCopy,
   PublicationsPageCopy,
   CVPageCopy,
-  ContactPageCopy,
   ExperiencePageCopy
 } from "./content-types";
 import { DEFAULT_LOCALE, type Locale } from "./locale";
@@ -91,13 +85,7 @@ export function getHomePageCopy(): HomePageCopy {
   return resolveLocalized<HomePageCopy["en"]>(homePageJson, "content/pages/home.json");
 }
 
-export function getResearchPageCopy(): ResearchPageCopy {
-  return resolveLocalized<ResearchPageCopy["en"]>(researchPageJson, "content/pages/research.json");
-}
 
-export function getProjectsPageCopy(): ProjectsPageCopy {
-  return resolveLocalized<ProjectsPageCopy["en"]>(projectsPageJson, "content/pages/projects.json");
-}
 
 export function getPublicationsPageCopy(): PublicationsPageCopy {
   return resolveLocalized<PublicationsPageCopy["en"]>(publicationsPageJson, "content/pages/publications.json");
@@ -107,9 +95,6 @@ export function getCVPageCopy(): CVPageCopy {
   return resolveLocalized<CVPageCopy["en"]>(cvPageJson, "content/pages/cv.json");
 }
 
-export function getContactPageCopy(): ContactPageCopy {
-  return resolveLocalized<ContactPageCopy["en"]>(contactPageJson, "content/pages/contact.json");
-}
 
 export function getExperiencePageCopy(): ExperiencePageCopy {
   return resolveLocalized<ExperiencePageCopy["en"]>(experiencePageJson, "content/pages/experience.json");

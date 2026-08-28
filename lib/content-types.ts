@@ -9,6 +9,8 @@ export type LocaleProfile = {
   social: {
     label: string;
     href: string;
+    /** Optional QR-code image under /public; shown in a hover popover instead of linking out. */
+    qr?: string;
   }[];
   cvLink: string;
   avatar?: string;
@@ -40,6 +42,7 @@ export type ResearchExperience = {
 export type PublicationEntry = {
   id: string;
   type: "C" | "J" | "P" | "S";
+  slug?: string;
   title: string;
   authors: string;
   venue: string;
@@ -121,8 +124,6 @@ export type UpdatesContent = Localized<{
 
 export type BlogPageCopy = Localized<{
   title: string;
-  description: string;
-  eyebrow: string;
   filters: {
     type: string;
     year: string;
@@ -140,7 +141,7 @@ export type HomePageCopy = Localized<{
   buttons: {
     cv: string;
     publications: string;
-    projects: string;
+    blog: string;
   };
   highlights: {
     title: string;
@@ -150,56 +151,11 @@ export type HomePageCopy = Localized<{
     contactValue: string;
     locationLabel: string;
   };
-  sections: {
-    updates: { title: string; eyebrow: string };
-    projects: { title: string; eyebrow: string; action: string };
-    publications: { title: string; eyebrow: string; action: string };
-    awards: { title: string; eyebrow: string; action: string };
-  };
-}>;
-
-export type ResearchPageCopy = Localized<{
-  heroTitle: string;
-  heroDescription: string;
-  interestsTitle: string;
-  interestsEyebrow: string;
-  experienceTitle: string;
-  experienceEyebrow: string;
-  collaboration: string;
-}>;
-
-export type ProjectsPageCopy = Localized<{
-  heroTitle: string;
-  heroDescription: string;
-  filters: {
-    year: string;
-    label: string;
-    all: string;
-    ongoing: string;
-    featured: string;
-  };
-  badges: {
-    ongoing: string;
-    featured: string;
-  };
-  empty: string;
-  sections: {
-    updates: { title: string; eyebrow: string };
-  };
-  groupLabels: {
-    academic: string;
-    "open-source": string;
-    default: string;
-  };
+  timeline: { title: string };
 }>;
 
 export type PublicationsPageCopy = Localized<{
-  section: {
-    title: string;
-    description: string;
-    eyebrow: string;
-    note: string;
-  };
+  title: string;
   filters: {
     type: string;
     year: string;
@@ -212,80 +168,30 @@ export type PublicationsPageCopy = Localized<{
     S: string;
   };
   empty: string;
+  projectsTitle: string;
 }>;
 
 export type CVPageCopy = Localized<{
   intro: {
     title: string;
-    description: string;
-    eyebrow: string;
-    download: string;
-    contactLabel: string;
-    contactAction: string;
-    locationLabel: string;
+    emailLabel: string;
   };
-  education: { title: string; eyebrow: string };
-  experience: { title: string; eyebrow: string };
+  education: { title: string };
+  experience: { title: string };
+  publications: { title: string };
   honors: {
     title: string;
-    eyebrow: string;
     headers: string[];
   };
   skills: {
     title: string;
-    eyebrow: string;
     headers: string[];
     rows: string[][];
   };
-  links: {
-    title: string;
-    eyebrow: string;
-    publications: string;
-    projects: string;
-  };
-}>;
-
-export type ContactPageCopy = Localized<{
-  title: string;
-  description: string;
-  eyebrow: string;
-  revealButton: string;
-  copyButton: string;
-  copySuccess: string;
-  copyError: string;
-  submit: string;
-  items: {
-    contact: string;
-    github: string;
-    scholar: string;
-    location: string;
-  };
-  notes: string[];
-  feedback: {
-    emailMissing: string;
-    formInvalid: string;
-  };
-  calloutTitle: string;
-  calloutPoints: string[];
-  form: {
-    nameLabel: string;
-    namePlaceholder: string;
-    replyLabel: string;
-    messageLabel: string;
-    messagePlaceholder: string;
-  };
-  scholarLabel: string;
 }>;
 
 export type ExperiencePageCopy = Localized<{
-  experience: {
-    title: string;
-    description: string;
-    eyebrow: string;
-  };
-  education: {
-    title: string;
-    description: string;
-    eyebrow: string;
-  };
+  story: { title: string };
+  experience: { title: string };
+  education: { title: string };
 }>;

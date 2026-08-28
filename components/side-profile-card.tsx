@@ -1,7 +1,16 @@
 import Image from "next/image";
-import Link from "next/link";
 
-import { ExternalLinkIcon, LockIcon } from "@/components/icons";
+import {
+  DouyinIcon,
+  ExternalLinkIcon,
+  GitHubIcon,
+  InstagramIcon,
+  MailIcon,
+  QrCodeIcon,
+  WeChatIcon,
+  XLogoIcon,
+  XiaohongshuIcon
+} from "@/components/icons";
 import type { LocaleProfile } from "@/lib/content-types";
 
 type Locale = "en" | "zh";
@@ -14,14 +23,36 @@ type SideProfileCardProps = {
   contactLabel?: string;
 };
 
+const PLATFORM_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  X: XLogoIcon,
+  GitHub: GitHubIcon,
+  Instagram: InstagramIcon,
+  微信公众号: WeChatIcon,
+  小红书: XiaohongshuIcon,
+  抖音: DouyinIcon
+};
+
+/** Native pixel sizes of the QR images, so next/image can reserve layout. */
+const QR_DIMENSIONS: Record<string, { width: number; height: number }> = {
+  "/images/wechat_oa.JPG": { width: 430, height: 430 },
+  "/images/xiaohongshu.JPG": { width: 987, height: 1347 },
+  "/images/douyin.JPG": { width: 1125, height: 1680 }
+};
+
+const ROW_CLASSES =
+  "group relative flex w-full items-center justify-between rounded-2xl border border-slate-200 px-3 py-2 text-slate-600 transition hover:border-brand/60 hover:bg-brand/5 hover:text-brand dark:border-slate-700 dark:text-slate-300 dark:hover:border-brand/70 dark:hover:bg-brand/10 dark:hover:text-brand";
+
 /**
- * Profile summary shown in the desktop sidebar. Displays avatar, names,
- * affiliation, keywords, and social links.
+ * Profile summary card. Full-width banner on mobile; on desktop it fills the
+ * shell's fluid sidebar column and stretches with the grid row, with the
+ * contact/social block pinned to the bottom. Email comes first, then X,
+ * GitHub, Instagram (plain links), then the Chinese platforms, whose rows
+ * reveal a QR-code popover on hover/focus instead of navigating.
  */
 export function SideProfileCard({ profile, locale = "en", avatarSrc = "/images/profile.jpg", contactHref, contactLabel }: SideProfileCardProps) {
   const imageSrc = profile.avatar ?? avatarSrc;
   return (
-    <aside className="hidden w-[260px] shrink-0 flex-col gap-6 rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-[0_30px_60px_-45px_rgba(15,23,42,0.4)] backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/70 lg:flex print:hidden">
+    <aside className="flex w-full flex-col gap-6 self-start rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-[0_30px_60px_-45px_rgba(15,23,42,0.4)] backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/70 lg:self-stretch print:hidden">
       <div className="flex flex-col gap-4">
         <div className="relative h-40 w-40 self-center overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-700">
           <Image
@@ -36,43 +67,67 @@ export function SideProfileCard({ profile, locale = "en", avatarSrc = "/images/p
         <div className="w-full space-y-2 text-center">
           <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-50">{profile.name}</h1>
           {profile.nativeName ? <p className="text-sm text-slate-600 dark:text-slate-300">{profile.nativeName}</p> : null}
-          {locale === "en" && profile.aka ? (
-            <p className="text-xs text-slate-500 dark:text-slate-400">
-              Call me <span className="font-semibold text-slate-700 dark:text-slate-200">{profile.aka}</span>!
-            </p>
-          ) : null}
         </div>
       </div>
       <div className="w-full space-y-2 text-sm text-slate-600 dark:text-slate-300">
         <p className="font-medium text-slate-700 dark:text-slate-200">{profile.affiliation}</p>
         <p className="text-slate-600 dark:text-slate-300">{profile.title}</p>
         <p className="text-slate-600 dark:text-slate-300">{profile.location}</p>
-        {contactHref ? (
-          <Link
-            href={contactHref as any}
-            className="flex w-full items-center gap-2 rounded-full border border-slate-200 bg-slate-100 px-3 py-2 text-sm font-medium text-slate-600 transition hover:border-slate-300 hover:bg-white hover:text-slate-900 dark:border-slate-700 dark:bg-slate-900/50 dark:text-slate-300 dark:hover:border-slate-500 dark:hover:text-white"
-          >
-            <LockIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
-            {contactLabel ?? "Reveal email"}
-          </Link>
-        ) : null}
       </div>
-      <div className="w-full space-y-2 text-sm">
-        {profile.social.map((link) => (
-          <a
-            key={link.label}
-            href={link.href}
-            target="_blank"
-            rel="noreferrer"
-            className="group flex items-center justify-between rounded-2xl border border-slate-200 px-3 py-2 text-slate-600 transition hover:border-brand/60 hover:bg-brand/5 hover:text-brand dark:border-slate-700 dark:text-slate-300 dark:hover:border-brand/70 dark:hover:bg-brand/10 dark:hover:text-brand"
-          >
-            <span className="text-sm font-medium">{link.label}</span>
-            <ExternalLinkIcon
-              aria-hidden="true"
-              className="h-4 w-4 shrink-0 opacity-70 transition group-hover:translate-x-0.5 group-hover:opacity-100"
-            />
+      <div className="mt-auto w-full space-y-2 text-sm">
+        {contactHref ? (
+          <a href={contactHref} className={ROW_CLASSES}>
+            <span className="flex min-w-0 items-center gap-2.5">
+              <MailIcon aria-hidden="true" className="h-4 w-4 shrink-0" />
+              <span className="truncate text-sm font-medium">{contactLabel ?? "Email"}</span>
+            </span>
           </a>
-        ))}
+        ) : null}
+        {profile.social.map((link) => {
+          const Icon = PLATFORM_ICONS[link.label] ?? ExternalLinkIcon;
+          if (link.qr) {
+            const dims = QR_DIMENSIONS[link.qr] ?? { width: 430, height: 430 };
+            return (
+              <div key={link.label} tabIndex={0} className={ROW_CLASSES}>
+                <span className="flex items-center gap-2.5">
+                  <Icon aria-hidden="true" className="h-4 w-4 shrink-0" />
+                  <span className="text-sm font-medium">{link.label}</span>
+                </span>
+                <QrCodeIcon aria-hidden="true" className="h-4 w-4 shrink-0 opacity-60" />
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute bottom-full right-0 z-50 mb-2 hidden w-44 rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_24px_60px_-20px_rgba(15,23,42,0.45)] group-hover:block group-focus-within:block dark:border-slate-700 dark:bg-slate-900"
+                >
+                  <Image
+                    src={link.qr}
+                    alt=""
+                    width={dims.width}
+                    height={dims.height}
+                    className="h-auto w-full rounded-lg"
+                  />
+                </span>
+              </div>
+            );
+          }
+          return (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className={ROW_CLASSES}
+            >
+              <span className="flex items-center gap-2.5">
+                <Icon aria-hidden="true" className="h-4 w-4 shrink-0" />
+                <span className="text-sm font-medium">{link.label}</span>
+              </span>
+              <ExternalLinkIcon
+                aria-hidden="true"
+                className="h-4 w-4 shrink-0 opacity-70 transition group-hover:translate-x-0.5 group-hover:opacity-100"
+              />
+            </a>
+          );
+        })}
       </div>
     </aside>
   );

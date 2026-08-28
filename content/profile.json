@@ -9,40 +9,46 @@
       "affiliation": "Current institution, lab, or company",
       "location": "City, Country",
       "keywords": "Array of 2-4 short research keywords",
-      "social": "Array of { label, href } links",
+      "social": "Array of { label, href, qr? } links. Entries with a qr image path show a QR popover instead of navigating.",
       "cvLink": "Relative URL to a downloadable CV under /public",
       "avatar": "Optional path to an image under /public"
     }
   },
   "en": {
-    "name": "Alex Chen",
-    "nativeName": "陈明远",
-    "aka": "Alex",
-    "title": "Ph.D. Student in Robotics",
-    "affiliation": "Example University",
-    "location": "Shanghai, China",
-    "keywords": ["Robot Learning", "Embodied AI", "Field Robotics"],
+    "name": "Yiran Rex Ma",
+    "nativeName": "马义然",
+    "aka": "Rex",
+    "title": "Ph.D. Student in Theoretical and Applied Linguistics",
+    "affiliation": "Peking University & ByteDance Digital Humanities Open Lab (PKUDH)",
+    "location": "Beijing, China",
+    "keywords": ["Foundation Language Models", "Continual Learning", "Personal Models", "AI for Humanities"],
     "social": [
-      { "label": "GitHub", "href": "https://github.com/your-handle" },
-      { "label": "Google Scholar", "href": "https://scholar.google.com/citations?user=YOUR_ID" },
-      { "label": "ORCID", "href": "https://orcid.org/0000-0000-0000-0000" }
+      { "label": "X", "href": "https://x.com/rex_era_" },
+      { "label": "GitHub", "href": "https://github.com/rexera" },
+      { "label": "Instagram", "href": "https://www.instagram.com/yiran_rex_ma_/" },
+      { "label": "微信公众号", "href": "", "qr": "/images/wechat_oa.JPG" },
+      { "label": "小红书", "href": "", "qr": "/images/xiaohongshu.JPG" },
+      { "label": "抖音", "href": "", "qr": "/images/douyin.JPG" }
     ],
-    "avatar": "/images/avatar-placeholder.svg",
-    "cvLink": "/files/sample-cv.pdf"
+    "avatar": "/images/profile.webp",
+    "cvLink": ""
   },
   "zh": {
-    "name": "陈明远",
-    "nativeName": "Alex Chen",
-    "title": "机器人方向博士研究生",
-    "affiliation": "示例大学",
-    "location": "中国·上海",
-    "keywords": ["机器人学习", "具身智能", "野外机器人"],
+    "name": "马义然",
+    "nativeName": "Yiran Rex Ma",
+    "title": "理论语言学与应用语言学博士研究生",
+    "affiliation": "北京大学 · 字节跳动数字人文开放实验室（PKUDH）",
+    "location": "中国·北京",
+    "keywords": ["基础语言模型", "持续学习", "个人模型", "计算人文"],
     "social": [
-      { "label": "GitHub", "href": "https://github.com/your-handle" },
-      { "label": "Google Scholar", "href": "https://scholar.google.com/citations?user=YOUR_ID" },
-      { "label": "ORCID", "href": "https://orcid.org/0000-0000-0000-0000" }
+      { "label": "X", "href": "https://x.com/rex_era_" },
+      { "label": "GitHub", "href": "https://github.com/rexera" },
+      { "label": "Instagram", "href": "https://www.instagram.com/yiran_rex_ma_/" },
+      { "label": "微信公众号", "href": "", "qr": "/images/wechat_oa.JPG" },
+      { "label": "小红书", "href": "", "qr": "/images/xiaohongshu.JPG" },
+      { "label": "抖音", "href": "", "qr": "/images/douyin.JPG" }
     ],
-    "avatar": "/images/avatar-placeholder.svg",
-    "cvLink": "/files/sample-cv.pdf"
+    "avatar": "/images/profile.webp",
+    "cvLink": ""
   }
 }

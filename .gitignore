@@ -50,3 +50,4 @@ coverage/
 Thumbs.db
 *.bak
 *~
+tsconfig.tsbuildinfo

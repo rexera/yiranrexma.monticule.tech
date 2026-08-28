@@ -15,16 +15,16 @@ export function SiteFooter({ lastUpdated, locale = "en" }: SiteFooterProps) {
   const repositoryUrl = process.env.NEXT_PUBLIC_REPOSITORY_URL;
   const copy = {
     en: {
-      copyright: `© ${year} Academic Homepage Template.`,
+      copyright: `© ${year} Yiran Rex Ma.`,
       viewSource: "View source on GitHub",
       lastUpdated: "Last updated:",
-      tagline: "Built for researchers"
+      tagline: "artist, engineer, human."
     },
     zh: {
-      copyright: `© ${year} 学术主页模板。`,
+      copyright: `© ${year} 马义然。`,
       viewSource: "GitHub 源码仓库",
       lastUpdated: "上次更新：",
-      tagline: "为研究者而构建"
+      tagline: "artist, engineer, human."
     }
   } satisfies Record<Locale, { copyright: string; viewSource: string; lastUpdated: string; tagline: string }>;
   const t = copy[locale];

@@ -15,23 +15,17 @@ export function generateStaticParams() {
 const NAV_ITEMS: Record<Locale, NavItem[]> = {
   en: [
     { label: "Home", href: buildLocalePath("en") },
-    { label: "Research", href: buildLocalePath("en", "/research") },
-    { label: "Publications", href: buildLocalePath("en", "/publications") },
-    { label: "Projects", href: buildLocalePath("en", "/projects") },
-    { label: "Experience", href: buildLocalePath("en", "/experience") },
-    { label: "CV", href: buildLocalePath("en", "/cv") },
     { label: "Blog", href: buildLocalePath("en", "/blog") },
-    { label: "Contact", href: buildLocalePath("en", "/contact") }
+    { label: "Publication/Project", href: buildLocalePath("en", "/publications") },
+    { label: "Story", href: buildLocalePath("en", "/experience") },
+    { label: "CV", href: buildLocalePath("en", "/cv") }
   ],
   zh: [
     { label: "首页", href: buildLocalePath("zh") },
-    { label: "科研概览", href: buildLocalePath("zh", "/research") },
-    { label: "发表成果", href: buildLocalePath("zh", "/publications") },
-    { label: "项目集锦", href: buildLocalePath("zh", "/projects") },
-    { label: "经历", href: buildLocalePath("zh", "/experience") },
-    { label: "简历", href: buildLocalePath("zh", "/cv") },
     { label: "博客", href: buildLocalePath("zh", "/blog") },
-    { label: "联系", href: buildLocalePath("zh", "/contact") }
+    { label: "成果", href: buildLocalePath("zh", "/publications") },
+    { label: "故事", href: buildLocalePath("zh", "/experience") },
+    { label: "简历", href: buildLocalePath("zh", "/cv") }
   ]
 };
 

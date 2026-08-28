@@ -1,14 +1,9 @@
 {
   "_meta": {
-    "description": "Copy and labels for the Publications page."
+    "description": "Copy and labels for the merged Publications & Projects page."
   },
   "en": {
-    "section": {
-      "title": "Publications & Patents",
-      "description": "List papers, preprints, patents, or talks in a single structured file.",
-      "eyebrow": "Catalogue",
-      "note": "* indicates first author or equal contribution, if applicable"
-    },
+    "title": "Publication/Project",
     "filters": {
       "type": "Type",
       "year": "Year",
@@ -18,17 +13,13 @@
       "C": "Conference",
       "J": "Journal",
       "P": "Patent",
-      "S": "In Submission"
+      "S": "Preprint"
     },
-    "empty": "No publications match the selected filters."
+    "empty": "No entries match the selected filters.",
+    "projectsTitle": "Projects"
   },
   "zh": {
-    "section": {
-      "title": "论文与专利",
-      "description": "通过单个结构化文件维护论文、预印本、专利或报告。",
-      "eyebrow": "成果目录",
-      "note": "* 可用于标记一作或共同一作"
-    },
+    "title": "成果",
     "filters": {
       "type": "类型",
       "year": "年份",
@@ -38,8 +29,9 @@
       "C": "会议",
       "J": "期刊",
       "P": "专利",
-      "S": "投稿中"
+      "S": "预印本"
     },
-    "empty": "暂无符合当前筛选条件的成果。"
+    "empty": "暂无符合筛选条件的条目。",
+    "projectsTitle": "项目"
   }
 }

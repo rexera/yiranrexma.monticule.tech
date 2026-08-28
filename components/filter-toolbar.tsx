@@ -33,7 +33,7 @@ export function FilterToolbar({ groups, className }: FilterToolbarProps) {
     >
       {groups.map((group) => (
         <div key={group.id} className="flex flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:items-center">
-          <span className="shrink-0 text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-slate-600 dark:text-slate-300">
+          <span className="shrink-0 text-xs font-semibold text-slate-600 dark:text-slate-300">
             {group.label}
           </span>
           <div className="flex flex-wrap items-center gap-2">
@@ -48,7 +48,7 @@ export function FilterToolbar({ groups, className }: FilterToolbarProps) {
                   className={clsx(
                     "rounded-full px-3 py-1 text-xs font-semibold transition",
                     active
-                      ? "bg-brand text-white shadow-sm"
+                      ? "bg-brand text-brand-on shadow-sm"
                       : "border border-slate-200 text-slate-600 hover:border-brand/60 hover:text-brand dark:border-slate-700 dark:text-slate-300 dark:hover:border-brand/70 dark:hover:text-brand"
                   )}
                 >

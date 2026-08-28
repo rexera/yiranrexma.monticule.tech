@@ -1,37 +1,37 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 
 import "./globals.css";
 import "katex/dist/katex.min.css";
+import "@fontsource/maple-mono/400.css";
+import "@fontsource/maple-mono/500.css";
+import "@fontsource/maple-mono/700.css";
 import { Providers } from "@/components/providers";
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter"
-});
 
 export const metadata: Metadata = {
-  title: "Academic Homepage Template",
+  title: "Yiran Rex Ma",
   description:
-    "Bilingual academic homepage template for researchers, students, and labs.",
+    "artist, engineer, human. Ph.D. student in Theoretical and Applied Linguistics at Peking University, working on foundation language models.",
   icons: {
-    icon: "/icon.svg",
-    shortcut: "/icon.svg"
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.svg", type: "image/svg+xml" }
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png"
   },
   openGraph: {
-    title: "Academic Homepage Template",
+    title: "Yiran Rex Ma",
     description:
-      "Bilingual academic homepage template for researchers, students, and labs.",
-    url: "https://example.com",
-    siteName: "Academic Homepage Template",
+      "artist, engineer, human. Personal homepage of a Ph.D. student working on foundation language models.",
+    siteName: "Yiran Rex Ma",
     locale: "en_US",
     type: "website"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Academic Homepage Template",
+    title: "Yiran Rex Ma",
     description:
-      "Bilingual academic homepage template for researchers, students, and labs."
+      "artist, engineer, human. Personal homepage of a Ph.D. student working on foundation language models."
   }
 };
 
@@ -42,7 +42,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans`}>
+      <body className="font-sans">
         <Providers>
           {children}
         </Providers>

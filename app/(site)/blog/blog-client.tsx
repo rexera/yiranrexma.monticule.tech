@@ -56,7 +56,7 @@ export function BlogClient({ copy, posts, locale }: BlogClientProps) {
 
   return (
     <div className="space-y-16">
-      <Section title={copy.title} description={copy.description} eyebrow={copy.eyebrow}>
+      <Section title={copy.title}>
         <FilterToolbar
           groups={[
             {
@@ -86,7 +86,7 @@ export function BlogClient({ copy, posts, locale }: BlogClientProps) {
                 key={post.slug}
                 className="rounded-2xl border border-slate-200 bg-white/90 p-6 dark:border-slate-800 dark:bg-slate-900/70"
               >
-                <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-slate-600 dark:text-slate-300">
+                <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300">
                   <span>{post.date}</span>
                   <span aria-hidden="true">·</span>
                   <span>{copy.types[post.type]}</span>

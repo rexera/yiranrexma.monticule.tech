@@ -4,8 +4,21 @@
 
 :root {
   color-scheme: light;
-  --font-sans-stack: var(--font-inter), -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC", "Noto Sans", Arial, sans-serif;
-  font-family: var(--font-sans-stack);
+  /* Apple system fonts everywhere; PingFang SC keeps CJK on the same family. */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: "Maple Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+  /* Brand accent, swapped per theme.
+     Light: olive green links/accents, near-black hover, white text on accent.
+     Dark:  pale yellow links/accents, very light green hover, dark text on accent. */
+  --brand: 129 152 106;
+  --brand-foreground: 26 33 24;
+  --brand-on: 255 255 255;
+
+  /* Page canvas. html and body both paint it so rubber-band overscroll
+     never reveals a different-colored edge. */
+  --canvas: #fafbf0;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -13,10 +26,26 @@
 
 .dark {
   color-scheme: dark;
+  --brand: 167 180 119;
+  --brand-foreground: 201 210 163;
+  --brand-on: 23 19 14;
+  --canvas: #0b0906;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--canvas);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  @apply bg-slate-100 text-slate-900 antialiased font-sans;
+  @apply font-sans text-slate-900 antialiased;
+  background-color: var(--canvas);
   line-height: 1.65;
   letter-spacing: -0.01em;
   text-rendering: optimizeLegibility;
@@ -25,7 +54,7 @@ body {
 }
 
 .dark body {
-  @apply bg-slate-950 text-slate-100;
+  @apply text-slate-100;
 }
 
 body:lang(zh),
@@ -37,8 +66,225 @@ body:lang(zh-Hans) {
 
 @supports (font-variation-settings: normal) {
   body {
-    font-variation-settings: "opsz" 16;
+    font-variation-settings: normal;
   }
+}
+
+::selection {
+  background: rgb(var(--brand) / 0.28);
+}
+
+/* ── Long-form article typography (MDX pages) ────────────────────
+   A correction layer over @tailwindcss/typography: every --tw-prose
+   variable is retinted onto the Monticule palette (the plugin's stock
+   slate/invert scales clash with it), then the elements the plugin
+   leaves generic are refined below. */
+
+.mdx-article {
+  --tw-prose-body: #3d4636;
+  --tw-prose-headings: #161b11;
+  --tw-prose-lead: #4a5842;
+  --tw-prose-links: #55663f;
+  --tw-prose-bold: #161b11;
+  --tw-prose-counters: #81986a;
+  --tw-prose-bullets: #a4b177;
+  --tw-prose-hr: #dee3bd;
+  --tw-prose-quotes: #4a5842;
+  --tw-prose-quote-borders: #c1c989;
+  --tw-prose-captions: #77815f;
+  --tw-prose-kbd: #161b11;
+  --tw-prose-kbd-shadows: 26 33 24;
+  --tw-prose-code: #39442f;
+  --tw-prose-pre-code: #e8ecda;
+  --tw-prose-pre-bg: #10140d;
+  --tw-prose-th-borders: #a4b177;
+  --tw-prose-td-borders: #dee3bd;
+
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+
+.dark .mdx-article {
+  --tw-prose-body: #c9c2ae;
+  --tw-prose-headings: #f6f2e7;
+  --tw-prose-lead: #c4bda6;
+  --tw-prose-links: #a7b477;
+  --tw-prose-bold: #f6f2e7;
+  --tw-prose-counters: #857c64;
+  --tw-prose-bullets: #57503f;
+  --tw-prose-hr: #292219;
+  --tw-prose-quotes: #cfc7b2;
+  --tw-prose-quote-borders: #3d3527;
+  --tw-prose-captions: #948b74;
+  --tw-prose-kbd: #f6f2e7;
+  --tw-prose-kbd-shadows: 246 242 231;
+  --tw-prose-code: #f6f2e7;
+  --tw-prose-pre-code: #e5dfcc;
+  --tw-prose-pre-bg: #0b0906;
+  --tw-prose-th-borders: #3d3527;
+  --tw-prose-td-borders: #292219;
+}
+
+.mdx-article :where(p, li) {
+  overflow-wrap: break-word;
+}
+
+.mdx-article :where(h1, h2, h3, h4) {
+  scroll-margin-top: 6rem;
+}
+
+.mdx-article :where(h2) {
+  margin-top: 2.4em;
+  font-weight: 650;
+}
+
+.mdx-article :where(h3) {
+  font-weight: 620;
+}
+
+.mdx-article :where(a) {
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: rgb(var(--brand) / 0.45);
+  transition: text-decoration-color 150ms ease;
+}
+
+.mdx-article :where(a:hover) {
+  text-decoration-color: rgb(var(--brand));
+}
+
+.mdx-article :where(strong) {
+  font-weight: 650;
+}
+
+.mdx-article :where(blockquote) {
+  font-style: normal;
+  font-weight: 450;
+}
+
+.mdx-article :where(blockquote p:first-of-type)::before,
+.mdx-article :where(blockquote p:last-of-type)::after {
+  content: none;
+}
+
+/* Inline code pill; fenced blocks are rendered by CodeBlock (not-prose). */
+.mdx-article :where(code):not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  font-weight: 500;
+  padding: 0.14em 0.4em;
+  border-radius: 0.375rem;
+  background-color: rgb(var(--brand) / 0.13);
+}
+
+.mdx-article :where(code)::before,
+.mdx-article :where(code)::after {
+  content: "";
+}
+
+.mdx-article :where(img) {
+  display: block;
+  margin: 1.75em auto;
+  border-radius: 0.75rem;
+}
+
+.mdx-article :where(table) {
+  display: block;
+  overflow-x: auto;
+  font-size: 0.92em;
+}
+
+.mdx-article :where(thead th) {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.mdx-article :where(hr) {
+  margin: 3em auto;
+}
+
+.mdx-article :where(input[type="checkbox"]) {
+  accent-color: rgb(var(--brand));
+}
+
+.mdx-article :where(kbd) {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  padding: 0.15em 0.4em;
+  border-radius: 0.375rem;
+  border: 1px solid rgb(var(--brand) / 0.35);
+  box-shadow: 0 1px 0 rgb(var(--brand) / 0.35);
+}
+
+.mdx-article :where(.katex-display) {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25em 0;
+}
+
+/* Timeline dot halo follows the theme accent. */
+.timeline-dot {
+  box-shadow: 0 0 0 6px rgb(var(--brand) / 0.15);
+}
+
+/* Slim themed scrollbars that hide while idle and appear on hover, keyboard
+   focus, or while scrolling (.is-scrolling). Used for the home updates
+   viewport, code blocks, and wide tables — vertical and horizontal alike. */
+.soft-scroll,
+.timeline-scroll,
+.mdx-article :where(table) {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.soft-scroll:is(:hover, :focus-within, .is-scrolling),
+.timeline-scroll:is(:hover, :focus-within, .is-scrolling),
+.mdx-article :where(table:hover) {
+  scrollbar-color: rgb(var(--brand) / 0.4) transparent;
+}
+
+.soft-scroll::-webkit-scrollbar,
+.timeline-scroll::-webkit-scrollbar,
+.mdx-article :where(table)::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.soft-scroll::-webkit-scrollbar-track,
+.timeline-scroll::-webkit-scrollbar-track,
+.mdx-article :where(table)::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.soft-scroll::-webkit-scrollbar-thumb,
+.timeline-scroll::-webkit-scrollbar-thumb,
+.mdx-article :where(table)::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+}
+
+.soft-scroll:is(:hover, :focus-within, .is-scrolling)::-webkit-scrollbar-thumb,
+.timeline-scroll:is(:hover, :focus-within, .is-scrolling)::-webkit-scrollbar-thumb,
+.mdx-article :where(table:hover)::-webkit-scrollbar-thumb {
+  background: rgb(var(--brand) / 0.35);
+}
+
+/* ── Shiki dual-theme resolution (rehype-pretty-code) ─────────────
+   Tokens carry --shiki-light/--shiki-dark inline vars; the site theme
+   picks which one applies. Structural spans (data-line) have no vars and
+   simply inherit. */
+.code-block pre span {
+  color: var(--shiki-light);
+}
+
+.dark .code-block pre span {
+  color: var(--shiki-dark);
+}
+
+.code-block pre [data-line] {
+  display: block;
 }
 
 @layer base {
@@ -46,8 +292,9 @@ body:lang(zh-Hans) {
   h2,
   h3,
   h4 {
-    font-feature-settings: "liga", "clig", "kern", "ss01", "ss03";
+    font-feature-settings: "liga", "clig", "kern";
     text-rendering: optimizeLegibility;
+    text-wrap: balance;
   }
 
   h1 {
@@ -62,7 +309,7 @@ body:lang(zh-Hans) {
   }
 
   p {
-    text-wrap: balance;
+    text-wrap: pretty;
   }
 
   small {
@@ -104,7 +351,7 @@ a:focus-visible {
   .scroll-smooth {
     scroll-behavior: auto;
   }
-  
+
   * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

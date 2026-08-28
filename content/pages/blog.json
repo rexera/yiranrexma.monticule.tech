@@ -4,8 +4,6 @@
   },
   "en": {
     "title": "Blog",
-    "description": "Long-form research notes, project retrospectives, and reading summaries.",
-    "eyebrow": "Writing",
     "filters": {
       "type": "Type",
       "year": "Year",
@@ -19,8 +17,6 @@
   },
   "zh": {
     "title": "博客",
-    "description": "记录研究手记、项目复盘与阅读体会。",
-    "eyebrow": "写作",
     "filters": {
       "type": "类型",
       "year": "年份",
@@ -33,4 +29,3 @@
     "empty": "暂无符合筛选条件的文章。"
   }
 }
-

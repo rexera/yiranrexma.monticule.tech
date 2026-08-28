@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import typography from "@tailwindcss/typography";
 
 const config: Config = {
   darkMode: "class",
@@ -11,34 +12,53 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: [
-          "var(--font-inter)",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "\"SF Pro Text\"",
-          "\"SF Pro Display\"",
-          "\"Segoe UI\"",
-          "Roboto",
-          "\"PingFang SC\"",
-          "\"Hiragino Sans GB\"",
-          "\"Microsoft YaHei\"",
-          "\"Noto Sans\"",
-          "sans-serif"
-        ],
-        mono: ["JetBrains Mono", "SFMono-Regular", "Menlo", "monospace"]
+        // Apple system stack, defined once as CSS variables in globals.css.
+        sans: ["var(--font-sans)"],
+        mono: ["var(--font-mono)"]
       },
       colors: {
+        // Monticule brand palette. The DEFAULT/foreground/on accents are
+        // driven by CSS variables so dark mode can swap the olive accent
+        // for a pale-yellow one; the numbered scale stays static.
+        // #f4f7d5 cream · #c1c989 light green · #81986a green · #4a5842 dark olive · #1a2118 near-black
         brand: {
-          DEFAULT: "#2563eb",
-          foreground: "#0f172a"
+          DEFAULT: "rgb(var(--brand) / <alpha-value>)",
+          foreground: "rgb(var(--brand-foreground) / <alpha-value>)",
+          on: "rgb(var(--brand-on) / <alpha-value>)",
+          50: "#f4f7d5",
+          100: "#e9eec2",
+          200: "#c1c989",
+          300: "#a7b477",
+          400: "#81986a",
+          500: "#6e8259",
+          600: "#4a5842",
+          700: "#3b4836",
+          800: "#2b3526",
+          900: "#1a2118"
+        },
+        // Neutral scale. Light steps carry the Monticule olive-cream;
+        // the dark end (700+) shifts to a brown-tinted near-black — mostly
+        // black with a whisper of brown — per the dark-theme direction.
+        slate: {
+          50: "#f8f5ec",
+          100: "#f1eee0",
+          200: "#e3ddc7",
+          300: "#c6bfa6",
+          400: "#a79f84",
+          500: "#81986a",
+          600: "#4a5842",
+          700: "#383026",
+          800: "#28221a",
+          900: "#17130e",
+          950: "#0b0906"
         }
       },
       boxShadow: {
-        subtle: "0 10px 30px rgba(15, 23, 42, 0.08)"
+        subtle: "0 10px 30px rgba(26, 33, 24, 0.08)"
       }
     }
   },
-  plugins: []
+  plugins: [typography]
 };
 
 export default config;

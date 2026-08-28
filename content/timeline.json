@@ -15,41 +15,49 @@
   "en": {
     "education": [
       {
-        "title": "Ph.D. in Robotics · Example University",
-        "period": "2024 – Present",
-        "location": "Shanghai, China",
+        "title": "Ph.D. in Theoretical and Applied Linguistics · Peking University",
+        "period": "2026 – Present",
+        "location": "Beijing, China",
         "details": [
-          "Research focus: embodied AI, robot learning, and real-world evaluation.",
-          "Coursework: advanced robotics, probabilistic inference, reinforcement learning."
+          "Advised by Prof. Qi Su at the Institute for Artificial Intelligence, with the PKU & ByteDance Digital Humanities Open Lab (PKUDH).",
+          "Concentration on foundation language models."
         ]
       },
       {
-        "title": "B.Eng. in Automation · Example Institute of Technology",
-        "period": "2020 – 2024",
-        "location": "Hangzhou, China",
+        "title": "B.A. in English, Linguistics and Language Technologies · BUPT",
+        "period": "2022 – 2026",
+        "location": "Beijing, China",
         "details": [
-          "Capstone project on adaptive navigation in dynamic indoor environments.",
-          "Built a foundation in control, embedded systems, and computer vision."
+          "Beijing University of Posts and Telecommunications, School of Humanities; minor in Data Science and Big Data Technologies.",
+          "Started from the humanities, then learned mathematics, statistics, programming, and machine learning from scratch, moving into LLM research."
         ]
       }
     ],
     "experience": [
       {
-        "title": "Robotics Research Intern · Example Robotics Lab",
-        "period": "2025 Summer",
-        "location": "Shenzhen, China",
+        "title": "Researcher · PKU & ByteDance Digital Humanities Open Lab (PKUDH)",
+        "period": "2025 – Present",
+        "location": "Beijing, China",
         "details": [
-          "Evaluated recovery policies for manipulation under sensor drift.",
-          "Contributed benchmarking tools used across several internal demos."
+          "Working on multi-modal intelligence for cultural heritage at the Institute for Artificial Intelligence, Peking University.",
+          "Research spanning computational Chinese paleography and stylistic evaluation of LLM outputs (CLASE)."
         ]
       },
       {
-        "title": "Software Engineering Intern · Example AI Company",
-        "period": "2024 Summer",
-        "location": "Shanghai, China",
+        "title": "Visiting Algorithm Engineer · Qwen Team, Alibaba Group",
+        "period": "2025 – 2026",
+        "location": "China",
         "details": [
-          "Improved experiment tracking flows and deployment automation.",
-          "Reduced repetitive manual setup for model evaluation pipelines."
+          "Worked on foundation models for heritage science, in collaboration with PKUDH."
+        ]
+      },
+      {
+        "title": "Research Intern · TsinghuaNLP",
+        "period": "Sept 2024 – Aug 2025",
+        "location": "Beijing, China",
+        "details": [
+          "AI for humanities & social science, with Prof. Zhiyuan Liu.",
+          "Built multi-agent court scenario simulation and evaluated LLMs' proficiency on legalese in the Legal AI subdivision."
         ]
       }
     ]
@@ -57,41 +65,49 @@
   "zh": {
     "education": [
       {
-        "title": "示例大学 · 机器人学博士",
-        "period": "2024 – 至今",
-        "location": "中国·上海",
+        "title": "北京大学 · 理论语言学与应用语言学博士",
+        "period": "2026 – 至今",
+        "location": "中国·北京",
         "details": [
-          "研究方向：具身智能、机器人学习与真实环境评测。",
-          "主修课程：高级机器人学、概率推断、强化学习。"
+          "于北京大学人工智能学院师从苏祺教授（Qi Su），在北京大学·字节跳动数字人文开放实验室（PKUDH）开展研究。",
+          "研究方向为基础语言模型（foundation language models）。"
         ]
       },
       {
-        "title": "示例理工学院 · 自动化学士",
-        "period": "2020 – 2024",
-        "location": "中国·杭州",
+        "title": "北京邮电大学 · 英语、语言学与语言技术专业文学学士",
+        "period": "2022 – 2026",
+        "location": "中国·北京",
         "details": [
-          "毕业设计聚焦动态室内环境中的自适应导航。",
-          "系统学习控制、嵌入式系统与计算机视觉。"
+          "人文学院英语、语言学与语言技术专业，辅修数据科学与大数据技术。",
+          "从人文出发，自学数学、统计、编程与机器学习，逐步走向大语言模型研究。"
         ]
       }
     ],
     "experience": [
       {
-        "title": "示例机器人实验室 · 机器人研究实习生",
-        "period": "2025 暑期",
-        "location": "中国·深圳",
+        "title": "北京大学·字节跳动数字人文开放实验室（PKUDH）· 研究人员",
+        "period": "2025 – 至今",
+        "location": "中国·北京",
         "details": [
-          "评估感知漂移条件下的移动操控恢复策略。",
-          "开发多组内部演示共用的评测工具。"
+          "在北京大学人工智能学院从事文化遗产多模态智能研究。",
+          "研究涵盖计算古文字学与大模型输出的中文风格评测（CLASE）。"
         ]
       },
       {
-        "title": "示例 AI 公司 · 软件工程实习生",
-        "period": "2024 暑期",
-        "location": "中国·上海",
+        "title": "阿里巴巴通义千问团队（Qwen Team）· 访问算法工程师",
+        "period": "2025 – 2026",
+        "location": "中国",
         "details": [
-          "改进实验追踪流程与部署自动化。",
-          "降低模型评测流水线的重复手工配置成本。"
+          "从事面向文化遗产科学的基础模型研究，与 PKUDH 合作。"
+        ]
+      },
+      {
+        "title": "清华大学自然语言处理实验室（TsinghuaNLP）· 研究实习",
+        "period": "2024年9月 – 2025年8月",
+        "location": "中国·北京",
+        "details": [
+          "与刘知远教授（Zhiyuan Liu）从事面向人文与社会科学的 AI 研究。",
+          "在法律 AI 方向构建多智能体法庭场景模拟，并评估大模型的法律语言能力。"
         ]
       }
     ]

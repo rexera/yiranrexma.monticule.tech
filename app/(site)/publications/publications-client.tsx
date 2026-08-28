@@ -3,10 +3,10 @@
 import { useMemo, useState } from "react";
 
 import { FilterToolbar } from "@/components/filter-toolbar";
+import { ProjectCard } from "@/components/project-card";
 import { PublicationItem } from "@/components/publication-item";
 import { Section } from "@/components/section";
-import { Tag } from "@/components/tag";
-import type { PublicationEntry, PublicationsPageCopy } from "@/lib/content-types";
+import type { ProjectEntry, PublicationEntry, PublicationsPageCopy } from "@/lib/content-types";
 
 type Locale = "en" | "zh";
 
@@ -15,11 +15,12 @@ type TypeFilter = typeof TYPE_OPTIONS[number];
 
 type PublicationsClientProps = {
   entries: PublicationEntry[];
+  projects: ProjectEntry[];
   locale: Locale;
   copy: PublicationsPageCopy[Locale];
 };
 
-export function PublicationsClient({ entries, locale, copy }: PublicationsClientProps) {
+export function PublicationsClient({ entries, projects, locale, copy }: PublicationsClientProps) {
   const [typeFilter, setTypeFilter] = useState<TypeFilter>("All");
   const [yearFilter, setYearFilter] = useState<string>("All");
 
@@ -44,13 +45,8 @@ export function PublicationsClient({ entries, locale, copy }: PublicationsClient
   };
 
   return (
-    <div className="space-y-12">
-      <Section
-        title={copy.section.title}
-        description={copy.section.description}
-        eyebrow={copy.section.eyebrow}
-        actions={<Tag label={copy.section.note} />}
-      >
+    <div className="space-y-16">
+      <Section title={copy.title}>
         <FilterToolbar
           groups={[
             {
@@ -84,6 +80,16 @@ export function PublicationsClient({ entries, locale, copy }: PublicationsClient
           )}
         </div>
       </Section>
+
+      {projects.length > 0 ? (
+        <Section title={copy.projectsTitle}>
+          <div className="grid gap-6 md:grid-cols-2">
+            {projects.map((project) => (
+              <ProjectCard key={project.name} project={project} />
+            ))}
+          </div>
+        </Section>
+      ) : null}
     </div>
   );
 }

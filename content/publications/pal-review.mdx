@@ -1,0 +1,35 @@
+---
+title: "Towards Computational Chinese Paleography"
+date: "2026-01-13"
+summary: "Chinese paleography—the study of ancient Chinese writing—is undergoing a computational turn powered by AI; this position paper asks what computational Chinese paleography is becoming, what the methodological pipeline looks like, and where the bottlenecks and opportunities are."
+tags:
+  - Publication
+type: "research"
+---
+
+Chinese paleography—the study of ancient Chinese writing—is undergoing a computational turn powered by AI. This position paper asks a high-level question: **what “computational Chinese paleography” is becoming, what the end-to-end methodological pipeline looks like, and where the real bottlenecks and opportunities now are**.
+
+My central argument is that the field is moving beyond automating one-off visual tasks (e.g., denoising or recognition) toward building integrated digital ecosystems that support actual scholarly workflows.
+
+## What I Discovered
+
+I organize the review as “resources → pipeline → advanced reasoning & collaboration → challenges & agenda”, with three main takeaways:
+
+- **Data is expanding from glyphs to documents**: beyond character-level datasets, the field increasingly needs full-document and multimodal resources (images, transcriptions, layout/sequence, metadata) across oracle bone, bronze, and bamboo slip scripts.
+- **The pipeline spans multiple levels of inference**: from foundational visual processing (restoration, detection, recognition), to contextual analysis (artifact rejoining, dating/periodization), and up to advanced reasoning (automated decipherment, knowledge systems, human–AI collaboration).
+- **Tech is shifting fast (with new failure modes)**: classical CV has largely yielded to deep learning; transformers and large multimodal models open new capabilities, but also surface a key mismatch between benchmark-style tasks and the holistic evidence chain used by experts.
+
+## Why This Matters
+
+The hard part is not just “more accurate recognition.” Ancient materials are **data-scarce, long-tailed, noisy, and fragmentary**, while paleographical inquiry is inherently holistic (form + context, and ideally phonology/semantics as well). That gap explains why impressive-looking models can still fail to produce scholarship-grade outputs.
+
+So the most promising direction is **human-centric, few-shot, multimodal systems** designed to *augment* expert workflows—rather than chasing full automation as the primary goal.
+
+---
+
+_Read the full paper to dive deeper into the resources, pipeline, and research agenda._
+
+[![arXiv](https://img.shields.io/badge/arXiv-2601.06753-b31b1b.svg)](https://arxiv.org/abs/2601.06753)
+
+*Abstract:*  
+> Chinese paleography, the study of ancient Chinese writing, is undergoing a computational turn powered by artificial intelligence. This position paper charts the trajectory of this emerging field, arguing that it is evolving from automating isolated visual tasks to creating integrated digital ecosystems for scholarly research. We first map the landscape of digital resources, analyzing critical datasets for oracle bone, bronze, and bamboo slip scripts. The core of our analysis follows the field's methodological pipeline: from foundational visual processing (image restoration, character recognition), through contextual analysis (artifact rejoining, dating), to the advanced reasoning required for automated decipherment and human-AI collaboration. We examine the technological shift from classical computer vision to modern deep learning paradigms, including transformers and large multimodal models. Finally, we synthesize the field's core challenges—notably data scarcity and a disconnect between current AI capabilities and the holistic nature of humanistic inquiry—and advocate for a future research agenda focused on creating multimodal, few-shot, and human-centric systems to augment scholarly expertise.
