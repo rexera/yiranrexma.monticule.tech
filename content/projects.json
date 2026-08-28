@@ -41,7 +41,8 @@
               }
             ],
             "metrics": {
-              "documents": 200
+              "documents": 200,
+              "stars": 0
             }
           }
         ]
@@ -102,7 +103,8 @@
               }
             ],
             "metrics": {
-              "documents": 200
+              "documents": 200,
+              "stars": 0
             }
           }
         ]
