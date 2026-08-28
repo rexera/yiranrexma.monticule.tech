@@ -295,6 +295,14 @@ body:lang(zh-Hans) {
   overflow-anchor: none;
 }
 
+/* On desktop the track extends 120px left (under the sidebar card), so
+   snap offsets keep cards landing at the main column's edge. */
+@media (min-width: 1024px) {
+  .commit-track {
+    scroll-padding-left: 7.5rem;
+  }
+}
+
 .commit-track::-webkit-scrollbar {
   display: none;
 }

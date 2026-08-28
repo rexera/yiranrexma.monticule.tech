@@ -58,7 +58,7 @@ const ROW_CLASSES =
 export function SideProfileCard({ profile, locale = "en", avatarSrc = "/images/profile.jpg", contactHref, contactLabel }: SideProfileCardProps) {
   const imageSrc = profile.avatar ?? avatarSrc;
   return (
-    <aside className="flex w-full flex-col gap-6 self-start rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-[0_30px_60px_-45px_rgba(15,23,42,0.4)] backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/70 lg:self-stretch print:hidden">
+    <aside className="relative z-10 flex w-full flex-col gap-6 self-start rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-[0_30px_60px_-45px_rgba(15,23,42,0.4)] backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/70 lg:self-stretch print:hidden">
       <div className="flex flex-col gap-4">
         <div className="relative h-40 w-40 self-center overflow-hidden rounded-full border border-slate-200 dark:border-slate-700">
           <Image
