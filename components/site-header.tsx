@@ -68,12 +68,14 @@ export function SiteHeader({ navItems, profileName, currentLocale = "en" }: Site
         <div className="flex items-center gap-6">
           <Link
             href={homeHref as any}
-            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700/90 hover:text-slate-900 dark:text-slate-200/90 dark:hover:text-white"
+            className="inline-flex items-baseline gap-2 text-sm font-semibold text-slate-700/90 hover:text-slate-900 dark:text-slate-200/90 dark:hover:text-white"
             aria-label={profileName ?? "Academic Homepage"}
           >
-            {/* Cropped so the artwork fills the frame; h-5 matches the
-                text-sm line box, per the brand spec. */}
-            <Image src="/images/monticule-icon.svg" alt="" width={880} height={320} className="h-5 w-auto shrink-0" />
+            {/* viewBox cropped to the exact artwork bounds, so the colored
+                mark fills the box; h-[14px] = the text-sm em box (30% below
+                the old 20px), and items-baseline sits the mark's bottom edge
+                on the text baseline. */}
+            <Image src="/images/monticule-icon.svg" alt="" width={874} height={272} className="h-[14px] w-auto shrink-0" />
             <span className="whitespace-nowrap">{profileName ?? "Academic Homepage"}</span>
           </Link>
           <nav className="hidden items-center gap-3 md:flex">
