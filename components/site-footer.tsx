@@ -21,7 +21,7 @@ export function SiteFooter({ lastUpdated, locale = "en" }: SiteFooterProps) {
       tagline: "artist, engineer, human."
     },
     zh: {
-      copyright: `© ${year} 马义然。`,
+      copyright: `© ${year} 马义然`,
       viewSource: "GitHub 源码仓库",
       lastUpdated: "上次更新：",
       tagline: "artist, engineer, human."

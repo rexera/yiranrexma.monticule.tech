@@ -69,14 +69,17 @@ export function CommitCarousel({ commits, title }: CommitCarouselProps) {
           </button>
         </div>
       </div>
-      {/* pt/pb with matching negative margins: the scroll container clips at
-          its padding edge, so the extra padding gives card shadows room to
-          diffuse (and the hover lift) while costing zero layout height —
-          keeping the cards' bottom edge flush with the sidebar. No space-y
-          here: it would override the negative margins. */}
+      {/* Padding with matching negative margins, on both axes: overflow
+          clips at the padding edge, so the padding gives card shadows room
+          to diffuse (and the hover lift) at zero layout cost — the cards'
+          edges land flush with the sidebar on every side. The native
+          scrollbar is hidden entirely (.commit-track): its classic-mode
+          footprint varies by platform and would push the cards off the
+          baseline. No space-y here: it would override the negative
+          margins. */}
       <div
         ref={trackRef}
-        className="soft-scroll -mx-1 -mt-2 -mb-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-7 pt-2"
+        className="commit-track -mx-6 -mt-2 -mb-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-7 pt-2"
       >
         {commits.map((commit) => (
           <a
