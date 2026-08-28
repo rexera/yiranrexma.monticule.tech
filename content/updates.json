@@ -8,36 +8,134 @@
   "en": {
     "updates": [
       {
-        "date": "2026-08-28",
-        "type": "Commit",
-        "title": "Rework site design: unified timeline, responsive home grid, article system",
-        "summary": "Authored by Yiran Rex Ma",
-        "link": "https://github.com/rexera/yiranrexma.monticule.tech/commit/732aa9893b2a425b1294b0bc58a824bee032e867"
+        "date": "2026-05-10",
+        "type": "Publication",
+        "title": "CLASE: Chinese Stylistic Evaluation",
+        "summary": "A hybrid, reference-free framework combining interpretable linguistic features with experience-guided LLM-as-a-judge scoring, with legal Chinese as the testbed.",
+        "link": "https://doi.org/10.63317/2xrbbj7oaghv"
       },
       {
-        "date": "2026-08-26",
-        "type": "Commit",
-        "title": "Initial commit",
-        "summary": "Authored by Yiran Rex Ma",
-        "link": "https://github.com/rexera/yiranrexma.monticule.tech/commit/8350bdc8c1522875e65d4d4e358f567749fbe7b0"
+        "date": "2026-04-20",
+        "type": "News",
+        "title": "Co-founded Monticule",
+        "summary": "Founded Monticule with my partner, seeking to scale continual learning and personal models into diverse real-world applications.",
+        "link": "https://monticule.tech"
+      },
+      {
+        "date": "2026-01-21",
+        "type": "News",
+        "title": "Joined the Qwen Team, Alibaba Group",
+        "summary": "Started as a visiting algorithm engineer, working on foundation models for heritage science.",
+        "link": "https://qwen.ai/home"
+      },
+      {
+        "date": "2026-01-13",
+        "type": "Publication",
+        "title": "Towards Computational Chinese Paleography",
+        "summary": "A position paper on what computational Chinese paleography is becoming: the end-to-end methodological pipeline, bottlenecks, and opportunities.",
+        "link": "https://arxiv.org/abs/2601.06753"
+      },
+      {
+        "date": "2025-09-29",
+        "type": "News",
+        "title": "Joined PKUDH",
+        "summary": "Joined the Peking University & ByteDance Digital Humanities Open Lab at the Institute for Artificial Intelligence, working on multi-modal intelligence for cultural heritage.",
+        "link": "https://pkudh.org"
+      },
+      {
+        "date": "2025-07-28",
+        "type": "Publication",
+        "title": "Pun2Pun: Textual-Visual Chinese-English Pun Translation via Linguistic Reasoning",
+        "summary": "A benchmark for pun translation between Chinese and English, with the Constant-Variable Optimization strategy and the Overlap metric; ACL 2025 SRW.",
+        "link": "https://aclanthology.org/2025.acl-srw.23/"
+      },
+      {
+        "date": "2025-07-28",
+        "type": "Publication",
+        "title": "Do Androids Question Electric Sheep? A Multi-Agent Simulation of Philosophical Reflection",
+        "summary": "LLM agents debate as great thinkers to solve table reasoning, revealing an “overthinking threshold” where more thinking hurts; ACL 2025 SRW.",
+        "link": "https://aclanthology.org/2025.acl-srw.9/"
+      },
+      {
+        "date": "2025-06-30",
+        "type": "Publication",
+        "title": "PanelTR: Zero-Shot Table Reasoning Through Multi-Agent Discussion",
+        "summary": "Five LLM-powered scientist personas investigate, self-review, and debate to answer complex table questions without prior training; IJCNN 2025.",
+        "link": "https://doi.org/10.1109/IJCNN64981.2025.11228106"
+      },
+      {
+        "date": "2025-04-23",
+        "type": "Publication",
+        "title": "Constituent Order Differences in Adverbials, in English and Chinese News",
+        "summary": "How English and Chinese news organize time, location, and manner information differently within sentences.",
+        "link": "https://arxiv.org/abs/2508.14054"
       }
     ]
   },
   "zh": {
     "updates": [
       {
-        "date": "2026-08-28",
-        "type": "提交",
-        "title": "Rework site design: unified timeline, responsive home grid, article system",
-        "summary": "由 Yiran Rex Ma 提交",
-        "link": "https://github.com/rexera/yiranrexma.monticule.tech/commit/732aa9893b2a425b1294b0bc58a824bee032e867"
+        "date": "2026-05-10",
+        "type": "论文",
+        "title": "CLASE: Chinese Stylistic Evaluation",
+        "summary": "混合式无参考中文风格评测框架：可解释语言学特征 + 经验引导的 LLM 评分，以法律中文为测试床。",
+        "link": "https://doi.org/10.63317/2xrbbj7oaghv"
       },
       {
-        "date": "2026-08-26",
-        "type": "提交",
-        "title": "Initial commit",
-        "summary": "由 Yiran Rex Ma 提交",
-        "link": "https://github.com/rexera/yiranrexma.monticule.tech/commit/8350bdc8c1522875e65d4d4e358f567749fbe7b0"
+        "date": "2026-04-20",
+        "type": "动态",
+        "title": "联合创立 Monticule",
+        "summary": "与合伙人共同创立 Monticule，探索将持续学习与个人模型方案扩展到多样的真实应用场景。",
+        "link": "https://monticule.tech"
+      },
+      {
+        "date": "2026-01-21",
+        "type": "动态",
+        "title": "加入阿里巴巴 Qwen Team",
+        "summary": "以访问算法工程师身份加入，从事面向文化遗产科学的基础模型研究。",
+        "link": "https://qwen.ai/home"
+      },
+      {
+        "date": "2026-01-13",
+        "type": "论文",
+        "title": "Towards Computational Chinese Paleography",
+        "summary": "计算中国古文字学立场论文：端到端方法管线、真实瓶颈与机遇。",
+        "link": "https://arxiv.org/abs/2601.06753"
+      },
+      {
+        "date": "2025-09-29",
+        "type": "动态",
+        "title": "加入 PKUDH",
+        "summary": "加入北京大学人工智能学院北大·字节跳动数字人文开放实验室，从事文化遗产多模态智能研究。",
+        "link": "https://pkudh.org"
+      },
+      {
+        "date": "2025-07-28",
+        "type": "论文",
+        "title": "Pun2Pun: Textual-Visual Chinese-English Pun Translation via Linguistic Reasoning",
+        "summary": "中英双语文本-视觉双关翻译基准，提出 CVO 翻译策略与 Overlap 指标；ACL 2025 SRW。",
+        "link": "https://aclanthology.org/2025.acl-srw.23/"
+      },
+      {
+        "date": "2025-07-28",
+        "type": "论文",
+        "title": "Do Androids Question Electric Sheep? A Multi-Agent Simulation of Philosophical Reflection",
+        "summary": "LLM 智能体扮演思想家辩论求解表格推理，发现“过度思考阈值”；ACL 2025 SRW。",
+        "link": "https://aclanthology.org/2025.acl-srw.9/"
+      },
+      {
+        "date": "2025-06-30",
+        "type": "论文",
+        "title": "PanelTR: Zero-Shot Table Reasoning Through Multi-Agent Discussion",
+        "summary": "五位 LLM 科学家人格通过调研、自审与辩论实现零样本表格推理；IJCNN 2025。",
+        "link": "https://doi.org/10.1109/IJCNN64981.2025.11228106"
+      },
+      {
+        "date": "2025-04-23",
+        "type": "论文",
+        "title": "Constituent Order Differences in Adverbials, in English and Chinese News",
+        "summary": "中英文新闻中时间、地点、方式状语的语序差异研究。",
+        "link": "https://arxiv.org/abs/2508.14054"
       }
     ]
   }

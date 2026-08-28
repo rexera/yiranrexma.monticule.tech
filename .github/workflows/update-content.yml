@@ -30,13 +30,6 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --progress=false
 
-      - name: Refresh recent updates data
-        run: node scripts/update-recent-updates.mjs
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          UPDATES_LIMIT: 7
-
       - name: Refresh project GitHub stars
         run: node scripts/update-project-stars.mjs
         env:
@@ -62,14 +55,9 @@ jobs:
 
           git pull --rebase --autostash origin "${GITHUB_REF_NAME:-$(git rev-parse --abbrev-ref HEAD)}" || true
 
-          UPDATES_CHANGED=$(git diff --staged --name-only | grep -c "content/updates.json" || true)
           PROJECTS_CHANGED=$(git diff --staged --name-only | grep -c "content/projects.json" || true)
 
-          if [[ $UPDATES_CHANGED -gt 0 && $PROJECTS_CHANGED -gt 0 ]]; then
-            COMMIT_MSG="chore: refresh updates and project metrics"
-          elif [[ $UPDATES_CHANGED -gt 0 ]]; then
-            COMMIT_MSG="chore: refresh recent updates"
-          elif [[ $PROJECTS_CHANGED -gt 0 ]]; then
+          if [[ $PROJECTS_CHANGED -gt 0 ]]; then
             COMMIT_MSG="chore: refresh project stars"
           else
             COMMIT_MSG="chore: refresh content data"
