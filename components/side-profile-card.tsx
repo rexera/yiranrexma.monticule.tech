@@ -23,13 +23,19 @@ type SideProfileCardProps = {
   contactLabel?: string;
 };
 
+/** Icons for plain external links, keyed by label. */
 const PLATFORM_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   X: XLogoIcon,
   GitHub: GitHubIcon,
-  Instagram: InstagramIcon,
-  微信公众号: WeChatIcon,
-  小红书: XiaohongshuIcon,
-  抖音: DouyinIcon
+  Instagram: InstagramIcon
+};
+
+/** Icons for QR platforms, keyed by the QR image path — stable across
+    locales (WeChat OA / 微信公众号 etc. share one image). */
+const QR_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  "/images/wechat_oa.JPG": WeChatIcon,
+  "/images/xiaohongshu.JPG": XiaohongshuIcon,
+  "/images/douyin.JPG": DouyinIcon
 };
 
 /** Native pixel sizes of the QR images, so next/image can reserve layout. */
@@ -84,8 +90,8 @@ export function SideProfileCard({ profile, locale = "en", avatarSrc = "/images/p
           </a>
         ) : null}
         {profile.social.map((link) => {
-          const Icon = PLATFORM_ICONS[link.label] ?? ExternalLinkIcon;
           if (link.qr) {
+            const Icon = QR_ICONS[link.qr] ?? QrCodeIcon;
             const dims = QR_DIMENSIONS[link.qr] ?? { width: 430, height: 430 };
             return (
               <div key={link.label} tabIndex={0} className={ROW_CLASSES}>
@@ -109,6 +115,7 @@ export function SideProfileCard({ profile, locale = "en", avatarSrc = "/images/p
               </div>
             );
           }
+          const Icon = PLATFORM_ICONS[link.label] ?? ExternalLinkIcon;
           return (
             <a
               key={link.label}

@@ -57,11 +57,11 @@ export function HomeClient({ locale, profile, updates, copy }: HomeClientProps) 
               </Link>
             </div>
           </div>
-          <aside className="space-y-4 rounded-3xl border border-slate-200 bg-white/80 p-6 dark:border-slate-800 dark:bg-slate-900/60">
+          <aside className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white/80 p-6 dark:border-slate-800 dark:bg-slate-900/60">
             <h2 className="text-sm font-semibold text-slate-600 dark:text-slate-300">
               {copy.highlights.title}
             </h2>
-            <dl className="space-y-3 text-sm text-slate-600 dark:text-slate-300">
+            <dl className="flex flex-1 flex-col justify-center gap-3 text-sm text-slate-600 dark:text-slate-300">
               {highlightItems.map((item) => (
                 <div
                   key={item.label}

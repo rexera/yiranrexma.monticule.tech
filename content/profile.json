@@ -26,9 +26,9 @@
       { "label": "X", "href": "https://x.com/rex_era_" },
       { "label": "GitHub", "href": "https://github.com/rexera" },
       { "label": "Instagram", "href": "https://www.instagram.com/yiran_rex_ma_/" },
-      { "label": "微信公众号", "href": "", "qr": "/images/wechat_oa.JPG" },
-      { "label": "小红书", "href": "", "qr": "/images/xiaohongshu.JPG" },
-      { "label": "抖音", "href": "", "qr": "/images/douyin.JPG" }
+      { "label": "WeChat OA", "href": "", "qr": "/images/wechat_oa.JPG" },
+      { "label": "RedNote", "href": "", "qr": "/images/xiaohongshu.JPG" },
+      { "label": "Douyin", "href": "", "qr": "/images/douyin.JPG" }
     ],
     "avatar": "/images/profile.webp",
     "cvLink": ""

@@ -5,8 +5,7 @@ import matter from "gray-matter";
 import { notFound } from "next/navigation";
 
 import { Section } from "@/components/section";
-import { Timeline } from "@/components/timeline";
-import { getExperiencePageCopy, getTimelineContent } from "@/lib/content";
+import { getExperiencePageCopy } from "@/lib/content";
 import { normalizeLocale, type Locale } from "@/lib/locale";
 import { renderMdx } from "@/lib/mdx";
 
@@ -35,7 +34,6 @@ export default async function ExperiencePage({ params }: PageProps) {
     notFound();
   }
 
-  const { experience, education } = getTimelineContent()[locale];
   const copy = getExperiencePageCopy()[locale];
   const story = await getAboutStory(locale);
 
@@ -49,14 +47,6 @@ export default async function ExperiencePage({ params }: PageProps) {
           <div className="prose mdx-article max-w-none">{storyContent}</div>
         </Section>
       ) : null}
-
-      <Section title={copy.experience.title}>
-        <Timeline items={experience} />
-      </Section>
-
-      <Section title={copy.education.title}>
-        <Timeline items={education} />
-      </Section>
     </div>
   );
 }
