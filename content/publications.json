@@ -20,8 +20,8 @@
   "en": {
     "entries": [
       {
-        "id": "J.1",
-        "type": "J",
+        "id": "C.4",
+        "type": "C",
         "title": "CLASE: Chinese LegAlese Stylistic Evaluation",
         "authors": "Yiran Rex Ma",
         "venue": "LREC 2026 (ACL Anthology)",
@@ -68,7 +68,7 @@
         "type": "C",
         "title": "Pun2Pun: Textual-Visual Chinese-English Pun Translation via Linguistic Reasoning",
         "authors": "Yiran Rex Ma",
-        "venue": "ACL 2025 Student Research Workshop",
+        "venue": "ACL 2025",
         "year": "2025",
         "tags": [
           "Pun Translation",
@@ -90,7 +90,7 @@
         "type": "C",
         "title": "Do Androids Question Electric Sheep? A Multi-Agent Simulation of Philosophical Reflection",
         "authors": "Yiran Rex Ma",
-        "venue": "ACL 2025 Student Research Workshop",
+        "venue": "ACL 2025",
         "year": "2025",
         "tags": [
           "Multi-Agent",
@@ -156,8 +156,8 @@
   "zh": {
     "entries": [
       {
-        "id": "J.1",
-        "type": "J",
+        "id": "C.4",
+        "type": "C",
         "title": "CLASE: Chinese LegAlese Stylistic Evaluation",
         "authors": "Yiran Rex Ma",
         "venue": "LREC 2026 (ACL Anthology)",
@@ -204,7 +204,7 @@
         "type": "C",
         "title": "Pun2Pun: Textual-Visual Chinese-English Pun Translation via Linguistic Reasoning",
         "authors": "Yiran Rex Ma",
-        "venue": "ACL 2025 Student Research Workshop",
+        "venue": "ACL 2025",
         "year": "2025",
         "tags": [
           "Pun Translation",
@@ -226,7 +226,7 @@
         "type": "C",
         "title": "Do Androids Question Electric Sheep? A Multi-Agent Simulation of Philosophical Reflection",
         "authors": "Yiran Rex Ma",
-        "venue": "ACL 2025 Student Research Workshop",
+        "venue": "ACL 2025",
         "year": "2025",
         "tags": [
           "Multi-Agent",
