@@ -77,28 +77,38 @@ export function CommitCarousel({ commits, title }: CommitCarouselProps) {
           of being cut at the column edge (the sidebar sits at z-10). The
           native scrollbar is hidden entirely (.commit-track). No space-y
           here: it would override the negative margins. */}
-      <div
-        ref={trackRef}
-        className="commit-track -mx-6 -mt-2 -mb-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-7 pt-2 lg:-ml-[120px] lg:pl-[120px]"
-      >
-        {commits.map((commit) => (
-          <a
-            key={commit.sha}
-            href={commit.href}
-            target="_blank"
-            rel="noreferrer"
-            className="group flex w-64 shrink-0 snap-start flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_10px_30px_rgba(26,33,24,0.08)] transition hover:-translate-y-0.5 hover:border-brand/50 dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_10px_30px_rgba(0,0,0,0.45)] dark:hover:border-brand/60"
-          >
-            <div className="flex items-center justify-between gap-2 text-xs">
-              <span className="font-mono font-semibold text-brand">{commit.sha.slice(0, 7)}</span>
-              <time className="tabular-nums text-slate-400 dark:text-slate-500">{commit.date}</time>
-            </div>
-            <p className="line-clamp-2 text-sm font-medium leading-snug text-slate-900 dark:text-slate-100">
-              {commit.message}
-            </p>
-            <p className="mt-auto text-xs text-slate-400 dark:text-slate-500">{commit.author}</p>
-          </a>
-        ))}
+      <div className="relative">
+        <div
+          ref={trackRef}
+          className="commit-track -mx-6 -mt-2 -mb-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-7 pt-2 lg:-ml-[120px] lg:pl-[120px]"
+        >
+          {commits.map((commit) => (
+            <a
+              key={commit.sha}
+              href={commit.href}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex w-64 shrink-0 snap-start flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_10px_30px_rgba(26,33,24,0.08)] transition hover:-translate-y-0.5 hover:border-brand/50 dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_10px_30px_rgba(0,0,0,0.45)] dark:hover:border-brand/60"
+            >
+              <div className="flex items-center justify-between gap-2 text-xs">
+                <span className="font-mono font-semibold text-brand">{commit.sha.slice(0, 7)}</span>
+                <time className="tabular-nums text-slate-400 dark:text-slate-500">{commit.date}</time>
+              </div>
+              <p className="line-clamp-2 text-sm font-medium leading-snug text-slate-900 dark:text-slate-100">
+                {commit.message}
+              </p>
+              <p className="mt-auto text-xs text-slate-400 dark:text-slate-500">{commit.author}</p>
+            </a>
+          ))}
+        </div>
+        {/* Canvas-colored fade across the sidebar gap: cards dissolve into
+            the background as they slide off behind the (opaque) sidebar —
+            no hard clip edge. Ends exactly at the column edge so the first
+            card at rest is untouched. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 -left-9 hidden w-9 bg-gradient-to-r from-[var(--canvas)] to-transparent lg:block"
+        />
       </div>
     </section>
   );
