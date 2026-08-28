@@ -43,7 +43,7 @@ export function ProjectCard({ project, badges }: ProjectCardProps) {
       ) : null}
       <div className="mt-4 flex flex-col gap-3 text-sm sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
         <div className="flex flex-wrap items-center gap-2">
-          {project.metrics?.stars !== undefined ? (
+          {typeof project.metrics?.stars === "number" && project.metrics.stars > 0 ? (
             <div className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700 dark:bg-amber-500/20 dark:text-amber-200">
               <StarIcon aria-hidden="true" className="h-4 w-4" />
               <span>{project.metrics.stars}</span>

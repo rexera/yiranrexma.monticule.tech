@@ -14,6 +14,7 @@ content/
   profile.json            # name, affiliation, socials (incl. QR platforms), avatar
   updates.json            # Home "Updates" news timeline (hand-maintained!)
   publications.json       # papers / patents / preprints list
+  projects.json           # project groups on the Publication/Project tab
   timeline.json           # education & experience entries (CV page)
   awards.json             # honors
   pages/*.json            # per-page copy (home, blog, publications, cv, story)
@@ -72,6 +73,24 @@ Edit [`content/publications.json`](./content/publications.json). Each entry:
 ```
 
 To give a publication a full detail page, add `content/publications/<slug>.mdx` with the long-form body (Markdown/MDX: math, code, figures, and Mermaid/Plotly blocks are all supported).
+
+### Projects
+
+Projects are the second half of the **Publication/Project** tab, driven by [`content/projects.json`](./content/projects.json). Entries are grouped (`academic`, `venture`, …) and rendered as cards:
+
+```json
+{
+  "name": "CLASE",
+  "summary": "One- or two-sentence description.",
+  "period": "2026",
+  "role": "Author",
+  "tags": ["LLM Evaluation"],
+  "links": [{ "label": "Code", "href": "https://github.com/rexera/CLASE" }],
+  "metrics": { "stars": 0 }
+}
+```
+
+About `metrics`: **`stars` is the only computed value** — the nightly GitHub Actions workflow refreshes it from the linked repository (hidden while the count is 0). Every other key is hand-written and renders as a plain `key: value` chip row, e.g. `"models": 3` or `"datasets": 2` — use them sparingly, only when a number genuinely sells the project. Add a new group (`"kind": "open-source"`, …) by appending to `groups`.
 
 ### Blog
 
