@@ -152,6 +152,7 @@ export type HomePageCopy = Localized<{
     locationLabel: string;
   };
   timeline: { title: string };
+  commits: { title: string };
 }>;
 
 export type PublicationsPageCopy = Localized<{

@@ -19,6 +19,9 @@
     },
     "timeline": {
       "title": "Updates"
+    },
+    "commits": {
+      "title": "Latest commits"
     }
   },
   "zh": {
@@ -38,6 +41,9 @@
     },
     "timeline": {
       "title": "动态"
+    },
+    "commits": {
+      "title": "最新提交"
     }
   }
 }

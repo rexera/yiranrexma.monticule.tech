@@ -32,6 +32,15 @@ export function ArrowRightIcon(props: IconProps) {
   );
 }
 
+export function ArrowLeftIcon(props: IconProps) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M19 12H7" />
+      <path d="m11 18-6-6 6-6" />
+    </SvgIcon>
+  );
+}
+
 export function ExternalLinkIcon(props: IconProps) {
   return (
     <SvgIcon {...props}>

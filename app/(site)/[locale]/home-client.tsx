@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 
+import { CommitCarousel } from "@/components/commit-carousel";
 import { Tag } from "@/components/tag";
 import { TimelineFeed } from "@/components/timeline-feed";
 import type { HomePageCopy, LocaleProfile, UpdateEntry } from "@/lib/content-types";
+import type { CommitItem } from "@/lib/commits";
 import type { Locale } from "@/lib/locale";
 
 type HomeClientProps = {
@@ -12,9 +14,10 @@ type HomeClientProps = {
   profile: LocaleProfile;
   updates: UpdateEntry[];
   copy: HomePageCopy[Locale];
+  commits: CommitItem[] | null;
 };
 
-export function HomeClient({ locale, profile, updates, copy }: HomeClientProps) {
+export function HomeClient({ locale, profile, updates, copy, commits }: HomeClientProps) {
   const base = `/${locale}`;
 
   const highlightItems = [
@@ -93,6 +96,10 @@ export function HomeClient({ locale, profile, updates, copy }: HomeClientProps) 
       <div className="relative min-h-[420px] flex-1 lg:min-h-[260px]">
         <TimelineFeed items={updates} />
       </div>
+
+      {commits && commits.length > 0 ? (
+        <CommitCarousel commits={commits} title={copy.commits.title} />
+      ) : null}
     </div>
   );
 }

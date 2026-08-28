@@ -78,7 +78,7 @@ export function TimelineFeed({ items, className }: TimelineFeedProps) {
     <div className={clsx("absolute inset-0", className)}>
       <div
         ref={scrollRef}
-        className="timeline-scroll absolute inset-0 overflow-y-auto rounded-3xl border border-slate-200 bg-white px-6 py-6 dark:border-slate-800 dark:bg-slate-900"
+        className="timeline-scroll absolute inset-0 overflow-y-auto rounded-3xl border border-slate-200 bg-white px-6 py-6 shadow-[0_32px_80px_-50px_rgba(15,23,42,0.55)] dark:border-slate-800 dark:bg-slate-900"
       >
         <Timeline items={entries} />
       </div>

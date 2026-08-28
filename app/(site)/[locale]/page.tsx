@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { HomeClient } from "./home-client";
 
 import { getHomePageCopy, getProfileContent, getUpdatesContent } from "@/lib/content";
+import { getRecentCommits } from "@/lib/commits";
 import { normalizeLocale } from "@/lib/locale";
 
 type PageProps = {
@@ -19,6 +20,7 @@ export default async function HomePage({ params }: PageProps) {
   const profile = getProfileContent()[locale];
   const updates = getUpdatesContent()[locale].updates;
   const copy = getHomePageCopy()[locale];
+  const commits = await getRecentCommits();
 
   return (
     <HomeClient
@@ -26,6 +28,7 @@ export default async function HomePage({ params }: PageProps) {
       profile={profile}
       updates={updates}
       copy={copy}
+      commits={commits}
     />
   );
 }
