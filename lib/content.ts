@@ -8,7 +8,6 @@ import updatesJson from "@/content/updates.json";
 import blogPageJson from "@/content/pages/blog.json";
 import homePageJson from "@/content/pages/home.json";
 import publicationsPageJson from "@/content/pages/publications.json";
-import cvPageJson from "@/content/pages/cv.json";
 import experiencePageJson from "@/content/pages/experience.json";
 
 import type {
@@ -23,7 +22,6 @@ import type {
   BlogPageCopy,
   HomePageCopy,
   PublicationsPageCopy,
-  CVPageCopy,
   ExperiencePageCopy
 } from "./content-types";
 import { DEFAULT_LOCALE, type Locale } from "./locale";
@@ -89,10 +87,6 @@ export function getHomePageCopy(): HomePageCopy {
 
 export function getPublicationsPageCopy(): PublicationsPageCopy {
   return resolveLocalized<PublicationsPageCopy["en"]>(publicationsPageJson, "content/pages/publications.json");
-}
-
-export function getCVPageCopy(): CVPageCopy {
-  return resolveLocalized<CVPageCopy["en"]>(cvPageJson, "content/pages/cv.json");
 }
 
 

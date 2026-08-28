@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A bilingual (English/Chinese) personal academic homepage — Next.js 16 App Router, React 19, Tailwind CSS. This repo is Yiran Rex Ma's live site, adapted from an academic-homepage-template, so template docs in `docs/` and `README.md` describe the generic template; the actual site keeps only Home / Blog / Publications (with detail pages) / Experience / CV (see `NAV_ITEMS` in `app/(site)/[locale]/layout.tsx`). Legacy `/research`, `/projects`, and `/contact` routes are redirect stubs under `app/(redirects)/`.
+A bilingual (English/Chinese) personal academic homepage — Next.js 16 App Router, React 19, Tailwind CSS. This repo is Yiran Rex Ma's live site, adapted from an academic-homepage-template, so template docs in `docs/` and `README.md` describe the generic template; the actual site keeps only Home / Blog / Publications (with detail pages) / Story (see `NAV_ITEMS` in `app/(site)/[locale]/layout.tsx`); the CV is a standalone bilingual HTML page at `public/cv.html` (opened in a new tab from the nav and home button). Legacy `/research`, `/projects`, `/contact`, and `/cv` routes are redirect stubs under `app/(redirects)/`.
 
 ## Commands
 

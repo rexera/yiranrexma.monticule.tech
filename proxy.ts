@@ -28,7 +28,9 @@ function hasLocalePrefix(pathname: string) {
 // traffic (e.g. /_layouts/*, /terraform.tfstate, /.well-known/*).
 function isSupportedRoute(pathname: string) {
   if (pathname === "/") return true;
-  const roots = ["/research", "/publications", "/projects", "/experience", "/cv", "/blog", "/contact"] as const;
+  // "/cv" is intentionally absent: it is handled by the app/(redirects)
+  // stub, which forwards to the standalone /cv.html.
+  const roots = ["/research", "/publications", "/projects", "/experience", "/blog", "/contact"] as const;
   return roots.some((root) => pathname === root || pathname.startsWith(`${root}/`));
 }
 

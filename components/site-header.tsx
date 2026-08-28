@@ -33,9 +33,9 @@ export function SiteHeader({ navItems, profileName, currentLocale = "en" }: Site
     const normalizedPathname = (pathname ?? "/").replace(/\/$/, "") || "/";
     const normalizedHref = String(item.href).replace(/\/$/, "") || "/";
     const isRootLike = normalizedHref === "/" || /^\/(en|zh)$/.test(normalizedHref);
-    const active = isRootLike
+    const active = !item.external && (isRootLike
       ? normalizedPathname === normalizedHref
-      : normalizedPathname === normalizedHref || normalizedPathname.startsWith(`${normalizedHref}/`);
+      : normalizedPathname === normalizedHref || normalizedPathname.startsWith(`${normalizedHref}/`));
     const baseClasses =
       variant === "desktop"
         ? "rounded-full px-4 py-2 text-sm font-medium transition-colors"
@@ -51,12 +51,20 @@ export function SiteHeader({ navItems, profileName, currentLocale = "en" }: Site
         ? "text-slate-600/80 hover:bg-slate-200/80 hover:text-slate-900 dark:text-slate-200/80 dark:hover:bg-white/10 dark:hover:text-white"
         : "text-slate-600/80 hover:bg-slate-200/80 dark:text-slate-200/80 dark:hover:bg-white/10";
 
+    const className = `${baseClasses} ${active ? activeClasses : inactiveClasses}`;
+
+    // External items (e.g. the standalone CV) open in a new tab and never
+    // take over the current page.
+    if (item.external) {
+      return (
+        <a key={item.href} href={item.href} target="_blank" rel="noreferrer" className={className}>
+          {item.label}
+        </a>
+      );
+    }
+
     return (
-      <Link
-        key={item.href}
-        href={item.href as any}
-        className={`${baseClasses} ${active ? activeClasses : inactiveClasses}`}
-      >
+      <Link key={item.href} href={item.href as any} className={className}>
         {item.label}
       </Link>
     );

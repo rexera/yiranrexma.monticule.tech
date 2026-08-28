@@ -172,25 +172,6 @@ export type PublicationsPageCopy = Localized<{
   projectsTitle: string;
 }>;
 
-export type CVPageCopy = Localized<{
-  intro: {
-    title: string;
-    emailLabel: string;
-  };
-  education: { title: string };
-  experience: { title: string };
-  publications: { title: string };
-  honors: {
-    title: string;
-    headers: string[];
-  };
-  skills: {
-    title: string;
-    headers: string[];
-    rows: string[][];
-  };
-}>;
-
 export type ExperiencePageCopy = Localized<{
   story: { title: string };
   experience: { title: string };
