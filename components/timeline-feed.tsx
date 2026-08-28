@@ -32,28 +32,17 @@ export function TimelineFeed({ items, className }: TimelineFeedProps) {
     const scroller = scrollRef.current;
     if (!scroller) return;
 
-    let hideTimer: number | undefined;
-
     const update = () => {
       setAtBottom(scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 8);
     };
 
-    const onScroll = () => {
-      update();
-      // Reveal the scrollbar while scrolling; it fades back out when idle.
-      scroller.classList.add("is-scrolling");
-      window.clearTimeout(hideTimer);
-      hideTimer = window.setTimeout(() => scroller.classList.remove("is-scrolling"), 700);
-    };
-
     update();
-    scroller.addEventListener("scroll", onScroll, { passive: true });
+    scroller.addEventListener("scroll", update, { passive: true });
     const observer = new ResizeObserver(update);
     observer.observe(scroller);
     return () => {
-      scroller.removeEventListener("scroll", onScroll);
+      scroller.removeEventListener("scroll", update);
       observer.disconnect();
-      window.clearTimeout(hideTimer);
     };
   }, [entries.length]);
 

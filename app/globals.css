@@ -232,43 +232,52 @@ body:lang(zh-Hans) {
 /* Slim themed scrollbars that hide while idle and appear on hover, keyboard
    focus, or while scrolling (.is-scrolling). Used for the home updates
    viewport, code blocks, and wide tables — vertical and horizontal alike. */
+/* Slim themed scrollbars that hide while idle and appear on hover, focus,
+   or while scrolling (.is-scrolling) — used by code blocks and wide
+   tables. */
 .soft-scroll,
-.timeline-scroll,
 .mdx-article :where(table) {
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
 }
 
 .soft-scroll:is(:hover, :focus-within, .is-scrolling),
-.timeline-scroll:is(:hover, :focus-within, .is-scrolling),
 .mdx-article :where(table:hover) {
   scrollbar-color: rgb(var(--brand) / 0.4) transparent;
 }
 
 .soft-scroll::-webkit-scrollbar,
-.timeline-scroll::-webkit-scrollbar,
 .mdx-article :where(table)::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 .soft-scroll::-webkit-scrollbar-track,
-.timeline-scroll::-webkit-scrollbar-track,
 .mdx-article :where(table)::-webkit-scrollbar-track {
   background: transparent;
 }
 
 .soft-scroll::-webkit-scrollbar-thumb,
-.timeline-scroll::-webkit-scrollbar-thumb,
 .mdx-article :where(table)::-webkit-scrollbar-thumb {
   background: transparent;
   border-radius: 999px;
 }
 
 .soft-scroll:is(:hover, :focus-within, .is-scrolling)::-webkit-scrollbar-thumb,
-.timeline-scroll:is(:hover, :focus-within, .is-scrolling)::-webkit-scrollbar-thumb,
 .mdx-article :where(table:hover)::-webkit-scrollbar-thumb {
   background: rgb(var(--brand) / 0.35);
+}
+
+/* Home updates viewport: the scrollbar is fully hidden (arrows/trackpad
+   aren't needed here — the card itself invites scroll); scrolling still
+   works via wheel and touch. */
+.timeline-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.timeline-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 /* Commit carousel track: the native scrollbar is hidden entirely — a
