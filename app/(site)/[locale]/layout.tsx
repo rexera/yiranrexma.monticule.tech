@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { SiteShell } from "@/components/site-shell";
 import { getProfileContent, getUpdatesContent } from "@/lib/content";
+import { getRecentCommits } from "@/lib/commits";
 import { buildLocalePath, LOCALES, normalizeLocale, type Locale } from "@/lib/locale";
 import type { NavItem } from "@/types/navigation";
 
@@ -44,7 +45,12 @@ export default async function LocaleLayout({
 
   const profile = getProfileContent()[locale];
   const navItems = NAV_ITEMS[locale];
-  const lastUpdated = getUpdatesContent()[locale]?.updates?.[0]?.date;
+  // "Last updated" mirrors the newest commit on this repository — the same
+  // source as the Home page commits strip. Falls back to the newest curated
+  // update if the GitHub API is unreachable at build time.
+  const lastUpdated =
+    (await getRecentCommits())?.[0]?.date ??
+    getUpdatesContent()[locale]?.updates?.[0]?.date;
 
   return (
     <SiteShell navItems={navItems} profile={profile} locale={locale} lastUpdated={lastUpdated}>
