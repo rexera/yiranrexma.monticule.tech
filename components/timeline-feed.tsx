@@ -3,7 +3,6 @@
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 
-import { Timeline } from "@/components/timeline";
 import type { UpdateEntry } from "@/lib/content-types";
 
 type TimelineFeedProps = {
@@ -17,25 +16,17 @@ function parseDateToMs(value: string) {
 }
 
 /**
- * Scrollable activity feed for the Home page. Reuses the shared Timeline
- * visual; only the viewport is specific here. The bottom fade is an overlay
- * pinned to the card (not a sticky child of the scroll flow), on a solid
- * background — so it can never seam against the card — and it fades out
- * once the reader reaches the last entry.
+ * Scrollable activity feed for the Home page — a dense news list: date and
+ * title on one line, summary beneath, hairline dividers between entries,
+ * no rail or dots, so the content gets the full card width. The bottom fade
+ * is an overlay pinned to the card (not a sticky child of the scroll flow)
+ * and fades out once the reader reaches the last entry.
  */
 export function TimelineFeed({ items, className }: TimelineFeedProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [atBottom, setAtBottom] = useState(false);
 
-  const entries = [...items]
-    .sort((a, b) => parseDateToMs(b.date) - parseDateToMs(a.date))
-    .map((update) => ({
-      title: update.title,
-      period: update.date,
-      location: update.type,
-      details: update.summary ? [update.summary] : [],
-      href: update.link || undefined
-    }));
+  const entries = [...items].sort((a, b) => parseDateToMs(b.date) - parseDateToMs(a.date));
 
   useEffect(() => {
     const scroller = scrollRef.current;
@@ -78,9 +69,50 @@ export function TimelineFeed({ items, className }: TimelineFeedProps) {
     <div className={clsx("absolute inset-0", className)}>
       <div
         ref={scrollRef}
-        className="timeline-scroll absolute inset-0 overflow-y-auto rounded-3xl border border-slate-200 bg-white px-5 py-5 shadow-[0_32px_80px_-50px_rgba(15,23,42,0.55)] dark:border-slate-800 dark:bg-slate-900"
+        className="timeline-scroll absolute inset-0 overflow-y-auto rounded-3xl border border-slate-200 bg-white px-5 py-4 shadow-[0_32px_80px_-50px_rgba(15,23,42,0.55)] dark:border-slate-800 dark:bg-slate-900"
       >
-        <Timeline items={entries} compact />
+        <ol className="divide-y divide-slate-100 dark:divide-slate-800">
+          {entries.map((entry) => {
+            const href = entry.link || undefined;
+            const body = (
+              <>
+                <p className="flex flex-wrap items-baseline gap-x-2.5">
+                  <time className="text-xs font-semibold tabular-nums text-brand">{entry.date}</time>
+                  <span
+                    className={clsx(
+                      "text-sm font-semibold leading-snug text-slate-900 dark:text-slate-50",
+                      href && "transition-colors group-hover:text-brand"
+                    )}
+                  >
+                    {entry.title}
+                  </span>
+                </p>
+                {entry.summary ? (
+                  <p className="mt-1 text-[0.8125rem] leading-relaxed text-slate-600 dark:text-slate-300">
+                    {entry.summary}
+                  </p>
+                ) : null}
+              </>
+            );
+
+            return (
+              <li key={`${entry.date}-${entry.title}`} className="py-3 first:pt-0 last:pb-0">
+                {href ? (
+                  <a
+                    href={href}
+                    target={href.startsWith("http") ? "_blank" : undefined}
+                    rel={href.startsWith("http") ? "noreferrer" : undefined}
+                    className="group block"
+                  >
+                    {body}
+                  </a>
+                ) : (
+                  body
+                )}
+              </li>
+            );
+          })}
+        </ol>
       </div>
       <div
         aria-hidden="true"

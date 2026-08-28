@@ -55,8 +55,8 @@ export function CommitCarousel({ commits, title }: CommitCarouselProps) {
     );
 
   return (
-    <section className="space-y-4">
-      <div className="flex items-center justify-between gap-4">
+    <section>
+      <div className="mb-3 flex items-center justify-between gap-4">
         <h2 className="text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
           {title}
         </h2>
@@ -69,9 +69,14 @@ export function CommitCarousel({ commits, title }: CommitCarouselProps) {
           </button>
         </div>
       </div>
+      {/* pt/pb with matching negative margins: the scroll container clips at
+          its padding edge, so the extra padding gives card shadows room to
+          diffuse (and the hover lift) while costing zero layout height —
+          keeping the cards' bottom edge flush with the sidebar. No space-y
+          here: it would override the negative margins. */}
       <div
         ref={trackRef}
-        className="soft-scroll -mx-1 flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-2"
+        className="soft-scroll -mx-1 -mt-2 -mb-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-7 pt-2"
       >
         {commits.map((commit) => (
           <a
@@ -79,7 +84,7 @@ export function CommitCarousel({ commits, title }: CommitCarouselProps) {
             href={commit.href}
             target="_blank"
             rel="noreferrer"
-            className="group flex w-64 shrink-0 snap-start flex-col gap-2 rounded-2xl border border-slate-200 bg-white/90 p-4 transition hover:border-brand/50 hover:bg-white dark:border-slate-800 dark:bg-slate-900/70 dark:hover:border-brand/60 dark:hover:bg-slate-900"
+            className="group flex w-64 shrink-0 snap-start flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_10px_30px_rgba(26,33,24,0.08)] transition hover:-translate-y-0.5 hover:border-brand/50 dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_10px_30px_rgba(0,0,0,0.45)] dark:hover:border-brand/60"
           >
             <div className="flex items-center justify-between gap-2 text-xs">
               <span className="font-mono font-semibold text-brand">{commit.sha.slice(0, 7)}</span>
