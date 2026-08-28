@@ -79,7 +79,7 @@ export function CommitCarousel({ commits, title }: CommitCarouselProps) {
             href={commit.href}
             target="_blank"
             rel="noreferrer"
-            className="group flex w-64 shrink-0 snap-start flex-col gap-2 rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-subtle transition hover:-translate-y-0.5 hover:border-brand/50 dark:border-slate-800 dark:bg-slate-900/70 dark:hover:border-brand/60"
+            className="group flex w-64 shrink-0 snap-start flex-col gap-2 rounded-2xl border border-slate-200 bg-white/90 p-4 transition hover:border-brand/50 hover:bg-white dark:border-slate-800 dark:bg-slate-900/70 dark:hover:border-brand/60 dark:hover:bg-slate-900"
           >
             <div className="flex items-center justify-between gap-2 text-xs">
               <span className="font-mono font-semibold text-brand">{commit.sha.slice(0, 7)}</span>

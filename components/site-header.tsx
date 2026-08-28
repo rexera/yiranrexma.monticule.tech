@@ -72,10 +72,11 @@ export function SiteHeader({ navItems, profileName, currentLocale = "en" }: Site
             aria-label={profileName ?? "Academic Homepage"}
           >
             {/* viewBox cropped to the exact artwork bounds, so the colored
-                mark fills the box; h-[14px] = the text-sm em box (30% below
-                the old 20px), and items-baseline sits the mark's bottom edge
-                on the text baseline. */}
-            <Image src="/images/monticule-icon.svg" alt="" width={874} height={272} className="h-[14px] w-auto shrink-0" />
+                mark fills the box. h-[1cap] sizes it to the font's cap
+                height; with items-baseline the mark's bottom sits on the
+                text baseline and its top on the cap line — flush with the
+                glyphs on both edges. */}
+            <Image src="/images/monticule-icon.svg" alt="" width={874} height={272} className="h-[1cap] w-auto shrink-0" />
             <span className="whitespace-nowrap">{profileName ?? "Academic Homepage"}</span>
           </Link>
           <nav className="hidden items-center gap-3 md:flex">
