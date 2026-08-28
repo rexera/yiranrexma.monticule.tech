@@ -34,12 +34,17 @@ export function HomeClient({ locale, profile, updates, copy, commits }: HomeClie
               {copy.heroIntro}
             </p>
             <div className="flex flex-col gap-3 text-sm font-medium sm:flex-row sm:flex-wrap">
-              <Link
-                href={`${base}/cv` as any}
+              {/* The CV is a standalone HTML page (merged from the former
+                  yiranrexma_cv repo, served at /cv.html); always opened in
+                  a new tab so it never replaces the homepage. */}
+              <a
+                href="/cv.html"
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-900 px-5 py-2 text-white hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
               >
                 {copy.buttons.cv}
-              </Link>
+              </a>
               <Link
                 href={`${base}/publications` as any}
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 px-5 py-2 text-slate-700 hover:border-slate-400 hover:text-brand dark:border-slate-600 dark:text-slate-200"

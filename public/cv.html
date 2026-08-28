@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>CV - Yiran Rex Ma</title>
+<script>try{var L=localStorage.getItem('cv-lang');if(L==='en'){document.documentElement.dataset.lang='en';document.documentElement.lang='en';}}catch(e){}</script>
+<link rel="icon" type="image/svg+xml" href="cv/assets/favicon.svg">
+<style>
+  :root{
+    /* Apple 式表面与墨水层级：靠明度而非颜色区分信息 */
+    --bg: #f5f5f7;
+    --ink: #1d1d1f;
+    --ink-2: #424245;
+    --ink-3: #6e6e73;
+    --ink-4: #86868b;
+    --hairline: #d2d2d7;
+    --accent: #0071e3;
+    --bar-bg: rgba(255,255,255,.72);
+    --bar-border: rgba(0,0,0,.08);
+    --text: var(--ink);
+    --text-dim: var(--ink-3);
+    --btn-bg: #ffffff;
+    --btn-border: rgba(0,0,0,.10);
+    --btn-text: var(--ink-2);
+    --btn-accent-bg: #1d1d1f;
+    --btn-accent-text: #ffffff;
+    --paper-shadow:
+      0 1px 2px rgba(0,0,0,.04),
+      0 12px 32px rgba(0,0,0,.08);
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html{ background: var(--bg); }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", "Source Han Sans SC", "Noto Sans SC", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+
+  /* ---------- 顶部工具栏 ---------- */
+  .toolbar{
+    position: fixed;
+    top: 14px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px;
+    background: var(--bar-bg);
+    border: 1px solid var(--bar-border);
+    border-radius: 999px;
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    box-shadow: 0 4px 20px rgba(10,15,25,.10);
+  }
+  .btn{
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    font: 600 13px/1 inherit;
+    font-family: inherit;
+    color: var(--btn-text);
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    border-radius: 999px;
+    padding: 9px 15px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform .15s ease, box-shadow .15s ease, background-color .25s ease, opacity .15s ease;
+  }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 4px 12px rgba(10,15,25,.12); }
+  .btn:active{ transform: translateY(0); opacity: .85; }
+  .btn.accent{
+    background: var(--btn-accent-bg);
+    color: var(--btn-accent-text);
+    border-color: transparent;
+  }
+  .btn svg{ width: 15px; height: 15px; flex: none; }
+
+  .zoom-group{
+    display: inline-flex; align-items: center; gap: 2px;
+    padding: 3px;
+    background: var(--btn-bg);
+    border: 1px solid var(--btn-border);
+    border-radius: 999px;
+  }
+  .zoom-btn{
+    width: 28px; height: 28px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 0; border-radius: 50%;
+    background: transparent; color: var(--btn-text);
+    cursor: pointer;
+    transition: background-color .15s ease, opacity .15s ease;
+  }
+  .zoom-btn:hover{ background: rgba(128,140,160,.18); }
+  .zoom-btn:active{ opacity: .7; }
+  .zoom-btn svg{ width: 13px; height: 13px; }
+  .zoom-pct{
+    min-width: 44px;
+    border: 0; background: transparent; color: var(--text-dim);
+    font: 600 12px/1 inherit;
+    font-family: "SF Mono", ui-monospace, "PingFang SC", monospace;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 999px;
+    padding: 7px 2px;
+    transition: color .15s ease, background-color .15s ease;
+  }
+  .zoom-pct:hover{ color: var(--text); background: rgba(128,140,160,.12); }
+
+  /* ---------- 语言切换按钮 ---------- */
+  .lang-btn{ min-width: 34px; font-family: inherit; font-size: 11px; font-weight: 700; line-height: 1; letter-spacing: .02em; }
+
+  /* ---------- 语言纸面互斥：屏幕与打印都生效 ---------- */
+  html[data-lang="zh"] #paperEn{ display: none; }
+  html[data-lang="en"] #paper{ display: none; }
+
+  /* 英文版排版：与中文版同一套字号阶梯，密度略高以排进一页 A4 */
+  #paperEn{ font-family: -apple-system, BlinkMacSystemFont, system-ui, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif; font-size: 8.2pt; line-height: 1.45; }
+  #paperEn .masthead h1{ font-family: inherit; letter-spacing: -.01em; font-size: 19pt; font-weight: 700; }
+  #paperEn .masthead{ padding-bottom: 3mm; }
+  #paperEn section{ margin-top: 7.5pt; }
+  /* 英文排版收紧字距：中文 .06em 的舒展感照搬到英文会变成"被拉开" */
+  #paperEn section h2{ font-family: inherit; font-weight: 700; margin-bottom: 4pt; letter-spacing: .008em; }
+  #paperEn .entry{ margin-bottom: 3.5pt; }
+  #paperEn .row{ margin-bottom: 1.5pt; }
+  #paperEn li{ margin-bottom: 0.7pt; }
+  #paperEn li::before{ top: .52em; }
+  #paperEn .pubs p{ margin-bottom: 1.2pt; }
+
+  /* ---------- 舞台与 A4 纸 ---------- */
+  .stage{
+    min-height: 100vh;
+    padding: 96px 20px 72px;
+    display: flex; flex-direction: column; align-items: center;
+    width: fit-content;
+    min-width: 100%;
+    margin: 0 auto;
+    touch-action: pan-y;
+  }
+  .scaler{ transform-origin: top left; width: fit-content; }
+  /* holder 只负责按缩放后尺寸占位，避免 scaler 自身盒子被 transform 二次放大产生大片空白 */
+  .holder{ position: relative; }
+  .paper{
+    position: relative;
+    width: 210mm;
+    min-height: 297mm;
+    background: #ffffff;
+    color: var(--ink);
+    box-shadow: var(--paper-shadow);
+    border-radius: 4px;
+    padding: 13mm 14mm 13mm;
+  }
+
+  /* ---------- 纸面排版 ---------- */
+  /* 中文正文行高需 ≥1.5（CJK 可读性下限）；内容密度高，取 8.8pt/1.5 */
+  .paper{ font-size: 9.3pt; line-height: 1.5; }
+  /* 头像锚定纸面边距框右上角：贴住上边距线与右边距线（与正文首行齐头） */
+  .avatar{
+    position: absolute;
+    top: 13mm; right: 14mm;
+    width: 25mm; height: 35mm;   /* 标准一寸证件照，打印 1:1 */
+    object-fit: cover;
+    border-radius: 2.5px;
+    border: 1px solid var(--hairline);
+  }
+  .masthead{ text-align: center; padding: 1mm 0 3.5mm; }
+  .masthead h1{
+    margin: 0 0 4pt;
+    font-family: "PingFang SC", sans-serif;
+    font-size: 19pt; font-weight: 700; letter-spacing: .02em;
+    color: var(--ink);
+  }
+  .contact{
+    margin: 0;
+    font-size: 8.2pt; color: var(--ink-3);
+  }
+  .contact a{
+    color: var(--accent);
+    font-weight: 400;
+    text-decoration: none;
+  }
+  .contact a:hover{ text-decoration: underline; }
+  /* 间隔号：弱化灰 + 两侧留气，用于等权重元信息的横向罗列（Apple 规格页式） */
+  .sep{ color: var(--ink-4); padding: 0 .4em; font-weight: 400; }
+  /* 一行定位：放在联系方式下，弱化色，克制不抢层级 */
+  .lede{
+    margin: 3.5pt 0 0;
+    font-size: 8.5pt; color: var(--ink-3);
+  }
+
+  section{ margin-top: 12pt; }
+  section h2{
+    position: relative;
+    margin: 0 0 4.5pt;
+    padding-bottom: 2.5pt;
+    font-family: "PingFang SC Semibold", "PingFang SC", sans-serif;
+    font-size: 10pt; font-weight: 600; letter-spacing: .06em;
+    color: var(--ink);
+    border-bottom: .5pt solid var(--hairline);
+  }
+
+  /* 条目标题行：无衬底色，仅靠字重与灰阶分层；基线对齐保证中西文混排整齐 */
+  .row{
+    display: flex; align-items: baseline;
+    margin-bottom: 2pt;
+  }
+  .row .org{ flex: 1; padding-right: 10pt; font-weight: 600; color: var(--ink); }
+  .row .org .sub{ font-weight: 400; color: var(--ink-2); }
+  /* 校名定宽对齐：硕士 / 本科起始列对齐（北邮后留 2 字宽）；三字标签拉开到四字宽 */
+  .row .org .school{ display: inline-block; min-width: 14em; }
+  .k4{ display: inline-block; width: 4em; text-align: justify; text-align-last: justify; }
+  .row .date{
+    flex: none;
+    font-weight: 400; font-size: 8.5pt; color: var(--ink-4);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .entry{ margin-bottom: 5.5pt; }
+  .entry:last-child{ margin-bottom: 0; }
+
+  ul{
+    margin: 0; padding: 0;
+    list-style: none;
+    padding-left: 2em;
+  }
+  /* 平铺段（技能/荣誉）：顶格无标记 */
+  section.flush ul{ padding-left: 0; }
+  section.flush li{ padding-left: 0; }
+  section.flush li::before{ display: none; }
+  li{
+    position: relative;
+    padding-left: 6.5pt;
+    margin-bottom: 1pt;
+  }
+  /* 列表标记：CSS 绘制的小圆点（Awesome-CV 同思路），不继承字体度量，中西文一致 */
+  li::before{
+    content: "";
+    position: absolute; left: 0; top: .6em;
+    width: 2.6pt; height: 2.6pt;
+    border-radius: 50%;
+    background: var(--ink-4);
+  }
+  /* 分点标题（粗体标签）统一向右缩进一个制表位（2 字符宽） */
+  b, strong{ font-weight: 600; color: var(--ink); }
+
+  .pubs{ margin-top: 2pt; }
+  /* 论文段：首行顶格，换行悬挂缩进 2 字（参考文献式） */
+  .pubs p{
+    margin: 0 0 1.2pt;
+    padding-left: 2em; text-indent: -2em;
+    color: var(--ink-2);
+  }
+  .venue{
+    font-family: inherit;
+    font-weight: 600; font-style: normal;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  a.venue:hover{ text-decoration: underline; }
+
+  /* ---------- 打印（始终输出标准 A4，与屏幕缩放无关） ---------- */
+  @media print{
+    @page{ size: A4; margin: 0; }
+    html, body{ background: #fff !important; }
+    .toolbar{ display: none !important; }
+    .stage{ padding: 0; min-height: 0; }
+    .holder{ width: auto !important; height: auto !important; }
+    .scaler{ transform: none !important; width: auto !important; height: auto !important; }
+    .paper{
+      width: 210mm; min-height: 297mm;
+      box-shadow: none !important;
+      border-radius: 0;
+    }
+    html[data-lang="zh"] #paperEn{ display: none !important; }
+    html[data-lang="en"] #paper{ display: none !important; }
+    *{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="toolbar">
+  <div class="zoom-group" role="group" aria-label="页面缩放">
+    <button class="zoom-btn" id="zoomOut" aria-label="缩小" title="缩小">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14"/></svg>
+    </button>
+    <button class="zoom-pct" id="zoomPct" title="重置为 100%">100%</button>
+    <button class="zoom-btn" id="zoomIn" aria-label="放大" title="放大">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+  </div>
+  <div class="zoom-group" role="group" aria-label="语言 / Language">
+    <button class="zoom-btn lang-btn" id="langBtn" aria-label="Switch to English" title="Switch to English">EN</button>
+  </div>
+  <button class="btn accent" id="printBtn" aria-label="打印简历" title="打印">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7" rx="1"/></svg>
+  </button>
+</header>
+
+<main class="stage">
+  <div class="holder" id="holder">
+  <div class="scaler" id="scaler">
+    <article class="paper" id="paper">
+
+      <header class="masthead">
+        <h1>马义然</h1>
+        <p class="contact">+86 177 1399 9172<span class="sep">·</span><a href="mailto:yiranrexma@outlook.com">yiranrexma@outlook.com</a><span class="sep">·</span><a href="https://yiranrexma.monticule.tech">yiranrexma.monticule.tech</a></p>
+        <p class="lede">基础语言模型 · 持续学习 ｜ Qwen · 面壁垂域基座经验</p>
+      </header>
+
+      <img class="avatar" alt="证件照" src="cv/assets/avatar.jpg">
+
+      <section>
+        <h2>教育背景</h2>
+        <div class="entry">
+          <div class="row">
+            <span class="org"><span class="school">北京大学人工智能研究院</span><span class="sub"><b>硕士（推荐免试）</b><span class="sep">·</span>外国语言学及应用语言学</span></span>
+            <span class="date">2026.09 –</span>
+          </div>
+          <ul>
+            <li>北大 × 字节跳动数字人文开放实验室（PKUDH）<span class="sep">·</span><b>导师</b>：苏祺 长聘副教授</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <div class="row">
+            <span class="org"><span class="school">北京邮电大学</span><span class="sub"><b>本科</b><span class="sep">·</span>英语（语言学与语言智能）<span class="sep">·</span><b>辅修</b><span class="sep">·</span>数据科学与大数据技术</span></span>
+            <span class="date">2022.09 – 2026.06</span>
+          </div>
+          <ul>
+            <li><b>专业排名</b> 1/44<span class="sep">·</span><b>GPA</b> 3.87/4.0<span class="sep">·</span>优秀本科毕业论文（前 2%）</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>实习与科研经历</h2>
+        <div class="entry">
+          <div class="row">
+            <span class="org">阿里集团·通义实验室（Qwen Team）<span class="sub">｜实习算法工程师 · 项目负责人</span></span>
+            <span class="date">2026.03 – 2026.07</span>
+          </div>
+          <ul>
+            <li>与中国社科院考古研究所合作，<b>主导</b>文化遗产垂域多模态基座建设：构建 <b>1.5 亿（150M）高质量领域图文对</b>，基于 Qwen3.5-122B-A10B 完成领域微调与强化学习，覆盖文物–古籍协同推理、文物修复、文明演化推断场景</li>
+            <li><b>从 0 到 1 负责全链路</b>：领域数据基建 → 持续学习 → Context/Harness 工程 → 评测 → 人类反馈</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="row">
+            <span class="org">清华大学计算机系·自然语言处理实验室 × 面壁智能（THUNLP × ModelBest）<span class="sub">｜科研实习生</span></span>
+            <span class="date">2024.10 – 2025.09</span>
+          </div>
+          <ul>
+            <li>深度参与最高人民法院“法信”法律基座大模型的<b>司法仿真环境</b>与<b>合规评测</b>建设</li>
+            <li>搭建多智能体博弈庭审框架 <b>LinguaGame</b>：对话质量在清晰度、简洁性、论证性、策略性四个维度提升 <b>6.3%–20.1%</b></li>
+            <li>提出法律文风合规评测方法 <b>CLASE</b>：与人工评审一致性较传统评估方法提升 <b>94.6%–163.0%</b></li>
+                      </ul>
+        </div>
+
+        <div class="entry">
+          <div class="row">
+            <span class="org">北京邮电大学·叶培大创新创业学院<span class="sub">｜学生科研项目负责人</span></span>
+            <span class="date">2023.10 – 2025.02</span>
+          </div>
+          <ul>
+            <li>主持构建中英图文双关翻译框架 <b>Pun2Pun</b>：系统评测 4 个模型家族的 9 款模型；CVO 翻译策略使翻译质量较模型标准输出提升 <b>15.7%–205.1%</b></li>
+            <li>主持零样本多智能体混合表格推理框架 <b>PanelTR</b>：准确率较最强前沿模型高 <b>9.2 个百分点</b>、超越监督式方法；延伸实证研究发现多智能体反思的"过度思考阈值"</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="flush">
+        <h2>核心技能</h2>
+        <ul>
+          <li><b>大模型</b>：PyTorch / Transformers<span class="sep">·</span>领域微调（SFT）与强化学习<span class="sep">·</span>持续学习<span class="sep">·</span>多模态训练<span class="sep">·</span>Agent / Harness 工程<span class="sep">·</span>评测</li>
+          <li><b>语言</b>：中文（母语）<span class="sep">·</span>英语（专业八级 89 优秀、IELTS 7.5）</li>
+        </ul>
+      </section>
+
+      <section class="flush">
+        <h2>荣誉奖项</h2>
+        <ul>
+          <li>MCM/ICM Meritorious Winner（前 7%，2025）<span class="sep">·</span>大学生创新创业训练计划国家级项目<span class="sep">·</span>英国剑桥大学访学优秀学生代表</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>论文成果</h2>
+        <div class="pubs">
+          <p><b>Yiran Rex Ma</b>, Yuxiao Ye, and Huiyuan Xie. CLASE: A Hybrid Method for Chinese Legalese Stylistic Evaluation. <a class="venue" href="https://lrec.elra.info/lrec2026-main-046">LREC 2026</a>.</p>
+          <p>Yuxiao Ye, <b>Yiran Rex Ma</b>*, Yiming Zhang*, Huiyuan Xie, Huining Zhu, and Zhiyuan Liu. LinguaGame: A Linguistically Grounded Game-Theoretic Paradigm for Multi-Agent Dialogue Generation. <a class="venue" href="https://aclanthology.org/2026.findings-acl.1028/">ACL 2026</a>.</p>
+          <p><b>Yiran Rex Ma</b>, Shan Huang, Yuting Xu, Ziyu Zhou, and Yuanxi Wei. Pun2Pun: Benchmarking LLMs on Textual-Visual Chinese-English Pun Translation via Pragmatics Model and Linguistic Reasoning. <a class="venue" href="https://aclanthology.org/2025.acl-srw.23">ACL 2025</a>.</p>
+          <p><b>Yiran Rex Ma</b>. Do Androids Question Electric Sheep? A Multi-Agent Cognitive Simulation of Philosophical Reflection on Hybrid Table Reasoning. <a class="venue" href="https://aclanthology.org/2025.acl-srw.9">ACL 2025</a>.</p>
+          <p><b>Yiran Rex Ma</b>. PanelTR: Zero-Shot Table Reasoning Framework Through Multi-Agent Scientific Discussion. <a class="venue" href="https://ieeexplore.ieee.org/document/11228106/">IJCNN 2025</a>.</p>
+          <p>李霜洁, <b>马义然</b>, 孙茂松, 刘知远. 基于图结构和深度学习的古文字识别/缺损字形重建方法和装置: CN202510989823.X/9824.4.</p>
+        </div>
+      </section>
+    </article>
+
+    <article class="paper" id="paperEn" lang="en">
+
+      <header class="masthead">
+        <h1>Yiran Rex Ma</h1>
+        <p class="contact">+86 177 1399 9172<span class="sep">·</span><a href="mailto:yiranrexma@outlook.com">yiranrexma@outlook.com</a><span class="sep">·</span><a href="https://yiranrexma.monticule.tech">yiranrexma.monticule.tech</a></p>
+        <p class="lede">Foundation language models &amp; continual learning | Domain foundation model experience with Qwen &amp; ModelBest</p>
+      </header>
+
+      <section>
+        <h2>Education</h2>
+        <div class="entry">
+          <div class="row">
+            <span class="org">Peking University, Institute for Artificial Intelligence <span class="sub">— M.A. in Theoretical and Applied Linguistics</span></span>
+            <span class="date">Sep 2026 –</span>
+          </div>
+          <ul>
+            <li>PKU × ByteDance Digital Humanities Open Laboratory (PKUDH); Advisor: Prof. Qi Su</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <div class="row">
+            <span class="org">Beijing University of Posts and Telecommunications — B.A. in English, Linguistics and Language Technologies; Minor in Data Science</span>
+            <span class="date">Sep 2022 – Jun 2026</span>
+          </div>
+          <ul>
+            <li>GPA 3.87/4.0, ranked 1/44; Outstanding Undergraduate Thesis (top 2%)</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Experience</h2>
+        <div class="entry">
+          <div class="row">
+            <span class="org">Alibaba Group, Tongyi Lab (Qwen Team) <span class="sub">— Algorithm Engineering Intern, Project Lead</span></span>
+            <span class="date">Mar 2026 – Jul 2026</span>
+          </div>
+          <ul>
+            <li>Led the cultural-heritage multimodal foundation model with the Institute of Archaeology, CASS: curated <b>150M high-quality domain image-text pairs</b>; fine-tuned and RL-trained Qwen3.5-122B-A10B for artifact–ancient-text reasoning and restoration</li>
+            <li>Owned the end-to-end pipeline from scratch — domain data infrastructure, continual learning, context and harness engineering, evaluation, human feedback</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="row">
+            <span class="org">Tsinghua University, THUNLP × ModelBest <span class="sub">— Research Intern</span></span>
+            <span class="date">Oct 2024 – Sep 2025</span>
+          </div>
+          <ul>
+            <li>Deeply involved in building the <b>judicial simulation environments</b> and <b>compliance evaluation</b> of <b>Faxin</b>, the Supreme People's Court legal foundation model</li>
+            <li>Built <b>LinguaGame</b>, a multi-agent game-theoretic courtroom framework: dialogue quality improved by <b>6.3%–20.1%</b> across clarity, conciseness, argumentation, and tactic</li>
+            <li>Proposed <b>CLASE</b>, a legalese compliance-evaluation method: alignment with human experts improved by <b>94.6%–163.0%</b> over conventional evaluation methods</li>
+                      </ul>
+        </div>
+
+        <div class="entry">
+          <div class="row">
+            <span class="org">BUPT, Ye Peida College of Innovation and Entrepreneurship <span class="sub">— Student Project Lead</span></span>
+            <span class="date">Oct 2023 – Feb 2025</span>
+          </div>
+          <ul>
+            <li>Built <b>Pun2Pun</b>, a Chinese-English textual-visual pun translation framework benchmarking 9 models from 4 families; the CVO strategy lifts translation quality by <b>15.7%–205.1%</b> over standard model output</li>
+            <li>Proposed <b>PanelTR</b>, a zero-shot multi-agent hybrid-table reasoning framework: <b>+9.2 points</b> over the strongest frontier model, surpassing supervised methods; follow-up work identified an "overthinking threshold" in multi-agent reflection</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>Publications</h2>
+        <div class="pubs">
+          <p><b>Yiran Rex Ma</b>, Yuxiao Ye, and Huiyuan Xie. CLASE: A Hybrid Method for Chinese Legalese Stylistic Evaluation. <a class="venue" href="https://lrec.elra.info/lrec2026-main-046">LREC 2026</a>.</p>
+          <p>Yuxiao Ye, <b>Yiran Rex Ma</b>*, Yiming Zhang*, Huiyuan Xie, Huining Zhu, and Zhiyuan Liu. LinguaGame: A Linguistically Grounded Game-Theoretic Paradigm for Multi-Agent Dialogue Generation. <a class="venue" href="https://aclanthology.org/2026.findings-acl.1028/">ACL 2026</a>.</p>
+
+          <p><b>Yiran Rex Ma</b>, Shan Huang, Yuting Xu, Ziyu Zhou, and Yuanxi Wei. Pun2Pun: Benchmarking LLMs on Textual-Visual Chinese-English Pun Translation via Pragmatics Model and Linguistic Reasoning. <a class="venue" href="https://aclanthology.org/2025.acl-srw.23">ACL 2025</a>.</p>
+          <p><b>Yiran Rex Ma</b>. Do Androids Question Electric Sheep? A Multi-Agent Cognitive Simulation of Philosophical Reflection on Hybrid Table Reasoning. <a class="venue" href="https://aclanthology.org/2025.acl-srw.9">ACL 2025</a>.</p>
+          <p><b>Yiran Rex Ma</b>. PanelTR: Zero-Shot Table Reasoning Framework Through Multi-Agent Scientific Discussion. <a class="venue" href="https://ieeexplore.ieee.org/document/11228106/">IJCNN 2025</a>.</p>
+          <p>Shuangjie Li, <b>Yiran Rex Ma</b>, Maosong Sun, and Zhiyuan Liu. Method and Apparatus for Recognizing Ancient Scripts and Reconstructing Damaged Glyphs Based on Graph Structure and Deep Learning. CN202510989823.X/9824.4 (Invention Patent).</p>
+        </div>
+      </section>
+
+      <section class="flush">
+        <h2>Skills</h2>
+        <ul>
+          <li><b>LLM engineering</b>: PyTorch / Transformers, SFT &amp; RL, continual learning, multimodal training, agent &amp; harness engineering, evaluation</li>
+          <li><b>Languages</b>: Mandarin Chinese (native); English (TEM-8 Excellent 89, IELTS Academic 7.5)</li>
+        </ul>
+      </section>
+
+      <section class="flush">
+        <h2>Honors &amp; Awards</h2>
+        <ul>
+          <li>Meritorious Winner, MCM/ICM 2025 (top 7%)<span class="sep">·</span>National Innovation and Entrepreneurship Training Program<span class="sep">·</span>Visiting Student Representative, University of Cambridge</li>
+        </ul>
+      </section>
+    </article>
+  </div>
+  </div>
+</main>
+
+<script>
+(function(){
+  var ZOOM_KEY = 'ma-yiran-cv-zoom';
+  var ZOOM_MIN = 40, ZOOM_MAX = 300, ZOOM_STEP = 10;
+
+  document.getElementById('printBtn').addEventListener('click', function(){
+    window.print();
+  });
+
+  /* ---------- 缩放：纸面等比缩放，打印始终输出标准 A4 ---------- */
+  var scaler = document.getElementById('scaler');
+  var holder = document.getElementById('holder');
+  var paper = document.getElementById('paper');
+  var paperEn = document.getElementById('paperEn');
+  function curPaper(){ return document.documentElement.dataset.lang === 'en' ? paperEn : paper; }
+  var pctBtn = document.getElementById('zoomPct');
+  var zoom = null;
+
+  try {
+    var z = parseInt(localStorage.getItem(ZOOM_KEY), 10);
+    if (z >= ZOOM_MIN && z <= ZOOM_MAX) zoom = z;
+  } catch(e){}
+
+  // 未手动设置过时：宽窗口默认 100%，窄窗口按可视宽度自适应一档
+  if (zoom === null){
+    var fit = (document.documentElement.clientWidth - 28) / curPaper().offsetWidth;
+    zoom = fit >= 1 ? 100 : Math.max(ZOOM_MIN, Math.floor(fit * 100));
+  }
+
+  function render(){
+    var scale = zoom / 100;
+    var cur = curPaper();
+    scaler.style.transform = 'scale(' + scale + ')';
+    holder.style.width = (cur.offsetWidth * scale) + 'px';
+    holder.style.height = (cur.offsetHeight * scale + 8) + 'px';
+    pctBtn.textContent = Math.round(zoom) + '%';
+  }
+
+  function clampZ(z){ return Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, z)); }
+
+  var saveTimer = null;
+  function saveZoom(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){
+      try { localStorage.setItem(ZOOM_KEY, String(Math.round(zoom))); } catch(e){}
+    }, 400);
+  }
+
+  function setZoom(z){
+    zoom = clampZ(z);
+    render();
+    saveZoom();
+  }
+
+  // 以屏幕坐标 (clientX, clientY) 为锚点缩放：手势中心下的内容保持不动
+  function zoomAt(clientX, clientY, z){
+    var before = zoom / 100;
+    var rect = curPaper().getBoundingClientRect();
+    var cx = (clientX - rect.left) / before;
+    var cy = (clientY - rect.top) / before;
+    zoom = clampZ(z);
+    render();
+    saveZoom();
+    var after = zoom / 100;
+    var rect2 = curPaper().getBoundingClientRect();
+    var wantX = rect2.left + cx * after;
+    var wantY = rect2.top + cy * after;
+    // 用绝对定位校正滚动，钳制不越界，避免逐事件累积漂移
+    window.scrollTo(
+      Math.max(0, window.pageXOffset + clientX - wantX),
+      Math.max(0, window.pageYOffset + clientY - wantY)
+    );
+  }
+
+  document.getElementById('zoomIn').addEventListener('click', function(){ setZoom(Math.round(zoom) + ZOOM_STEP); });
+  document.getElementById('zoomOut').addEventListener('click', function(){ setZoom(Math.round(zoom) - ZOOM_STEP); });
+  pctBtn.addEventListener('click', function(){ setZoom(100); });
+
+  // 触控板双指捏合 / Ctrl+滚轮（macOS Chrome 等：捏合以 ctrl+wheel 事件到达）
+  // 每个事件最多 ±10%，避免大幅跳动与边缘鬼影
+  window.addEventListener('wheel', function(e){
+    if (!e.ctrlKey && !e.metaKey) return;
+    e.preventDefault();
+    var raw = Math.exp(-e.deltaY * 0.012);
+    var factor = Math.max(0.9, Math.min(1.1, raw));
+    zoomAt(e.clientX, e.clientY, zoom * factor);
+  }, { passive: false });
+
+  // Safari（macOS 触控板 / iOS 双指）：gesture 事件
+  var gestureBase = null;
+  document.addEventListener('gesturestart', function(e){ e.preventDefault(); gestureBase = zoom; });
+  document.addEventListener('gesturechange', function(e){
+    e.preventDefault();
+    if (gestureBase == null) return;
+    zoomAt(window.innerWidth / 2, window.innerHeight / 2, gestureBase * e.scale);
+  });
+  document.addEventListener('gestureend', function(){ gestureBase = null; });
+
+  // 移动端双指捏合
+  var touchBase = null;
+  document.addEventListener('touchstart', function(e){
+    if (e.touches.length === 2){
+      var t0 = e.touches[0], t1 = e.touches[1];
+      touchBase = {
+        dist: Math.hypot(t0.clientX - t1.clientX, t0.clientY - t1.clientY),
+        zoom: zoom,
+        cx: (t0.clientX + t1.clientX) / 2,
+        cy: (t0.clientY + t1.clientY) / 2
+      };
+    }
+  }, { passive: true });
+  document.addEventListener('touchmove', function(e){
+    if (e.touches.length === 2 && touchBase){
+      e.preventDefault();
+      var t0 = e.touches[0], t1 = e.touches[1];
+      var dist = Math.hypot(t0.clientX - t1.clientX, t0.clientY - t1.clientY);
+      if (touchBase.dist > 0) zoomAt(touchBase.cx, touchBase.cy, touchBase.zoom * dist / touchBase.dist);
+    }
+  }, { passive: false });
+  document.addEventListener('touchend', function(e){ if (e.touches.length < 2) touchBase = null; }, { passive: true });
+
+  // Ctrl/Cmd + - / = / 0 调整本页缩放（替代浏览器整页缩放，保持 A4 比例）
+  document.addEventListener('keydown', function(e){
+    if (!(e.ctrlKey || e.metaKey)) return;
+    var k = e.key;
+    if (k === '=' || k === '+'){ e.preventDefault(); setZoom(Math.round(zoom) + ZOOM_STEP); }
+    else if (k === '-'){ e.preventDefault(); setZoom(Math.round(zoom) - ZOOM_STEP); }
+    else if (k === '0'){ e.preventDefault(); setZoom(100); }
+  });
+
+  /* ---------- 中英文切换 ---------- */
+  var LANG_KEY = 'cv-lang';
+  var langBtn = document.getElementById('langBtn');
+  function langBtnHTML(lang){
+    return lang === 'en' ? '中' : 'EN';
+  }
+  function applyLang(lang){
+    lang = (lang === 'en') ? 'en' : 'zh';
+    document.documentElement.dataset.lang = lang;
+    document.documentElement.lang = (lang === 'en') ? 'en' : 'zh-CN';
+    document.title = 'CV - Yiran Rex Ma';
+    langBtn.innerHTML = langBtnHTML(lang);
+    langBtn.title = (lang === 'en') ? '切换到中文' : 'Switch to English';
+    langBtn.setAttribute('aria-label', langBtn.title);
+    render();
+  }
+  langBtn.addEventListener('click', function(){
+    var next = (document.documentElement.dataset.lang === 'en') ? 'zh' : 'en';
+    try { localStorage.setItem(LANG_KEY, next); } catch(e){}
+    applyLang(next);
+  });
+  var savedLang = null;
+  try { savedLang = localStorage.getItem(LANG_KEY); } catch(e){}
+  applyLang(savedLang === 'en' ? 'en' : 'zh');
+
+  window.addEventListener('resize', render);
+  window.addEventListener('load', function(){ render(); setTimeout(render, 250); });
+  render();
+})();
+</script>
+</body>
+</html>
