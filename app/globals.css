@@ -224,14 +224,6 @@ body:lang(zh-Hans) {
   padding: 0.25em 0;
 }
 
-/* Timeline dot halo follows the theme accent. */
-.timeline-dot {
-  box-shadow: 0 0 0 6px rgb(var(--brand) / 0.15);
-}
-
-/* Slim themed scrollbars that hide while idle and appear on hover, keyboard
-   focus, or while scrolling (.is-scrolling). Used for the home updates
-   viewport, code blocks, and wide tables — vertical and horizontal alike. */
 /* Slim themed scrollbars that hide while idle and appear on hover, focus,
    or while scrolling (.is-scrolling) — used by code blocks and wide
    tables. */
@@ -374,12 +366,6 @@ a:focus-visible {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
-}
-
-/* Smooth scroll behavior */
-.scroll-smooth {
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
 }
 
 /* Reduced motion support - 尊重用户的无障碍设置 */

@@ -2,7 +2,7 @@
 
 The personal homepage of **Yiran Rex Ma** (马义然) — a bilingual (English / 中文) academic site built with Next.js 16 (App Router), React 19, and Tailwind CSS.
 
-This site is adapted from [Ronchy2000/Academic-Homepage-Template](https://github.com/Ronchy2000/Academic-Homepage-Template) — many thanks for the excellent starting point. The template's own documentation still lives under [`docs/`](./docs) and is useful as background reading; this README is the **maintenance guide for this specific site**.
+This site is adapted from [Ronchy2000/Academic-Homepage-Template](https://github.com/Ronchy2000/Academic-Homepage-Template) — many thanks for the excellent starting point. This README is the **maintenance guide for this specific site**.
 
 ## Site structure
 
@@ -15,9 +15,7 @@ content/
   updates.json            # Home "Updates" news timeline (hand-maintained!)
   publications.json       # papers / patents / preprints list
   projects.json           # project groups on the Publication/Project tab
-  timeline.json           # education & experience entries (CV page)
-  awards.json             # honors
-  pages/*.json            # per-page copy (home, blog, publications, cv, story)
+  pages/*.json            # per-page copy (home, blog, publications, story)
   blog/{en,zh}/*.mdx      # blog posts (missing locale falls back per slug)
   publications/*.mdx      # long-form bodies for publication detail pages
   about/{en,zh}.mdx       # the Story page

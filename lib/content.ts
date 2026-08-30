@@ -1,9 +1,6 @@
 import profileJson from "@/content/profile.json";
-import researchJson from "@/content/research.json";
 import publicationsJson from "@/content/publications.json";
 import projectsJson from "@/content/projects.json";
-import timelineJson from "@/content/timeline.json";
-import awardsJson from "@/content/awards.json";
 import updatesJson from "@/content/updates.json";
 import blogPageJson from "@/content/pages/blog.json";
 import homePageJson from "@/content/pages/home.json";
@@ -13,11 +10,8 @@ import experiencePageJson from "@/content/pages/experience.json";
 import type {
   ProfileContent,
   LocaleProfile,
-  ResearchContent,
   PublicationsContent,
   ProjectsContent,
-  TimelineContent,
-  AwardsContent,
   UpdatesContent,
   BlogPageCopy,
   HomePageCopy,
@@ -51,24 +45,12 @@ export function getProfileContent(): ProfileContent {
   return resolveLocalized<LocaleProfile>(profileJson, "content/profile.json");
 }
 
-export function getResearchContent(): ResearchContent {
-  return resolveLocalized<ResearchContent["en"]>(researchJson, "content/research.json");
-}
-
 export function getPublicationsContent(): PublicationsContent {
   return resolveLocalized<PublicationsContent["en"]>(publicationsJson, "content/publications.json");
 }
 
 export function getProjectsContent(): ProjectsContent {
   return resolveLocalized<ProjectsContent["en"]>(projectsJson, "content/projects.json");
-}
-
-export function getTimelineContent(): TimelineContent {
-  return resolveLocalized<TimelineContent["en"]>(timelineJson, "content/timeline.json");
-}
-
-export function getAwardsContent(): AwardsContent {
-  return resolveLocalized<AwardsContent["en"]>(awardsJson, "content/awards.json");
 }
 
 export function getUpdatesContent(): UpdatesContent {

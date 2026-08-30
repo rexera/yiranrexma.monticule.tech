@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A bilingual (English/Chinese) personal academic homepage — Next.js 16 App Router, React 19, Tailwind CSS. This repo is Yiran Rex Ma's live site, adapted from an academic-homepage-template, so template docs in `docs/` and `README.md` describe the generic template; the actual site keeps only Home / Blog / Publications (with detail pages) / Story (see `NAV_ITEMS` in `app/(site)/[locale]/layout.tsx`); the CV is a standalone bilingual HTML page at `public/cv.html` (opened in a new tab from the nav and home button). Legacy `/research`, `/projects`, `/contact`, and `/cv` routes are redirect stubs under `app/(redirects)/`.
+A bilingual (English/Chinese) personal academic homepage — Next.js 16 App Router, React 19, Tailwind CSS. This repo is Yiran Rex Ma's live site, adapted from [Ronchy2000/Academic-Homepage-Template](https://github.com/Ronchy2000/Academic-Homepage-Template); the actual site keeps only Home / Blog / Publications (with detail pages) / Story (see `NAV_ITEMS` in `app/(site)/[locale]/layout.tsx`); the CV is a standalone bilingual HTML page at `public/cv.html` (opened in a new tab from the nav and home button). Legacy `/research`, `/projects`, `/contact`, and `/cv` routes are redirect stubs under `app/(redirects)/`.
 
 ## Commands
 
@@ -17,7 +17,7 @@ npm run build      # production build (Vercel-style, server-aware)
 EDGEONE=1 npm run build   # static export to out/ for EdgeOne Pages
 ```
 
-There is no test suite; `npm run lint` + `npm run build` is the verification step (also what `docs/PUBLISH-CHECKLIST.md` asks for).
+There is no test suite; `npm run lint` + `npm run build` is the verification step.
 
 New blog post scaffold:
 
@@ -34,10 +34,10 @@ Creates `content/blog/<locale>/<slug>.mdx` with `draft: true`; flip to `false` w
 Almost all page copy and data live in `content/` — when something on a page is wrong, change the JSON/MDX, not the components:
 
 - `content/site.json` — global i18n config (the one file that drives routing behavior)
-- `content/profile.json`, `research.json`, `publications.json`, `projects.json`, `timeline.json`, `awards.json`, `updates.json` — structured site data
-- `content/pages/*.json` — per-page copy (home, blog, publications, cv, experience)
+- `content/profile.json`, `publications.json`, `projects.json`, `updates.json` — structured site data
+- `content/pages/*.json` — per-page copy (home, blog, publications, experience)
 - `content/blog/{en,zh}/*.mdx` — blog posts; `content/publications/<slug>.mdx` — long-form publication detail bodies
-- `content/about/{en,zh}.mdx` — homepage about text
+- `content/about/{en,zh}.mdx` — the Story page
 
 Localized JSON files are `{ en: {...}, zh: {...} }`; `resolveLocalized` in `lib/content.ts` falls back so a single locale block fills both. Blog posts fall back per-slug via `getBlogPostWithFallback` (`lib/blog.ts`) — a post existing in only one locale is fine.
 
@@ -64,7 +64,8 @@ Anything requiring request-time server behavior must be avoided or gated for the
 - `lib/content.ts` — imports the JSON files directly (typed via `lib/content-types.ts`); sync, build-time.
 - `lib/blog.ts` — reads `content/blog/<locale>/` from disk with gray-matter; slugs must be kebab-case (`^[a-z0-9-]+$`), `draft: true` hides a post, `type: research|note`.
 - `lib/publications.ts` — joins `content/publications.json` entries (which have an optional `slug`) with `content/publications/<slug>.mdx` bodies for `/[locale]/publications/[slug]` detail pages.
-- `lib/mdx.ts` — the single MDX pipeline (`renderMdx`): compileMDX with remark-gfm, remark-math, rehype-katex, rehype-slug; maps `pre`→`CodeBlock`, plus `Callout` and `Table` components. TOC comes from `extractToc`/`githubSlug` (regex over raw markdown, matching rehype-slug ids). `MermaidDiagram` and `PlotlyFigure` are client components imported inside MDX.
+- `lib/mdx.ts` — the single MDX pipeline (`renderMdx`): compileMDX with remark-gfm, remark-math, rehype-katex, rehype-slug, rehype-pretty-code (Shiki dual themes); maps `pre`→`CodeBlock`, plus `Callout` and `Table` components. TOC comes from `extractToc` (github-slugger ids matching rehype-slug). `MermaidDiagram` and `PlotlyFigure` are client components imported inside MDX.
+- `lib/commits.ts` — build-time fetch of recent commits (GitHub API) for the Home commits strip and the footer's last-updated date; bot commits filtered, returns null on failure.
 
 ### Server/client split
 
@@ -72,7 +73,7 @@ Pages are server components that read content at build time; interactivity lives
 
 ### Automation
 
-`.github/workflows/update-content.yml` runs daily: `scripts/update-recent-updates.mjs` (rewrites `content/updates.json` from commit history) and `scripts/update-project-stars.mjs` (rewrites star counts in `content/projects.json`), then commits the changes as `github-actions[bot]`. These files are machine-maintained — expect churn in them.
+`.github/workflows/update-content.yml` runs daily: `scripts/update-project-stars.mjs` rewrites star counts in `content/projects.json` and commits as `github-actions[bot]` (machine-maintained — expect churn). `content/updates.json` is hand-maintained news; the workflow no longer touches it.
 
 ## Conventions
 

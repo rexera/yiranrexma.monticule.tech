@@ -51,15 +51,6 @@ export function ExternalLinkIcon(props: IconProps) {
   );
 }
 
-export function LockIcon(props: IconProps) {
-  return (
-    <SvgIcon {...props}>
-      <path d="M7 11V8a5 5 0 0 1 10 0v3" />
-      <path d="M6 11h12v9a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-9z" />
-    </SvgIcon>
-  );
-}
-
 export function StarIcon(props: IconProps) {
   return (
     <SvgIcon {...props}>
