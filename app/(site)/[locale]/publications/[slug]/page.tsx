@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ArticleShell } from "@/components/article-shell";
@@ -13,6 +14,8 @@ type PageProps = {
   params: PageParams | Promise<PageParams>;
 };
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yiranrexma.monticule.tech";
+
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -24,6 +27,35 @@ export async function generateStaticParams() {
     }
   }
   return params;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolved = await params;
+  const locale = normalizeLocale(resolved.locale) ?? "en";
+  const detail = await getPublicationDetail(locale, resolved.slug);
+  if (!detail) {
+    return {};
+  }
+  const { entry } = detail;
+  const description = locale === "zh"
+    ? `${entry.authors} · ${entry.venue} · ${entry.year}`
+    : `${entry.title} — ${entry.authors}. ${entry.venue}, ${entry.year}.`;
+  return {
+    title: entry.title,
+    description,
+    alternates: {
+      canonical: `${SITE_URL}/${locale}/publications/${entry.slug}`,
+      languages: {
+        en: `${SITE_URL}/en/publications/${entry.slug}`,
+        zh: `${SITE_URL}/zh/publications/${entry.slug}`
+      }
+    },
+    openGraph: {
+      type: "article",
+      title: entry.title,
+      description
+    }
+  };
 }
 
 const TYPE_BADGE: Record<string, { en: string; zh: string }> = {

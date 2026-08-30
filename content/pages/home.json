@@ -3,7 +3,7 @@
     "description": "Copy and labels for the Home page."
   },
   "en": {
-    "heroIntro": "I am Yiran Rex Ma — artist, engineer, human. I am a Ph.D. student in Theoretical and Applied Linguistics at Peking University, with the PKU & ByteDance Digital Humanities Open Lab (PKUDH) at the Institute for Artificial Intelligence, advised by Prof. Qi Su and concentrating on foundation language models. I am striding towards becoming an LLM engineer, focusing on continual learning and personal models that swiftly adapt the foundation to diverse domains and align with inherent human preferences.",
+    "heroIntro": "I am a Ph.D. student in Theoretical and Applied Linguistics at Peking University, with the PKU & ByteDance Digital Humanities Open Lab (PKUDH) at the Institute for Artificial Intelligence, PKU, advised by Prof. Qi Su and concentrating on computational linguistics and foundation language models, focusing on continual learning and personal models that swiftly adapt the foundation to diverse domains and align with inherent human preferences.",
     "buttons": {
       "cv": "View CV",
       "publications": "View Publications",
@@ -12,7 +12,7 @@
     "highlights": {
       "title": "At a Glance",
       "focusLabel": "Current focus",
-      "focusValue": "Continual learning & personal models for LLMs",
+      "focusValue": "Continual learning & personal models",
       "contactLabel": "Email",
       "contactValue": "yiranrexma@outlook.com",
       "locationLabel": "Based in"
@@ -25,17 +25,17 @@
     }
   },
   "zh": {
-    "heroIntro": "我是马义然（Yiran Rex Ma）——artist, engineer, human。我是北京大学理论语言学与应用语言学博士研究生，在北京大学人工智能学院北大·字节跳动数字人文开放实验室（PKUDH）师从苏祺教授，研究方向为基础语言模型。我正努力成为一名 LLM 工程师，关注持续学习与个人模型：让基础模型快速适配多样的垂直领域，并实现对人类内在偏好的真正对齐。",
+    "heroIntro": "我是北京大学外国语言学及应用语言学博士研究生，在北京大学人工智能研究院下属北京大学—字节跳动数字人文开放实验室（PKUDH）开展研究，师从苏祺副教授，研究方向为计算语言学、基础语言模型，尤其是持续学习与个人模型，让基座快速适配各种垂直领域，并与人类内在偏好对齐。",
     "buttons": {
       "cv": "查看简历",
       "publications": "浏览成果",
       "blog": "阅读博客"
     },
     "highlights": {
-      "title": "工作速览",
+      "title": "快速了解我",
       "focusLabel": "当前重点",
       "focusValue": "大语言模型的持续学习与个人模型",
-      "contactLabel": "联系邮箱",
+      "contactLabel": "邮箱",
       "contactValue": "yiranrexma@outlook.com",
       "locationLabel": "常驻城市"
     },

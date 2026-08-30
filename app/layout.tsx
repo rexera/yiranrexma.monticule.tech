@@ -7,10 +7,19 @@ import "@fontsource/maple-mono/500.css";
 import "@fontsource/maple-mono/700.css";
 import { Providers } from "@/components/providers";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yiranrexma.monticule.tech";
+const SITE_NAME = "Yiran Rex Ma";
+const DESCRIPTION =
+  "Yiran Rex Ma (马义然) — Ph.D. student in Theoretical and Applied Linguistics at Peking University, working on foundation language models, continual learning, and personal models.";
+const OG_IMAGE = "/og.png";
+
 export const metadata: Metadata = {
-  title: "Yiran Rex Ma",
-  description:
-    "artist, engineer, human. Ph.D. student in Theoretical and Applied Linguistics at Peking University, working on foundation language models.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s · ${SITE_NAME}`
+  },
+  description: DESCRIPTION,
   icons: {
     icon: [
       { url: "/favicon.ico" },
@@ -20,18 +29,20 @@ export const metadata: Metadata = {
     apple: "/apple-icon.png"
   },
   openGraph: {
-    title: "Yiran Rex Ma",
-    description:
-      "artist, engineer, human. Personal homepage of a Ph.D. student working on foundation language models.",
-    siteName: "Yiran Rex Ma",
+    type: "website",
+    siteName: SITE_NAME,
     locale: "en_US",
-    type: "website"
+    alternateLocale: ["zh_CN"],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: SITE_NAME }]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yiran Rex Ma",
-    description:
-      "artist, engineer, human. Personal homepage of a Ph.D. student working on foundation language models."
+    images: [OG_IMAGE]
+  },
+  alternates: {
+    types: {
+      "application/rss+xml": `${SITE_URL}/feed.xml`
+    }
   }
 };
 

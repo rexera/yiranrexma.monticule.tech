@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -12,6 +13,24 @@ import { renderMdx } from "@/lib/mdx";
 type PageProps = {
   params: { locale: string } | Promise<{ locale: string }>;
 };
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yiranrexma.monticule.tech";
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await params;
+  const locale = normalizeLocale(resolvedParams.locale) ?? "en";
+  return {
+    title: locale === "zh" ? "故事" : "Story",
+    alternates: {
+      canonical: `${SITE_URL}/${locale}/experience`,
+      languages: {
+        en: `${SITE_URL}/en/experience`,
+        zh: `${SITE_URL}/zh/experience`,
+        "x-default": `${SITE_URL}/en/experience`
+      }
+    }
+  };
+}
 
 const ABOUT_DIR = path.join(process.cwd(), "content", "about");
 

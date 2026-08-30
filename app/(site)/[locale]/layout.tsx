@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { SiteShell } from "@/components/site-shell";
@@ -11,6 +12,23 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
+}
+
+const LOCALE_DESCRIPTIONS: Record<Locale, string> = {
+  en: "Yiran Rex Ma — Ph.D. student in Theoretical and Applied Linguistics at Peking University. Foundation language models, continual learning, personal models, and AI for the humanities.",
+  zh: "马义然（Yiran Rex Ma）——北京大学理论语言学与应用语言学博士研究生。基础语言模型、持续学习、个人模型与计算人文。"
+};
+
+export async function generateMetadata({ params }: { params: { locale: string } | Promise<{ locale: string }> }): Promise<Metadata> {
+  const resolved = await params;
+  const locale = normalizeLocale(resolved.locale) ?? "en";
+  return {
+    description: LOCALE_DESCRIPTIONS[locale],
+    openGraph: {
+      locale: locale === "zh" ? "zh_CN" : "en_US",
+      alternateLocale: locale === "zh" ? "en_US" : "zh_CN"
+    }
+  };
 }
 
 const NAV_ITEMS: Record<Locale, NavItem[]> = {
@@ -53,8 +71,13 @@ export default async function LocaleLayout({
     getUpdatesContent()[locale]?.updates?.[0]?.date;
 
   return (
-    <SiteShell navItems={navItems} profile={profile} locale={locale} lastUpdated={lastUpdated}>
-      {children}
-    </SiteShell>
+    // lang on the wrapper (display:contents keeps layout untouched) gives
+    // the zh pages a correct language signal even though the root <html>
+    // is shared with the locale-less redirect stubs.
+    <div lang={locale} className="contents">
+      <SiteShell navItems={navItems} profile={profile} locale={locale} lastUpdated={lastUpdated}>
+        {children}
+      </SiteShell>
+    </div>
   );
 }
