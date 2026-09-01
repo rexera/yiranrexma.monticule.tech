@@ -44,7 +44,10 @@ export function CommitCarousel({ commits, title }: CommitCarouselProps) {
     const viewport = viewportRef.current;
     if (!viewport) return;
     const observer = new ResizeObserver(() => {
-      const width = viewport.clientWidth;
+      // clientWidth includes the horizontal padding (px-8 × 2 = 64) that
+      // gives the edge cards' shadows room to diffuse past the column; the
+      // card row only fills the content box.
+      const width = viewport.clientWidth - 64;
       if (!width) return;
       const vis = Math.max(1, Math.floor((width + GAP) / (MIN_CARD + GAP)));
       setLayout({ vis, cardW: (width - (vis - 1) * GAP) / vis });
@@ -159,11 +162,13 @@ export function CommitCarousel({ commits, title }: CommitCarouselProps) {
       </div>
 
       {/* overflow clips at the padding edge: the pt/pb (+ matching negative
-          margins) give the card shadows room to diffuse at zero layout
-          cost, keeping the strip's bottom edge flush with the sidebar. */}
+          margins) give the card shadows room to diffuse vertically at zero
+          layout cost, and px-8/-mx-8 does the same on both sides — edge
+          cards' shadows diffuse 32px past the column edges instead of being
+          cut, keeping the strip's bottom edge flush with the sidebar. */}
       <div
         ref={viewportRef}
-        className="-mb-6 -mt-2 touch-pan-y select-none overflow-hidden pb-6 pt-2"
+        className="-mx-8 -mb-6 -mt-2 touch-pan-y select-none overflow-hidden px-8 pb-6 pt-2"
         style={{ cursor: grabbing ? "grabbing" : "grab" }}
         role="group"
         aria-live="polite"
