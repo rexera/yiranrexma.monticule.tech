@@ -272,32 +272,6 @@ body:lang(zh-Hans) {
   display: none;
 }
 
-/* Commit carousel track: the native scrollbar is hidden entirely — a
-   classic-mode scrollbar's footprint varies by platform (0–15px) and would
-   push the cards off the sidebar's bottom edge. Arrows, snap points, and
-   trackpad/wheel scrolling provide the affordances. scroll-padding-left
-   offsets the snap line by the track's left padding, so the first card
-   snaps to the column edge (not past the padding) and later cards keep a
-   peek of their predecessor; overflow-anchor stops the browser from
-   re-anchoring the scroll position past the padding on load. */
-.commit-track {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  scroll-padding-left: 1.5rem;
-  overflow-anchor: none;
-}
-
-/* On desktop the track extends 120px left (under the sidebar card), so
-   snap offsets keep cards landing at the main column's edge. */
-@media (min-width: 1024px) {
-  .commit-track {
-    scroll-padding-left: 7.5rem;
-  }
-}
-
-.commit-track::-webkit-scrollbar {
-  display: none;
-}
 
 /* ── Shiki dual-theme resolution (rehype-pretty-code) ─────────────
    Tokens carry --shiki-light/--shiki-dark inline vars; the site theme

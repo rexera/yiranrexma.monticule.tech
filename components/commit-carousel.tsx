@@ -3,7 +3,6 @@
 import clsx from "clsx";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 import type { CommitItem } from "@/lib/commits";
 
 type CommitCarouselProps = {
@@ -11,84 +10,190 @@ type CommitCarouselProps = {
   title: string;
 };
 
-/** px between cards; used to step the arrows by one card. */
-const CARD_STRIDE = 256 + 16;
+const GAP = 16;
+/** Smallest card we accept before dropping one from the visible row. */
+const MIN_CARD = 232;
+const STEP_MS = 380;
+/** Horizontal drag (px) that commits a step on release. */
+const RELEASE_THRESHOLD = 56;
+/** Trackpad deltaX accumulated before it counts as a step. */
+const WHEEL_STEP = 60;
 
 /**
- * Horizontal "latest commits" strip for the Home page: snap-scrolling cards
- * (short sha, date, first line of the message) that open the commit on
- * GitHub, with arrow buttons and the site's auto-hiding scrollbar.
+ * Commit strip for the Home page: N cards visible (fluid width, filling the
+ * column exactly), switched by swiping / trackpad / arrow keys one card at
+ * a time. Each step the strip translates by one card; the outgoing head
+ * card fades out toward the left while the next card fades in from the
+ * right — no continuous scrolling and no clip edge.
  */
 export function CommitCarousel({ commits, title }: CommitCarouselProps) {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const dragStart = useRef<number | null>(null);
+  const wheelAcc = useRef(0);
+  const wheelReset = useRef<number | undefined>(undefined);
+  const [layout, setLayout] = useState({ vis: 4, cardW: 256 });
+  const [index, setIndex] = useState(0);
+  const [dx, setDx] = useState<number | null>(null);
+  const [grabbing, setGrabbing] = useState(false);
 
-  const updateEdges = useCallback(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    setAtStart(track.scrollLeft <= 4);
-    setAtEnd(track.scrollLeft + track.clientWidth >= track.scrollWidth - 4);
-  }, []);
+  const total = commits.length;
+  const maxIndex = Math.max(0, total - layout.vis);
+  const stride = layout.cardW + GAP;
 
   useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    updateEdges();
-    track.addEventListener("scroll", updateEdges, { passive: true });
-    const observer = new ResizeObserver(updateEdges);
-    observer.observe(track);
-    return () => {
-      track.removeEventListener("scroll", updateEdges);
-      observer.disconnect();
-    };
-  }, [updateEdges, commits.length]);
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    const observer = new ResizeObserver(() => {
+      const width = viewport.clientWidth;
+      if (!width) return;
+      const vis = Math.max(1, Math.floor((width + GAP) / (MIN_CARD + GAP)));
+      setLayout({ vis, cardW: (width - (vis - 1) * GAP) / vis });
+    });
+    observer.observe(viewport);
+    return () => observer.disconnect();
+  }, []);
 
-  const step = (direction: 1 | -1) => {
-    trackRef.current?.scrollBy({ left: direction * CARD_STRIDE, behavior: "smooth" });
+  const step = useCallback(
+    (direction: 1 | -1) => {
+      setIndex((current) => Math.max(0, Math.min(maxIndex, current + direction)));
+    },
+    [maxIndex]
+  );
+
+  // Horizontal trackpad swipes: accumulate deltaX into discrete steps and
+  // let vertical scrolling fall through to the page.
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    const onWheel = (event: WheelEvent) => {
+      if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
+      event.preventDefault();
+      wheelAcc.current += event.deltaX;
+      window.clearTimeout(wheelReset.current);
+      wheelReset.current = window.setTimeout(() => (wheelAcc.current = 0), 180);
+      if (wheelAcc.current >= WHEEL_STEP) {
+        wheelAcc.current = 0;
+        step(1);
+      } else if (wheelAcc.current <= -WHEEL_STEP) {
+        wheelAcc.current = 0;
+        step(-1);
+      }
+    };
+    viewport.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      viewport.removeEventListener("wheel", onWheel);
+      window.clearTimeout(wheelReset.current);
+    };
+  }, [step]);
+
+  // Drag offset with rubber-banding past either end.
+  let drag = dx ?? 0;
+  if (dx !== null) {
+    if (index === 0 && dx > 0) drag = dx * 0.25;
+    if (index === maxIndex && dx < 0) drag = dx * 0.25;
+  }
+  const progress = dx === null ? 0 : Math.max(-1, Math.min(1, drag / stride));
+
+  const opacityFor = (i: number) => {
+    if (dx === null) {
+      return i >= index && i < index + layout.vis ? 1 : 0;
+    }
+    // While dragging, the cards about to leave/enter fade proportionally
+    // to how far the step has been pulled.
+    if (progress < 0) {
+      if (i === index) return 1 + progress;
+      if (i === index + layout.vis) return -progress;
+    } else if (progress > 0) {
+      if (i === index - 1) return progress;
+      if (i === index + layout.vis - 1) return 1 - progress;
+    }
+    return i >= index && i < index + layout.vis ? 1 : 0;
   };
 
-  const arrowClasses = (disabled: boolean) =>
-    clsx(
-      "inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-slate-500 transition hover:border-brand/60 hover:text-brand disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-slate-200 disabled:hover:text-slate-500 dark:border-slate-700 dark:bg-slate-900/60 dark:text-slate-300",
-      disabled && "opacity-35"
-    );
+  const onKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "ArrowRight") step(1);
+    if (event.key === "ArrowLeft") step(-1);
+  };
+
+  const onPointerDown = (event: React.PointerEvent) => {
+    dragStart.current = event.clientX;
+    setGrabbing(true);
+    try {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    } catch {
+      // Synthetic/inactive pointer — drag tracking works without capture.
+    }
+  };
+
+  const onPointerMove = (event: React.PointerEvent) => {
+    if (dragStart.current === null) return;
+    setDx(event.clientX - dragStart.current);
+  };
+
+  const endDrag = (event: React.PointerEvent) => {
+    if (dragStart.current === null) return;
+    const delta = event.clientX - dragStart.current;
+    dragStart.current = null;
+    setGrabbing(false);
+    setDx(null);
+    if (delta <= -RELEASE_THRESHOLD) step(1);
+    else if (delta >= RELEASE_THRESHOLD) step(-1);
+  };
+
+  if (total === 0) {
+    return null;
+  }
 
   return (
-    <section>
+    <section tabIndex={0} onKeyDown={onKeyDown} aria-roledescription="carousel" aria-label={title}>
       <div className="mb-3 flex items-center justify-between gap-4">
         <h2 className="text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
           {title}
+          <span
+            className="ml-3 font-mono text-xs font-medium tracking-normal text-slate-400 dark:text-slate-500"
+            aria-hidden="true"
+          >
+            {Math.min(index + 1, total)}–{Math.min(index + layout.vis, total)} / {total}
+          </span>
         </h2>
-        <div className="flex items-center gap-2">
-          <button type="button" aria-label="Scroll left" disabled={atStart} onClick={() => step(-1)} className={arrowClasses(atStart)}>
-            <ArrowLeftIcon aria-hidden="true" className="h-4 w-4" />
-          </button>
-          <button type="button" aria-label="Scroll right" disabled={atEnd} onClick={() => step(1)} className={arrowClasses(atEnd)}>
-            <ArrowRightIcon aria-hidden="true" className="h-4 w-4" />
-          </button>
-        </div>
       </div>
-      {/* Padding with matching negative margins, on both axes: overflow
-          clips at the padding edge, so the padding gives card shadows room
-          to diffuse (and the hover lift) at zero layout cost. On desktop
-          the left extension reaches 120px — past the grid gap and under
-          the sidebar card — so cards slide off BEHIND the sidebar instead
-          of being cut at the column edge (the sidebar sits at z-10). The
-          native scrollbar is hidden entirely (.commit-track). No space-y
-          here: it would override the negative margins. */}
-      <div className="relative">
+
+      {/* overflow clips at the padding edge: the pt/pb (+ matching negative
+          margins) give the card shadows room to diffuse at zero layout
+          cost, keeping the strip's bottom edge flush with the sidebar. */}
+      <div
+        ref={viewportRef}
+        className="-mb-6 -mt-2 touch-pan-y select-none overflow-hidden pb-6 pt-2"
+        style={{ cursor: grabbing ? "grabbing" : "grab" }}
+        role="group"
+        aria-live="polite"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={endDrag}
+        onPointerCancel={() => {
+          dragStart.current = null;
+          setDx(null);
+          setGrabbing(false);
+        }}
+      >
         <div
-          ref={trackRef}
-          className="commit-track -mx-6 -mt-2 -mb-7 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-7 pt-2 lg:-ml-[120px] lg:pl-[120px]"
+          className={clsx("flex gap-4", dx === null && "transition-transform duration-[380ms] ease-[cubic-bezier(0.2,0,0,1)]")}
+          style={{ transform: `translateX(${-index * stride + drag}px)` }}
         >
-          {commits.map((commit) => (
+          {commits.map((commit, i) => (
             <a
               key={commit.sha}
               href={commit.href}
               target="_blank"
               rel="noreferrer"
-              className="group flex w-64 shrink-0 snap-start flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_10px_30px_rgba(26,33,24,0.08)] transition hover:-translate-y-0.5 hover:border-brand/50 dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_10px_30px_rgba(0,0,0,0.45)] dark:hover:border-brand/60"
+              draggable={false}
+              className="flex shrink-0 snap-start flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-4 text-left shadow-[0_10px_30px_rgba(26,33,24,0.08)] transition hover:border-brand/50 dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_10px_30px_rgba(0,0,0,0.45)] dark:hover:border-brand/60"
+              style={{
+                width: layout.cardW,
+                opacity: opacityFor(i),
+                transition: dx === null ? "opacity 240ms ease, border-color 150ms ease" : "none",
+                pointerEvents: i >= index && i < index + layout.vis ? "auto" : "none"
+              }}
             >
               <div className="flex items-center justify-between gap-2 text-xs">
                 <span className="font-mono font-semibold text-brand">{commit.sha.slice(0, 7)}</span>
@@ -101,14 +206,6 @@ export function CommitCarousel({ commits, title }: CommitCarouselProps) {
             </a>
           ))}
         </div>
-        {/* Canvas-colored fade across the sidebar gap: cards dissolve into
-            the background as they slide off behind the (opaque) sidebar —
-            no hard clip edge. Ends exactly at the column edge so the first
-            card at rest is untouched. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 -left-9 hidden w-9 bg-gradient-to-r from-[var(--canvas)] to-transparent lg:block"
-        />
       </div>
     </section>
   );
