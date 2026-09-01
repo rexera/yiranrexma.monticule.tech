@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>CV - Yiran Rex Ma</title>
-<script>try{var L=localStorage.getItem('cv-lang');if(!L){var N=(navigator.languages&&navigator.languages[0])||navigator.language||'';L=(N+'').toLowerCase().indexOf('zh')===0?'zh':'en';}if(L==='en'){document.documentElement.dataset.lang='en';document.documentElement.lang='en';}}catch(e){}</script>
+<script>try{var N=(navigator.languages&&navigator.languages[0])||navigator.language||'';if((N+'').toLowerCase().indexOf('zh')!==0){document.documentElement.dataset.lang='en';document.documentElement.lang='en';}}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="cv/assets/favicon.svg">
 <style>
   :root{
@@ -637,7 +637,6 @@
   });
 
   /* ---------- 中英文切换 ---------- */
-  var LANG_KEY = 'cv-lang';
   var langBtn = document.getElementById('langBtn');
   function langBtnHTML(lang){
     return lang === 'en' ? '中' : 'EN';
@@ -652,20 +651,15 @@
     langBtn.setAttribute('aria-label', langBtn.title);
     render();
   }
+  // Language is never persisted: every visit follows the browser language
+  // (zh* → Chinese, anything else → English), and the toggle lasts only
+  // until the page is closed — mirroring the site's entry-redirect rule.
   langBtn.addEventListener('click', function(){
     var next = (document.documentElement.dataset.lang === 'en') ? 'zh' : 'en';
-    try { localStorage.setItem(LANG_KEY, next); } catch(e){}
     applyLang(next);
   });
-  var savedLang = null;
-  try { savedLang = localStorage.getItem(LANG_KEY); } catch(e){}
-  if(!savedLang){
-    // No manual preference yet — follow the browser language, mirroring
-    // the site's entry-redirect rule (zh* → Chinese, anything else → English).
-    var navLang = (navigator.languages && navigator.languages[0]) || navigator.language || '';
-    savedLang = (navLang + '').toLowerCase().indexOf('zh') === 0 ? 'zh' : 'en';
-  }
-  applyLang(savedLang === 'en' ? 'en' : 'zh');
+  var navLang = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+  applyLang((navLang + '').toLowerCase().indexOf('zh') === 0 ? 'zh' : 'en');
 
   window.addEventListener('resize', render);
   window.addEventListener('load', function(){ render(); setTimeout(render, 250); });
