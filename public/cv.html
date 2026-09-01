@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>CV - Yiran Rex Ma</title>
-<script>try{var L=localStorage.getItem('cv-lang');if(L==='en'){document.documentElement.dataset.lang='en';document.documentElement.lang='en';}}catch(e){}</script>
+<script>try{var L=localStorage.getItem('cv-lang');if(!L){var N=(navigator.languages&&navigator.languages[0])||navigator.language||'';L=(N+'').toLowerCase().indexOf('zh')===0?'zh':'en';}if(L==='en'){document.documentElement.dataset.lang='en';document.documentElement.lang='en';}}catch(e){}</script>
 <link rel="icon" type="image/svg+xml" href="cv/assets/favicon.svg">
 <style>
   :root{
@@ -659,6 +659,12 @@
   });
   var savedLang = null;
   try { savedLang = localStorage.getItem(LANG_KEY); } catch(e){}
+  if(!savedLang){
+    // No manual preference yet — follow the browser language, mirroring
+    // the site's entry-redirect rule (zh* → Chinese, anything else → English).
+    var navLang = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+    savedLang = (navLang + '').toLowerCase().indexOf('zh') === 0 ? 'zh' : 'en';
+  }
   applyLang(savedLang === 'en' ? 'en' : 'zh');
 
   window.addEventListener('resize', render);
