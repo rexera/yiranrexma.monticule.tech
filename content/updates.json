@@ -32,14 +32,14 @@
         "date": "2025-07-28",
         "type": "Publication",
         "title": "Pun2Pun: Textual-Visual Chinese-English Pun Translation via Linguistic Reasoning",
-        "summary": "A benchmark for pun translation between Chinese and English, with the Constant-Variable Optimization strategy and the Overlap metric; ACL 2025.",
+        "summary": "A benchmark for pun translation between Chinese and English, with the Constant-Variable Optimization strategy and the Overlap metric; ACL 2025 SRW.",
         "link": "https://aclanthology.org/2025.acl-srw.23/"
       },
       {
         "date": "2025-07-28",
         "type": "Publication",
         "title": "Do Androids Question Electric Sheep? A Multi-Agent Simulation of Philosophical Reflection",
-        "summary": "LLM agents debate as great thinkers to solve table reasoning, revealing an “overthinking threshold” where more thinking hurts; ACL 2025.",
+        "summary": "LLM agents debate as great thinkers to solve table reasoning, revealing an “overthinking threshold” where more thinking hurts; ACL 2025 SRW.",
         "link": "https://aclanthology.org/2025.acl-srw.9/"
       },
       {
@@ -85,14 +85,14 @@
         "date": "2025-07-28",
         "type": "论文",
         "title": "Pun2Pun: Textual-Visual Chinese-English Pun Translation via Linguistic Reasoning",
-        "summary": "中英双语文本-视觉双关翻译基准，提出 CVO 翻译策略与 Overlap 指标；ACL 2025。",
+        "summary": "中英双语文本-视觉双关翻译基准，提出 CVO 翻译策略与 Overlap 指标；ACL 2025 SRW。",
         "link": "https://aclanthology.org/2025.acl-srw.23/"
       },
       {
         "date": "2025-07-28",
         "type": "论文",
         "title": "Do Androids Question Electric Sheep? A Multi-Agent Simulation of Philosophical Reflection",
-        "summary": "LLM 智能体扮演思想家辩论求解表格推理，发现“过度思考阈值”；ACL 2025。",
+        "summary": "LLM 智能体扮演思想家辩论求解表格推理，发现“过度思考阈值”；ACL 2025 SRW。",
         "link": "https://aclanthology.org/2025.acl-srw.9/"
       },
       {
