@@ -15,8 +15,8 @@ export function generateStaticParams() {
 }
 
 const LOCALE_DESCRIPTIONS: Record<Locale, string> = {
-  en: "Yiran Rex Ma — Ph.D. student in Theoretical and Applied Linguistics at Peking University. Foundation language models, continual learning, personal models, and AI for the humanities.",
-  zh: "马义然（Yiran Rex Ma）——北京大学语言学博士研究生。基础语言模型、持续学习、个人模型与计算人文。"
+  en: "Yiran Rex Ma — master's student in Foreign Linguistics and Applied Linguistics at Peking University, and an independent researcher. Foundation language models, continual learning, personal models, and AI for the humanities.",
+  zh: "马义然（Yiran Rex Ma）——北京大学外国语言学及应用语言学硕士研究生、独立研究者。基础语言模型、持续学习、个人模型与计算人文。"
 };
 
 export async function generateMetadata({ params }: { params: { locale: string } | Promise<{ locale: string }> }): Promise<Metadata> {

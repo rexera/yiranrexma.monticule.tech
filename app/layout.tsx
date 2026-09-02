@@ -10,7 +10,7 @@ import { Providers } from "@/components/providers";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yiranrexma.monticule.tech";
 const SITE_NAME = "Yiran Rex Ma";
 const DESCRIPTION =
-  "Yiran Rex Ma (马义然) — Ph.D. student in Theoretical and Applied Linguistics at Peking University, working on foundation language models, continual learning, and personal models.";
+  "Yiran Rex Ma (马义然) — master's student in Foreign Linguistics and Applied Linguistics at Peking University and an independent researcher, working on foundation language models, continual learning, and personal models.";
 const OG_IMAGE = "/og.png";
 
 export const metadata: Metadata = {

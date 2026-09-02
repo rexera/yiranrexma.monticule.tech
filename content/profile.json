@@ -18,17 +18,42 @@
     "name": "Yiran Rex Ma",
     "nativeName": "马义然",
     "aka": "Rex",
-    "title": "Ph.D. Student in Theoretical and Applied Linguistics",
-    "affiliation": "Peking University & ByteDance Digital Humanities Open Lab (PKUDH)",
+    "title": "Master's Student in Foreign Linguistics and Applied Linguistics",
+    "affiliation": "Independent Researcher · Entrepreneur",
     "location": "Beijing, China",
-    "keywords": ["Foundation Language Models", "Continual Learning", "Personal Models"],
+    "keywords": [
+      "Foundation Language Models",
+      "Continual Learning",
+      "Personal Models"
+    ],
     "social": [
-      { "label": "X", "href": "https://x.com/rex_era_" },
-      { "label": "GitHub", "href": "https://github.com/rexera" },
-      { "label": "Instagram", "href": "https://www.instagram.com/yiran_rex_ma_/" },
-      { "label": "WeChat OA", "href": "", "qr": "/images/wechat_oa.JPG" },
-      { "label": "RedNote", "href": "", "qr": "/images/xiaohongshu.JPG" },
-      { "label": "Douyin", "href": "", "qr": "/images/douyin.JPG" }
+      {
+        "label": "X",
+        "href": "https://x.com/rex_era_"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/rexera"
+      },
+      {
+        "label": "Instagram",
+        "href": "https://www.instagram.com/yiran_rex_ma_/"
+      },
+      {
+        "label": "WeChat OA",
+        "href": "",
+        "qr": "/images/wechat_oa.JPG"
+      },
+      {
+        "label": "RedNote",
+        "href": "",
+        "qr": "/images/xiaohongshu.JPG"
+      },
+      {
+        "label": "Douyin",
+        "href": "",
+        "qr": "/images/douyin.JPG"
+      }
     ],
     "avatar": "/images/profile.webp",
     "cvLink": ""
@@ -36,17 +61,42 @@
   "zh": {
     "name": "马义然",
     "nativeName": "Yiran Rex Ma",
-    "title": "外国语言学博士研究生",
-    "affiliation": "北京大学 · 字节跳动数字人文开放实验室（PKUDH）",
+    "title": "外国语言学及应用语言学硕士研究生",
+    "affiliation": "独立研究者 · 创业者",
     "location": "中国·北京",
-    "keywords": ["基础语言模型", "持续学习", "个人模型"],
+    "keywords": [
+      "基础语言模型",
+      "持续学习",
+      "个人模型"
+    ],
     "social": [
-      { "label": "X", "href": "https://x.com/rex_era_" },
-      { "label": "GitHub", "href": "https://github.com/rexera" },
-      { "label": "Instagram", "href": "https://www.instagram.com/yiran_rex_ma_/" },
-      { "label": "微信公众号", "href": "", "qr": "/images/wechat_oa.JPG" },
-      { "label": "小红书", "href": "", "qr": "/images/xiaohongshu.JPG" },
-      { "label": "抖音", "href": "", "qr": "/images/douyin.JPG" }
+      {
+        "label": "X",
+        "href": "https://x.com/rex_era_"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/rexera"
+      },
+      {
+        "label": "Instagram",
+        "href": "https://www.instagram.com/yiran_rex_ma_/"
+      },
+      {
+        "label": "微信公众号",
+        "href": "",
+        "qr": "/images/wechat_oa.JPG"
+      },
+      {
+        "label": "小红书",
+        "href": "",
+        "qr": "/images/xiaohongshu.JPG"
+      },
+      {
+        "label": "抖音",
+        "href": "",
+        "qr": "/images/douyin.JPG"
+      }
     ],
     "avatar": "/images/profile.webp",
     "cvLink": ""

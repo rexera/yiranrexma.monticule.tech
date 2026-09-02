@@ -3,7 +3,7 @@
     "description": "Copy and labels for the Home page."
   },
   "en": {
-    "heroIntro": "I am a Ph.D. student in Theoretical and Applied Linguistics at Peking University, with the PKU & ByteDance Digital Humanities Open Lab (PKUDH) at the Institute for Artificial Intelligence, PKU, advised by Prof. Qi Su and concentrating on computational linguistics and foundation language models, focusing on continual learning and personal models that swiftly adapt the foundation to diverse domains and align with inherent human preferences.",
+    "heroIntro": "I am Yiran Rex Ma — artist, engineer, human. I am a master's student in Foreign Linguistics and Applied Linguistics at Peking University, now working as an independent researcher and entrepreneur. I am striding towards becoming an LLM engineer, focusing on continual learning and personal models that swiftly adapt the foundation to diverse domains and align with inherent human preferences.",
     "buttons": {
       "cv": "View CV",
       "publications": "View Publications",
@@ -25,7 +25,7 @@
     }
   },
   "zh": {
-    "heroIntro": "我是北京大学外国语言学及应用语言学博士研究生，在北京大学人工智能研究院下属北京大学—字节跳动数字人文开放实验室（PKUDH）开展研究，师从苏祺副教授，研究方向为计算语言学、基础语言模型，尤其是持续学习与个人模型，让基座快速适配各种垂直领域，并与人类内在偏好对齐。",
+    "heroIntro": "我是马义然（Yiran Rex Ma）——artist, engineer, human。我是北京大学外国语言学及应用语言学硕士研究生，现为独立研究者与创业者。我正努力成为一名 LLM 工程师，关注持续学习与个人模型：让基础模型快速适配多样的垂直领域，并实现对人类内在偏好的真正对齐。",
     "buttons": {
       "cv": "查看简历",
       "publications": "浏览成果",
