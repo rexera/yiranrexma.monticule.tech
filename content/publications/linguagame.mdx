@@ -1,0 +1,23 @@
+---
+title: "LinguaGame: A Linguistically Grounded Game-Theoretic Paradigm for Multi-Agent Dialogue Generation"
+date: "2026-07-15"
+summary: "What if agents argued like strategic speakers instead of polite role-players? LinguaGame models multi-agent dialogue as a signalling game over intents and strategies — with real gains in simulated courtrooms and debates."
+tags:
+  - Publication
+type: "research"
+---
+
+Picture a courtroom. The prosecution and defense aren't just taking turns producing text — they are reading each other's goals, choosing when to concede and when to press, and adapting every utterance to what the other side is *trying* to do. That strategic, intentional quality is exactly what most multi-agent systems built on LLMs are missing.
+
+Recent work on LLM-based Multi-Agent Systems (MASs) has mostly focused on architecture design, such as role assignment and workflow orchestration. In contrast, our paper targets the **interaction process itself**: improving agents' communication efficiency by helping them convey their intended meaning more effectively through language.
+
+That's the idea behind **LinguaGame**, a linguistically grounded game-theoretic paradigm for multi-agent dialogue generation. Our approach models dialogue as a **signalling game over communicative intents and strategies**, solved with a training-free equilibrium approximation algorithm for inference-time decision adjustment. Unlike prior game-theoretic MASs, whose game designs are often tightly coupled with task-specific objectives, our framework relies on linguistically informed reasoning with minimal task-specific coupling. Specifically, it treats dialogue as intentional and strategic communication, requiring agents to infer what others aim to achieve (intents) and how they pursue those goals (strategies).
+
+We evaluated the framework in simulated courtroom proceedings and debates, with human experts assessing the generated dialogues. The results show significant gains in communication efficiency: dialogue quality improved by **6.3%–20.1%** across clarity, conciseness, argumentation, and tactic. We release our code and data on GitHub.
+
+📄 **Read the full paper here:**
+
+[![acl](https://img.shields.io/badge/ACL%20Anthology-2026.findings--acl.1028-b31b1b.svg)](https://aclanthology.org/2026.findings-acl.1028/)
+
+*Abstract:*
+> Large Language Models (LLMs) have enabled Multi-Agent Systems (MASs) where agents interact through natural language to solve complex tasks or simulate multi-party dialogues. Recent work on LLM-based MASs has mainly focused on architecture design, such as role assignment and workflow orchestration. In contrast, this paper targets the interaction process itself, aiming to improve agents' communication efficiency by helping them convey their intended meaning more effectively through language. To this end, we propose LinguaGame, a linguistically-grounded game-theoretic paradigm for multi-agent dialogue generation. Our approach models dialogue as a signalling game over communicative intents and strategies, solved with a training-free equilibrium approximation algorithm for inference-time decision adjustment. Unlike prior game-theoretic MASs, whose game designs are often tightly coupled with task-specific objectives, our framework relies on linguistically informed reasoning with minimal task-specific coupling. Specifically, it treats dialogue as intentional and strategic communication, requiring agents to infer what others aim to achieve (intents) and how they pursue those goals (strategies). We evaluate our framework in simulated courtroom proceedings and debates, with human expert assessments showing significant gains in communication efficiency. We release our code and data on GitHub.

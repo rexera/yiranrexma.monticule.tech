@@ -23,7 +23,7 @@
         "id": "C.4",
         "type": "C",
         "title": "CLASE: Chinese LegAlese Stylistic Evaluation",
-        "authors": "Yiran Rex Ma",
+        "authors": "Yiran Rex Ma*, Yuxiao Ye*, and Huiyuan Xie",
         "venue": "LREC 2026 (ACL Anthology)",
         "year": "2026",
         "tags": [
@@ -38,8 +38,29 @@
             "href": "https://aclanthology.org/2026.lrec-1.46/"
           }
         ],
-        "notes": "Hybrid, reference-free evaluation of stylistic fidelity in Chinese legal text, combining linguistic features with experience-guided LLM-as-a-judge scoring; experiments on 200 legal documents.",
+        "notes": "Co-first authors (*equal contribution). Hybrid, reference-free evaluation of stylistic fidelity in Chinese legal text, combining linguistic features with experience-guided LLM-as-a-judge scoring; experiments on 200 legal documents.",
         "slug": "clase"
+      },
+      {
+        "id": "C.5",
+        "type": "C",
+        "slug": "linguagame",
+        "title": "LinguaGame: A Linguistically Grounded Game-Theoretic Paradigm for Multi-Agent Dialogue Generation",
+        "authors": "Yuxiao Ye, Yiming Zhang, Yiran Rex Ma, Huiyuan Xie, Huining Zhu, and Zhiyuan Liu",
+        "venue": "ACL 2026 Findings",
+        "year": "2026",
+        "tags": [
+          "Multi-Agent Systems",
+          "Dialogue Generation",
+          "Game Theory"
+        ],
+        "links": [
+          {
+            "label": "ACL Anthology",
+            "href": "https://aclanthology.org/2026.findings-acl.1028/"
+          }
+        ],
+        "notes": "Dialogue modelled as a signalling game over communicative intents and strategies; human-expert evaluations in simulated courtrooms and debates show dialogue quality gains of 6.3%–20.1% across clarity, conciseness, argumentation, and tactics."
       },
       {
         "id": "S.1",
@@ -159,7 +180,7 @@
         "id": "C.4",
         "type": "C",
         "title": "CLASE: Chinese LegAlese Stylistic Evaluation",
-        "authors": "Yiran Rex Ma",
+        "authors": "Yiran Rex Ma*, Yuxiao Ye*, and Huiyuan Xie",
         "venue": "LREC 2026 (ACL Anthology)",
         "year": "2026",
         "tags": [
@@ -174,8 +195,29 @@
             "href": "https://aclanthology.org/2026.lrec-1.46/"
           }
         ],
-        "notes": "Hybrid, reference-free evaluation of stylistic fidelity in Chinese legal text, combining linguistic features with experience-guided LLM-as-a-judge scoring; experiments on 200 legal documents.",
+        "notes": "共同第一作者（*同等贡献）。Hybrid, reference-free evaluation of stylistic fidelity in Chinese legal text, combining linguistic features with experience-guided LLM-as-a-judge scoring; experiments on 200 legal documents.",
         "slug": "clase"
+      },
+      {
+        "id": "C.5",
+        "type": "C",
+        "slug": "linguagame",
+        "title": "LinguaGame: A Linguistically Grounded Game-Theoretic Paradigm for Multi-Agent Dialogue Generation",
+        "authors": "Yuxiao Ye, Yiming Zhang, Yiran Rex Ma, Huiyuan Xie, Huining Zhu, and Zhiyuan Liu",
+        "venue": "ACL 2026 Findings",
+        "year": "2026",
+        "tags": [
+          "Multi-Agent Systems",
+          "Dialogue Generation",
+          "Game Theory"
+        ],
+        "links": [
+          {
+            "label": "ACL Anthology",
+            "href": "https://aclanthology.org/2026.findings-acl.1028/"
+          }
+        ],
+        "notes": "将对话建模为关于交际意图与策略的信号博弈；在模拟庭审与辩论场景的专家评估中，清晰度、简洁性、论证性、策略性四个维度的对话质量提升 6.3%–20.1%。"
       },
       {
         "id": "S.1",
