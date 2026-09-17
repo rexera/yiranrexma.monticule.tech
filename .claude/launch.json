@@ -6,6 +6,12 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["next", "start", "-p", "3100"],
       "port": 3100
+    },
+    {
+      "name": "prod-verify",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["next", "start", "-p", "3101"],
+      "port": 3101
     }
   ]
 }

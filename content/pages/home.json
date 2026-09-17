@@ -3,7 +3,7 @@
     "description": "Copy and labels for the Home page."
   },
   "en": {
-    "heroIntro": "I am Yiran Rex Ma — artist, engineer, human. I am a master's student in Foreign Linguistics and Applied Linguistics at Peking University, now working as an independent researcher and entrepreneur. I am striding towards becoming an LLM engineer, focusing on continual learning and personal models that swiftly adapt the foundation to diverse domains and align with inherent human preferences.",
+    "heroIntro": "I am a postgraduate in Linguistics and Applied Linguistics at Peking University, now working as an independent researcher and entrepreneur, building a Neo-Lab, Monticule Tech. I am striding towards becoming an LLM full-stack engineer, focusing on continual learning and personal models that swiftly adapt the foundation to diverse domains and align with inherent human preferences.",
     "buttons": {
       "publications": "View Publications",
       "blog": "Read the Blog"
@@ -24,7 +24,7 @@
     }
   },
   "zh": {
-    "heroIntro": "我是马义然（Yiran Rex Ma）——artist, engineer, human。我是北京大学外国语言学及应用语言学硕士研究生，现为独立研究者与创业者。我正努力成为一名 LLM 工程师，关注持续学习与个人模型：让基础模型快速适配多样的垂直领域，并实现对人类内在偏好的真正对齐。",
+    "heroIntro": "北京大学外国语言学及应用语言学硕士，独立研究者与Neo Lab创业者，正在创办蒙迪丘（Monticule Tech）。我正努力成长为一名 LLM 全栈工程师，关注持续学习与个人模型，让基座模型快速适配多种垂直领域，并真正对齐人类内在偏好。",
     "buttons": {
       "publications": "浏览成果",
       "blog": "阅读博客"
