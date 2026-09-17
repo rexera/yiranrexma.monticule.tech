@@ -6,6 +6,8 @@ import { LOCALES } from "@/lib/locale";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yiranrexma.monticule.tech";
 
+export const dynamic = "force-static";
+
 /**
  * Full sitemap across both locales: the static tabs plus every blog post
  * and publication detail page. Static-export compatible (baked at build).
