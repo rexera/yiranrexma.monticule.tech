@@ -1,7 +1,16 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
 /** @type {import('next').NextConfig} */
 const isEdgeOneBuild = process.env.EDGEONE === "1";
 
+// Pin the workspace root to this project. A stray lockfile higher up the tree
+// (say ~/package-lock.json) otherwise makes Next infer a different root, and
+// `next build` / `next start` then look for the build in the wrong .next.
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
+
 const nextConfig = {
+  outputFileTracingRoot: projectRoot,
   images: {
     // Keep images unoptimized so the same codebase works on:
     // 1. Vercel (fine either way for this template), and
