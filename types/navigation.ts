@@ -2,6 +2,7 @@ export type NavItem = {
   label: string;
   href: string;
   /** Opens in a new tab as a plain anchor instead of client-side routing
-   *  (used for standalone pages like the CV at /cv.html). */
+   *  (for standalone pages served from /public that live outside the
+   *  locale route tree). */
   external?: boolean;
 };

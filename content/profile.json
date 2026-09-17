@@ -10,7 +10,6 @@
       "location": "City, Country",
       "keywords": "Array of 2-4 short research keywords",
       "social": "Array of { label, href, qr? } links. Entries with a qr image path show a QR popover instead of navigating.",
-      "cvLink": "Relative URL to a downloadable CV under /public",
       "avatar": "Optional path to an image under /public"
     }
   },
@@ -55,8 +54,7 @@
         "qr": "/images/douyin.JPG"
       }
     ],
-    "avatar": "/images/profile.webp",
-    "cvLink": ""
+    "avatar": "/images/profile.webp"
   },
   "zh": {
     "name": "马义然",
@@ -98,7 +96,6 @@
         "qr": "/images/douyin.JPG"
       }
     ],
-    "avatar": "/images/profile.webp",
-    "cvLink": ""
+    "avatar": "/images/profile.webp"
   }
 }

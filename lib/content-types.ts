@@ -12,7 +12,6 @@ export type LocaleProfile = {
     /** Optional QR-code image under /public; shown in a hover popover instead of linking out. */
     qr?: string;
   }[];
-  cvLink: string;
   avatar?: string;
 };
 
@@ -95,7 +94,6 @@ export type BlogPageCopy = Localized<{
 export type HomePageCopy = Localized<{
   heroIntro: string;
   buttons: {
-    cv: string;
     publications: string;
     blog: string;
   };

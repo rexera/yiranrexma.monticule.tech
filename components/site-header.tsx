@@ -53,8 +53,8 @@ export function SiteHeader({ navItems, profileName, currentLocale = "en" }: Site
 
     const className = `${baseClasses} ${active ? activeClasses : inactiveClasses}`;
 
-    // External items (e.g. the standalone CV) open in a new tab and never
-    // take over the current page.
+    // External items (standalone pages outside the locale tree) open in a new
+    // tab and never take over the current page.
     if (item.external) {
       return (
         <a key={item.href} href={item.href} target="_blank" rel="noreferrer" className={className}>
