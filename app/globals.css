@@ -16,8 +16,11 @@
   --brand-on: 255 255 255;
 
   /* Page canvas. html and body both paint it so rubber-band overscroll
-     never reveals a different-colored edge. */
-  --canvas: #fafbf0;
+     never reveals a different-colored edge.
+     Light theme only: the background sits at 65% of its original saturation
+     (#fafbf0 → #f8f9f2) so the page reads calmer. Every other palette token
+     — text, links, borders, accents — keeps the original value. */
+  --canvas: #f8f9f2;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -188,6 +191,12 @@ body:lang(zh-Hans) {
   display: block;
   margin: 1.75em auto;
   border-radius: 0.75rem;
+}
+
+/* Captioned figures: the <figure> owns the block spacing, so the image
+   inside drops the standalone margin and sits tight above its caption. */
+.mdx-article :where(figure) :where(img) {
+  margin: 0 auto;
 }
 
 .mdx-article :where(table) {

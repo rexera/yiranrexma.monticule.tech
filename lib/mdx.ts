@@ -9,6 +9,7 @@ import type { ReactElement } from "react";
 
 import { Callout } from "@/components/callout";
 import { CodeBlock } from "@/components/code-block";
+import { Figure } from "@/components/figure";
 import { Table } from "@/components/table";
 
 export type TocEntry = {
@@ -57,6 +58,7 @@ export function extractToc(markdown: string): TocEntry[] {
 
 const MDX_COMPONENTS = {
   pre: CodeBlock,
+  img: Figure,
   Callout,
   Table
 };
