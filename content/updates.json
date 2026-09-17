@@ -8,6 +8,13 @@
   "en": {
     "updates": [
       {
+        "date": "2026-09-17",
+        "type": "Blog",
+        "title": "Renting Parameters: The Engineering, Science, and Political Economy of Continual Learning",
+        "summary": "Why continual learning is back in mid-2026: four paths to teaching a frozen giant something new, PEFT's three-year filigree era and the Bitter Lesson it ran into, and why taste, tone and judgment belong in parameters rather than in prompts.",
+        "link": "/en/blog/renting-ai"
+      },
+      {
         "date": "2026-05-10",
         "type": "Publication",
         "title": "CLASE: Chinese Stylistic Evaluation",
@@ -60,6 +67,13 @@
   },
   "zh": {
     "updates": [
+      {
+        "date": "2026-09-17",
+        "type": "博客",
+        "title": "租参数：持续学习的工程、科学与政治经济学",
+        "summary": "持续学习为什么在 2026 年年中又被翻出来：教一个冻结的巨人学新东西的四条路、PEFT 的三年雕花时代与它撞上的苦涩教训，以及口吻、审美与判断为什么应当沉淀在参数里。",
+        "link": "/zh/blog/renting-ai"
+      },
       {
         "date": "2026-05-10",
         "type": "论文",
