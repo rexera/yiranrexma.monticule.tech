@@ -297,21 +297,6 @@ body:lang(zh-Hans) {
   margin: 0 auto;
 }
 
-/* Pictures sit on the page rather than in it. The shadow is kept small so it
-   stays clear of the caption 10px below (offset 6 + spread -8 + blur/2 8 =
-   6px). Badges (shields.io, inline inside a paragraph) stay flat — only
-   images at the top level of the article, which is what the pipeline leaves
-   behind for a figure, get one. */
-.mdx-article > :where(img),
-.mdx-article > :where(figure) :where(img) {
-  box-shadow: 0 6px 16px -8px rgba(26, 33, 24, 0.35);
-}
-
-.dark .mdx-article > :where(img),
-.dark .mdx-article > :where(figure) :where(img) {
-  box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.65);
-}
-
 .mdx-article :where(table) {
   display: block;
   overflow-x: auto;
