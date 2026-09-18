@@ -1,0 +1,128 @@
+---
+title: "尝试区分：NLP、计算语言学与数字人文"
+date: "2024-09-06"
+summary: "ACL 2024 在曼谷开，大会主席 Emily M. Bender 在致辞里扔下一句：“ACL 不是 AI 会议。”"
+tags:
+  - Thoughts
+type: "note"
+---
+
+## 引言：“ACL 不是 AI 会议”
+
+**“ACL 不是 AI 会议。”**
+
+这话出自本届 ACL 大会主席 Emily M. Bender 的[致辞](https://bit.ly/EMB-ACL24)。今年的会在曼谷开。这一句话，争议不小。
+
+<img width="700" alt="ACL 不是 AI 会议" src="/images/posts/nlp-cl-dh/2c8386ac-2405-4a68-b841-69f2b03c482b.webp" />
+
+她的理由是：ACL 的全称是*计算语言学*协会（Association for Computational Linguistics）年会，重点本来就不在人工智能，而在语言技术和计算语言学。机器学习（深度学习也算在内）确实给这两个方向提供了不少好用的工具，这一点她认。可一旦重心挪到 AI 上，麻烦就来了。
+
+Bender 认为，ACL 的重心应该放在“语言”上，而这个重心，得靠对数据的理解撑起来：既要知道语言是怎么运转的（也就是语言学），也得把数据集的文档交代清楚。至于 AI，它关心的是另一件事——“怎么让机器拥有像人一样的智能”。
+
+<img width="700" alt="acl_language" src="/images/posts/nlp-cl-dh/7bbf0cc7-9103-45b1-ad2c-1e1ab440d773.webp" />
+<img width="700" alt="acl_ai" src="/images/posts/nlp-cl-dh/71c1a23c-d7f3-4f96-a2d6-4ea9d9e9c005.webp" />
+
+AI 这几年一路狂飙，商业化也跟上了，学术圈里各种坏风气跟着冒头：benchmark 乱用，非要跟闭源的 SOTA 模型比个高低，数据集堆得越来越大，最后数据反而留不下来。Bender 说，如果你的研究问题最后指向“怎么证明我这台机器是智能的”，那研究本身就会被带歪。AI 的声量一涨，审稿也跟着走样：不用 LLM、跑不出 SOTA 量级结果的论文，人家看都懒得看。
+
+所以她主张，ACL 应该守住语言技术这块地方——扶持跨学科研究，在乎语言社群，也能让大家坐下来，理性聊聊自己的研究和技术会带来什么社会影响。
+
+<img width="700" alt="image" src="/images/posts/nlp-cl-dh/7e9f3b55-bdcc-4689-b203-5ba3e2a8eabb.webp" />
+<img width="700" alt="image" src="/images/posts/nlp-cl-dh/a3280917-9de7-41a6-a526-c20f01b08d2c.webp" />
+
+这说法当然吵起来了。有人说，这两个领域早就长在一起，分不开；有人嫌这立场太窄；也有人表示理解——AI 确实未必把语言本身当回事。
+
+## 一点私事
+
+学科的边界，到底划在哪儿？
+
+### 困惑是怎么来的
+
+我高中三年读的是文科，接着四年学的全是人文，后来又跑去一所理工科大学读语言学。本专业的地位有多低，我算是**忍受**过——这是第一条，多的不说了。
+
+ChatGPT 火起来之后，文理之间的裂缝从没这么宽过（裂缝一直都在，我承认，但没宽到*逼着一个文科生只能去读理工科*的地步 😇），文科的饭碗也跟着一批批地没了——这是第二条。
+
+第二条的余震还没散，一个新词冒了出来：数字人文。这词来自几个非人文学者做成的项目，本来只是零星几例。结果国内最顶尖的那几所高校，一夜之间就办期刊、开会议，甚至挂起“社会科学实验室”的牌子。可数字人文到底是什么？我在理工科大学读语言学，这个问题困扰了我很久，一直没弄明白。
+
+是能发在 *Nature* 上的甲骨文破译？是古籍的数字化和智能标注？还是拿语料配上几张花哨的可视化，做做话语分析？一下子涌进来一批计算机学者，可活儿最后还是落回传统人文学者手里——他们正在信息时代的浪里挣扎求生。数字人文到底是什么？没人知道。这是第三条。
+
+第二条那一击我也扛过来了，然后从零开始学数学、统计、编程、机器学习。慢慢地，我摸到了 LLM 相关的方向，发现拿 LLM 去做那么多任务，实在有意思，也有意义，其中不少和语言学脱不了干系——这是第四条。
+
+### 问题：NLP 与 CL
+
+刚入行、正准备定研究生方向那会儿，我犯起了迷糊：自然语言处理（Natural Language Processing, NLP）和计算语言学（Computational Linguistics，下面简称 CL）到底差在哪？
+
+论内容，甚至光看顶会的名字（ACL 嘛，不然呢），这俩就是一回事。可不管是前几轮深度学习模型的爆发，还是眼下这波 AI 浪潮，被追捧的始终是“NLP”，语言学和计算语言学倒是悄没声了。
+
+直到这一年论文读下来，NLP 技术和语言学理论两头的进展都见了见，收获不小，我得出一个结论：
+
+原先占主导的那套东西——深度学习、大数据、弱规则、经验主义、联结主义——**不会一直一家独大**。LLM 带来范式转移之后，靠**小数据、强规则、理性主义、符号系统**的方法会重新起来。
+
+> Inspired by: 杨延宁.(2024).语言学与人工智能：下一个十年.外语教学理论与实践(03),1-9.
+
+“计算语言学”这个词之所以消失，本身就是经验主义得了势。理性主义一回潮，NLP 和 CL 的边界会重新糊掉，语言学和 CL 的地位也会跟着往上走。
+
+### 智能体的转世
+
+这里想给几件有代表性的智能体（Agent）工作记一笔。它们不怎么费力，就把符号主义和理性主义带了回来，或者说，把 AI 的*语言学*未来带了回来。
+
+**智能体一点都不新鲜。** 这得谢 CAMEL AI 李国豪（Guohao Li）的一场线上分享。听下来我才捋清楚，神经网络当年站在谁的对立面：SVM 和随机森林把整个 AI 圈泡成一潭死水，是神经网络把这潭水搅活的。如今 LLM 又掀了一波浪潮，神经网络当年那个对立面——符号主义——放到眼下意味着什么，我也算看明白了。我甚至照他提的，买了本 Marvin Minsky 的 *The Society of Mind*，这才见识到 1980 年代那支完全不同的 AI 学派：符号主义 AI（Symbolic AI），符号、自然语言逻辑、类人推理，都是它那套东西。
+
+<img width="700" alt="image" src="/images/posts/nlp-cl-dh/eb3dcd8a-1f9f-4c66-8f88-6d80a011cfb3.webp" />
+<img width="700" alt="image" src="/images/posts/nlp-cl-dh/bfc4f0cb-a124-4312-aa30-b00f016bae02.webp" />
+
+> Guohao Li and Bernard Ghanem. CAMEL: Communicative Agents for “Mind” Exploration of Large Language Model Society.
+
+于是多智能体协作上场了。
+
+> Joon Sung Park, Joseph O’Brien, Carrie Jun Cai, Meredith Ringel Morris, Percy Liang, and Michael S. Bernstein. 2023. Generative Agents: Interactive Simulacra of Human Behavior. In Proceedings of the 36th Annual ACM Symposium on User Interface Software and Technology, pages 1–22, San Francisco CA USA. ACM.
+
+<img width="700" alt="image" src="/images/posts/nlp-cl-dh/affdb6b6-6058-4fa8-b8d0-86df25e44564.webp" />
+
+围绕 LLM 的这套*“可信社会行为模拟”*打得漂亮，在它之后，另一个范式冒了出来，盯的是怎么把任务做完。
+
+> Chen Qian, Wei Liu, Hongzhang Liu, Nuo Chen, Yufan Dang, Jiahao Li, Cheng Yang, Weize Chen, Yusheng Su, Xin Cong, Juyuan Xu, Dahai Li, Zhiyuan Liu, and Maosong Sun. 2024. ChatDev: Communicative Agents for Software Development. arXiv:2307.07924 [cs].
+
+<img width="674" alt="image" src="/images/posts/nlp-cl-dh/863e9325-c313-4c9c-8fcb-4f23999dfbcd.webp" />
+
+> Junkai Li, Siyu Wang, Meng Zhang, Weitao Li, Yunghwei Lai, Xinhui Kang, Weizhi Ma, and Yang Liu. 2024. Agent Hospital: A Simulacrum of Hospital with Evolvable Medical Agents. arXiv:2405.02957 [cs].
+
+<img width="700" alt="image" src="/images/posts/nlp-cl-dh/e45e577e-f951-43df-b35d-702b9e48b0a1.webp" />
+
+还有些更有“创业精神”的尝试闯进我眼里：在 Minecraft 里放 1000 个 LLM 智能体，让它们从零建起一套文明，宗教、政治、治理全自己搞出来。看到这儿，大家才反应过来：智能体回来了。
+
+语言学的手艺，也回来了。我咧嘴笑了。
+
+## 那硬要区分呢？
+
+从实用的角度讲，NLP 和 CL 早就是一个整体了（你可能也从上面看出来了：刚才那几句，我是故意绕着这两个词走的）。但抠字眼的话，这两个词之间还是该有个界。这个界得“刻意去分”才分得出来。多数时候用不着，可我要解开自己那点困惑，非它不可。
+
+那就分吧。
+
+<img width="1107" alt="image" src="/images/posts/nlp-cl-dh/222a60f6-bcae-4067-a916-f01d85bdb159.webp" />
+
+AI 和 LLM 横穿这三个领域：
+
+- NLP 偏技术，深度学习、算法那一套，语言学的分量往往不重。
+- CL 会把语言学的方法拿进来，去啃跟语言有关的计算问题，在技术和理论之间搭桥。
+- DH（数字人文）拿计算技术给传统人文学科打下手，让那边的研究做得更好。
+- 三者边上当然都有模糊地带，也有不少相关的工作。所以横轴最底下特意标出了从技术到人文这一整条谱。
+
+这套分法是我自己攒的。要把它套到整个 NLP/CL/DH 圈子头上，我自认还没这个资格，所以不妨就当它是，again，*一点私事*。
+
+……还有一张表，讲的多是别的细节……
+
+<img width="1098" alt="image" src="/images/posts/nlp-cl-dh/5d164b5d-51bf-4f49-9053-73ecea1166f4.webp" />
+
+里面“第一性原理思维”这条，来自我在一个剑桥国际项目上认识的人。顺便说一句，剑桥真是个好地方。他脑子里压根没有“符号主义 AI”那套理论；当时他在那个项目里做的正是反讽检测系统，我跟他讲了讲语言学上“反讽”是怎么构成的，他当场就给了这么个答案。
+
+下面这些可能跑题，但这几个家伙我也想分一分。我摆脱那场存在主义危机（就是前面说的第二条）的路上，它们给我添过麻烦，也给过我力量。
+
+<img width="1082" alt="image" src="/images/posts/nlp-cl-dh/7979e1de-a298-4032-a2d1-4d205fa72f25.webp" />
+
+## 结语：但这重要吗？
+
+不重要。
+
+事实证明，ChatGPT 确实给一个前文科生翻开了一页新的：他一头扎进 CL、LLM、NLP（DH 就算了，那玩意儿太戳心窝子，lol 😂），路上要学的 Python、PyTorch、CUDA、Linux、Fine-tuning，学起来都更省力、对小白更友好、更直观，还优雅好用。最要紧的是，我早就不纠结“语言学没用、转 CS 才是正道”了，已经准备好去追一件自己喜欢、认同、有“获得感”的事。管它过去、现在、将来叫什么名字。
+
+也许，干脆什么都别贴标签。多来点“我去做”，怎么样？
