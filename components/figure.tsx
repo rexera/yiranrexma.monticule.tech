@@ -1,5 +1,7 @@
 import type { ImgHTMLAttributes } from "react";
 
+import { smartQuotes } from "@/lib/smart-quotes";
+
 /** Alt text at least this long is treated as a caption written for the
  *  reader. Shorter alts (badge images, "image", decorative labels) stay
  *  plain images so existing posts and publication badges are unaffected. */
@@ -31,7 +33,9 @@ export function Figure({ alt, ...props }: FigureProps) {
       {/* eslint-disable-next-line @next/next/no-img-element -- see above */}
       <img alt={alt} {...props} />
       <figcaption className="mx-auto mt-2.5 max-w-3xl text-center text-[0.8125rem] leading-relaxed">
-        {caption}
+        {/* Captions arrive as props, so they miss the MDX pipeline's
+            typographic quotes; the alt attribute keeps the source spelling. */}
+        {smartQuotes(caption)}
       </figcaption>
     </figure>
   );

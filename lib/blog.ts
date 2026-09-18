@@ -4,6 +4,7 @@ import path from "node:path";
 import matter from "gray-matter";
 
 import { getFallbackLocale, LOCALES, type Locale } from "@/lib/locale";
+import { smartQuotes } from "@/lib/smart-quotes";
 import type { BlogPost, BlogPostMeta, BlogPostType } from "@/lib/blog-types";
 
 export type BlogFrontmatter = {
@@ -87,9 +88,9 @@ export async function getBlogPostMetas(locale: Locale): Promise<BlogPostMeta[]> 
     const fm = data as BlogFrontmatter;
     if (fm.draft) continue;
 
-    const title = fm.title ? String(fm.title) : slug;
+    const title = fm.title ? smartQuotes(String(fm.title)) : slug;
     const date = fm.date ? String(fm.date) : "1970-01-01";
-    const summary = fm.summary ? String(fm.summary) : "";
+    const summary = fm.summary ? smartQuotes(String(fm.summary)) : "";
     const tags = normalizeTags(fm.tags);
     const type: BlogPostType = fm.type === "research" ? "research" : "note";
 
@@ -124,9 +125,9 @@ export async function getBlogPost(locale: Locale, slug: string): Promise<BlogPos
   const fm = data as BlogFrontmatter;
   if (fm.draft) return null;
 
-  const title = fm.title ? String(fm.title) : slug;
+  const title = fm.title ? smartQuotes(String(fm.title)) : slug;
   const date = fm.date ? String(fm.date) : "1970-01-01";
-  const summary = fm.summary ? String(fm.summary) : "";
+  const summary = fm.summary ? smartQuotes(String(fm.summary)) : "";
   const tags = normalizeTags(fm.tags);
   const type: BlogPostType = fm.type === "research" ? "research" : "note";
 

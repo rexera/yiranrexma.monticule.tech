@@ -78,7 +78,7 @@ export default async function PublicationDetailPage({ params }: PageProps) {
   }
 
   const { entry, content: mdxSource } = detail;
-  const content = mdxSource ? await renderMdx(mdxSource) : null;
+  const content = mdxSource ? await renderMdx(mdxSource, locale) : null;
   const toc = extractToc(mdxSource ?? "");
 
   const backLabel = locale === "zh" ? "返回成果" : "Back to publications";

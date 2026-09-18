@@ -5,8 +5,9 @@ import path from "node:path";
 import matter from "gray-matter";
 import { notFound } from "next/navigation";
 
+import { ScrollToHash } from "@/components/scroll-to-hash";
 import { Section } from "@/components/section";
-import { getExperiencePageCopy } from "@/lib/content";
+import { getStoryPageCopy } from "@/lib/content";
 import { normalizeLocale, type Locale } from "@/lib/locale";
 import { renderMdx } from "@/lib/mdx";
 
@@ -22,11 +23,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: locale === "zh" ? "故事" : "Story",
     alternates: {
-      canonical: `${SITE_URL}/${locale}/experience`,
+      canonical: `${SITE_URL}/${locale}/story`,
       languages: {
-        en: `${SITE_URL}/en/experience`,
-        zh: `${SITE_URL}/zh/experience`,
-        "x-default": `${SITE_URL}/en/experience`
+        en: `${SITE_URL}/en/story`,
+        zh: `${SITE_URL}/zh/story`,
+        "x-default": `${SITE_URL}/en/story`
       }
     }
   };
@@ -46,21 +47,22 @@ async function getAboutStory(locale: Locale): Promise<string | null> {
   return null;
 }
 
-export default async function ExperiencePage({ params }: PageProps) {
+export default async function StoryPage({ params }: PageProps) {
   const resolvedParams = await params;
   const locale = normalizeLocale(resolvedParams.locale);
   if (!locale) {
     notFound();
   }
 
-  const copy = getExperiencePageCopy()[locale];
+  const copy = getStoryPageCopy()[locale];
   const story = await getAboutStory(locale);
 
   // Same MDX pipeline and typography as the blog — one reading style site-wide.
-  const storyContent = story ? await renderMdx(story) : null;
+  const storyContent = story ? await renderMdx(story, locale) : null;
 
   return (
     <div className="mx-auto w-full max-w-[46rem] space-y-16">
+      <ScrollToHash />
       {storyContent ? (
         <Section title={copy.story.title}>
           <div className="prose mdx-article max-w-none">{storyContent}</div>

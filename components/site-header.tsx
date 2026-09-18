@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ACTIVE_OFFSET } from "@/components/toc";
 import { buildLocalePath, IS_BILINGUAL, LOCALE_COOKIE_NAME, type Locale } from "@/lib/locale";
 import type { NavItem } from "@/types/navigation";
 
@@ -18,6 +19,33 @@ function stripLocalePrefix(pathname: string) {
   const match = pathname.match(/^\/(en|zh)(\/.*)?$/);
   if (!match) return pathname;
   return match[2] || "/";
+}
+
+/**
+ * Where the reader is, as a section anchor — `s4`, or `s4-2` for a
+ * subsection. That is the only way to address a section that means the same
+ * thing in both locales: the heading ids themselves are the localized heading
+ * text. Prefer the section the reader jumped to; when they simply scrolled,
+ * take the last heading past ACTIVE_OFFSET — the rule the table of contents
+ * uses for its active item. `ScrollToHash` in the article turns the anchor
+ * this produces into an actual jump.
+ */
+function currentSection() {
+  const hash = decodeURIComponent(window.location.hash.slice(1));
+  if (hash) {
+    if (/^s\d+(-\d+)?$/.test(hash)) return hash;
+
+    // A heading link shared before sections were numbered.
+    const legacy = document.getElementById(hash);
+    if (legacy instanceof HTMLElement && legacy.dataset.s) return legacy.dataset.s;
+  }
+
+  let section: string | undefined;
+  for (const heading of document.querySelectorAll<HTMLElement>("[data-s]")) {
+    if (heading.getBoundingClientRect().top > ACTIVE_OFFSET) break;
+    section = heading.dataset.s;
+  }
+  return section;
 }
 
 /**
@@ -108,7 +136,12 @@ export function SiteHeader({ navItems, profileName, currentLocale = "en" }: Site
                     onClick={() => {
                       const current = pathname ?? "/";
                       const stripped = stripLocalePrefix(current);
-                      const nextPath = buildLocalePath(option.value, stripped);
+                      // Carry the reading position across: sections are
+                      // numbered, so the anchor holds in either locale.
+                      const section = currentSection();
+                      const nextPath = `${buildLocalePath(option.value, stripped)}${
+                        section ? `#${section}` : ""
+                      }`;
 
                       // Persist user preference for proxy redirects and future visits.
                       document.cookie = `${LOCALE_COOKIE_NAME}=${option.value}; Path=/; Max-Age=${60 * 60 * 24 * 365}; SameSite=Lax`;

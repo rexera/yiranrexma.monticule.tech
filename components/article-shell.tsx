@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { GiscusComments } from "@/components/giscus-comments";
+import { ScrollToHash } from "@/components/scroll-to-hash";
 
 type Locale = "en" | "zh";
 
@@ -26,6 +27,7 @@ type ArticleShellProps = {
 export function ArticleShell({ locale, backLabel, backHref, title, meta, toc, children }: ArticleShellProps) {
   return (
     <div className="space-y-8">
+      <ScrollToHash />
       <div className="mx-auto w-full max-w-[46rem]">
         <Link
           href={backHref as any}

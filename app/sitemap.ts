@@ -26,7 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { url: base, changeFrequency: "weekly", priority: 1 },
       { url: `${base}/blog`, changeFrequency: "weekly", priority: 0.8 },
       { url: `${base}/publications`, changeFrequency: "monthly", priority: 0.8 },
-      { url: `${base}/experience`, changeFrequency: "monthly", priority: 0.6 }
+      { url: `${base}/story`, changeFrequency: "monthly", priority: 0.6 }
     );
     for (const slug of blogSlugs) {
       entries.push({ url: `${base}/blog/${slug}`, changeFrequency: "monthly", priority: 0.7 });

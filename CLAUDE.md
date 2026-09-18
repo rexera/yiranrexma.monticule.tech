@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A bilingual (English/Chinese) personal academic homepage — Next.js 16 App Router, React 19, Tailwind CSS. This repo is Yiran Rex Ma's live site, adapted from [Ronchy2000/Academic-Homepage-Template](https://github.com/Ronchy2000/Academic-Homepage-Template); the actual site keeps only Home / Blog / Publications (with detail pages) / Story (see `NAV_ITEMS` in `app/(site)/[locale]/layout.tsx`). Legacy `/research`, `/projects`, and `/contact` routes are redirect stubs under `app/(redirects)/`.
+A bilingual (English/Chinese) personal academic homepage — Next.js 16 App Router, React 19, Tailwind CSS. This repo is Yiran Rex Ma's live site, adapted from [Ronchy2000/Academic-Homepage-Template](https://github.com/Ronchy2000/Academic-Homepage-Template); the actual site keeps only Home / Blog / Publications (with detail pages) / Story (see `NAV_ITEMS` in `app/(site)/[locale]/layout.tsx`). Legacy `/research`, `/projects`, `/contact`, and `/experience` (the Story page's old path) routes are redirect stubs under `app/(redirects)/`; on request-time deployments `proxy.ts` also carries a `RENAMED_PATHS` map for moved paths.
 
 ## Commands
 
@@ -64,7 +64,7 @@ Anything requiring request-time server behavior must be avoided or gated for the
 - `lib/content.ts` — imports the JSON files directly (typed via `lib/content-types.ts`); sync, build-time.
 - `lib/blog.ts` — reads `content/blog/<locale>/` from disk with gray-matter; slugs must be kebab-case (`^[a-z0-9-]+$`), `draft: true` hides a post, `type: research|note`.
 - `lib/publications.ts` — joins `content/publications.json` entries (which have an optional `slug`) with `content/publications/<slug>.mdx` bodies for `/[locale]/publications/[slug]` detail pages.
-- `lib/mdx.ts` — the single MDX pipeline (`renderMdx`): compileMDX with remark-gfm, remark-math, rehype-katex, rehype-slug, rehype-pretty-code (Shiki dual themes); maps `pre`→`CodeBlock`, plus `Callout` and `Table` components. TOC comes from `extractToc` (github-slugger ids matching rehype-slug). `MermaidDiagram` and `PlotlyFigure` are client components imported inside MDX.
+- `lib/mdx.ts` — the single MDX pipeline (`renderMdx`): compileMDX with remark-gfm, remark-math, typographic quotes (`lib/smart-quotes.ts`), image unwrapping, then rehype-katex, rehype-slug, rehype-pretty-code (Shiki dual themes), per-heading permalinks and section anchors; maps `pre`→`CodeBlock`, plus `Callout` and `Table` components. `extractToc` numbers sections by structure (`s2`, `s2-1`), the same anchors the headings carry, so TOC links and the language switcher agree in both locales. `MermaidDiagram` and `PlotlyFigure` are client components imported inside MDX.
 - `lib/commits.ts` — build-time fetch of recent commits (GitHub API) for the Home commits strip and the footer's last-updated date; bot commits filtered, returns null on failure.
 
 ### Server/client split

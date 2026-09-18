@@ -5,7 +5,7 @@ import updatesJson from "@/content/updates.json";
 import blogPageJson from "@/content/pages/blog.json";
 import homePageJson from "@/content/pages/home.json";
 import publicationsPageJson from "@/content/pages/publications.json";
-import experiencePageJson from "@/content/pages/experience.json";
+import storyPageJson from "@/content/pages/story.json";
 
 import type {
   ProfileContent,
@@ -16,11 +16,32 @@ import type {
   BlogPageCopy,
   HomePageCopy,
   PublicationsPageCopy,
-  ExperiencePageCopy
+  StoryPageCopy
 } from "./content-types";
 import { DEFAULT_LOCALE, type Locale } from "./locale";
+import { smartQuotes } from "./smart-quotes";
 
 type PartialLocalized<T> = Partial<Record<Locale, T>>;
+
+/** Link-ish values are left alone; everything else is prose. */
+const LINK_LIKE = /^(https?:|mailto:|\/|#)/;
+
+/** Curly quotes for every string in the JSON copy, the same way the MDX
+ *  pipeline does it for article bodies. */
+function typographic<T>(value: T): T {
+  if (typeof value === "string") {
+    return (LINK_LIKE.test(value) ? value : smartQuotes(value)) as unknown as T;
+  }
+  if (Array.isArray(value)) {
+    return value.map(typographic) as unknown as T;
+  }
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, entry]) => [key, typographic(entry)])
+    ) as T;
+  }
+  return value;
+}
 
 function resolveLocalized<T>(value: unknown, label: string) {
   const data = value as PartialLocalized<T>;
@@ -31,8 +52,8 @@ function resolveLocalized<T>(value: unknown, label: string) {
   }
 
   return {
-    en: data.en ?? primary,
-    zh: data.zh ?? primary
+    en: typographic(data.en ?? primary),
+    zh: typographic(data.zh ?? primary)
   };
 }
 
@@ -72,6 +93,6 @@ export function getPublicationsPageCopy(): PublicationsPageCopy {
 }
 
 
-export function getExperiencePageCopy(): ExperiencePageCopy {
-  return resolveLocalized<ExperiencePageCopy["en"]>(experiencePageJson, "content/pages/experience.json");
+export function getStoryPageCopy(): StoryPageCopy {
+  return resolveLocalized<StoryPageCopy["en"]>(storyPageJson, "content/pages/story.json");
 }

@@ -126,7 +126,7 @@ export type PublicationsPageCopy = Localized<{
   projectsTitle: string;
 }>;
 
-export type ExperiencePageCopy = Localized<{
+export type StoryPageCopy = Localized<{
   story: { title: string };
   experience: { title: string };
   education: { title: string };

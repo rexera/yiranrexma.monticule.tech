@@ -36,13 +36,13 @@ const NAV_ITEMS: Record<Locale, NavItem[]> = {
     { label: "Home", href: buildLocalePath("en") },
     { label: "Blog", href: buildLocalePath("en", "/blog") },
     { label: "Publication/Project", href: buildLocalePath("en", "/publications") },
-    { label: "Story", href: buildLocalePath("en", "/experience") }
+    { label: "Story", href: buildLocalePath("en", "/story") }
   ],
   zh: [
     { label: "首页", href: buildLocalePath("zh") },
     { label: "博客", href: buildLocalePath("zh", "/blog") },
     { label: "成果", href: buildLocalePath("zh", "/publications") },
-    { label: "故事", href: buildLocalePath("zh", "/experience") }
+    { label: "故事", href: buildLocalePath("zh", "/story") }
   ]
 };
 

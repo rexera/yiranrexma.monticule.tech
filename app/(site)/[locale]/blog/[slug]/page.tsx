@@ -69,7 +69,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     notFound();
   }
 
-  const content = await renderMdx(post.content);
+  const content = await renderMdx(post.content, locale);
   const toc = extractToc(post.content);
 
   const backLabel = locale === "zh" ? "返回博客" : "Back to blog";

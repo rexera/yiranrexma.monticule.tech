@@ -92,8 +92,8 @@ body:lang(zh-Hans) {
   --tw-prose-counters: #81986a;
   --tw-prose-bullets: #a4b177;
   --tw-prose-hr: #dee3bd;
-  --tw-prose-quotes: #4a5842;
-  --tw-prose-quote-borders: #c1c989;
+  --tw-prose-quotes: #5c6651;
+  --tw-prose-quote-borders: rgb(var(--brand) / 0.22);
   --tw-prose-captions: #77815f;
   --tw-prose-kbd: #161b11;
   --tw-prose-kbd-shadows: 26 33 24;
@@ -116,8 +116,8 @@ body:lang(zh-Hans) {
   --tw-prose-counters: #857c64;
   --tw-prose-bullets: #57503f;
   --tw-prose-hr: #292219;
-  --tw-prose-quotes: #cfc7b2;
-  --tw-prose-quote-borders: #3d3527;
+  --tw-prose-quotes: #b3ab95;
+  --tw-prose-quote-borders: rgb(var(--brand) / 0.28);
   --tw-prose-captions: #948b74;
   --tw-prose-kbd: #f6f2e7;
   --tw-prose-kbd-shadows: 246 242 231;
@@ -133,6 +133,13 @@ body:lang(zh-Hans) {
 }
 
 .mdx-article :where(h1, h2, h3, h4) {
+  scroll-margin-top: 6rem;
+}
+
+/* Legacy heading anchors: each h2/h3 keeps the slug id it used to carry on a
+   span, so links shared before sections were numbered still land on it. The
+   span sits inside the heading, so it needs the same scroll offset. */
+.mdx-article :where(.section-anchor) {
   scroll-margin-top: 6rem;
 }
 
@@ -162,11 +169,102 @@ body:lang(zh-Hans) {
   font-weight: 650;
 }
 
+/* Pull quotes: a soft brand-tinted card with oversized quotation marks set
+   into the top-left and bottom-right corners. The copy inside steps down
+   from body text — smaller, lighter, quieter — so a quote reads as someone
+   else's voice rather than as the author's own. */
 .mdx-article :where(blockquote) {
+  position: relative;
+  margin-block: 2em;
+  padding: 1.5rem clamp(2.25rem, 8vw, 2.9rem);
+  border: 1px solid var(--tw-prose-quote-borders);
+  border-radius: 1rem;
+  background-color: rgb(var(--brand) / 0.05);
+  color: var(--tw-prose-quotes);
+  font-size: 1rem;
   font-style: normal;
-  font-weight: 450;
+  font-weight: 350;
+  line-height: 1.75;
 }
 
+/* The marks themselves. The second `content` declaration carries an empty
+   alt string so screen readers skip them; browsers without that syntax
+   keep the plain declaration above it. */
+.mdx-article :where(blockquote)::before,
+.mdx-article :where(blockquote)::after {
+  position: absolute;
+  font-family: Georgia, "Times New Roman", "Songti SC", serif;
+  font-size: clamp(3.25rem, 11vw, 4.25rem);
+  font-weight: 400;
+  line-height: 1;
+  color: rgb(var(--brand) / 0.42);
+  pointer-events: none;
+  user-select: none;
+}
+
+.mdx-article :where(blockquote)::before {
+  content: "\201C";
+  content: "\201C" / "";
+  top: 0.15rem;
+  left: 0.75rem;
+}
+
+/* The closing mark hangs below the corner: the glyph's ink sits in the
+   upper part of its em box, so a flush `bottom` would float it. */
+.mdx-article :where(blockquote)::after {
+  content: "\201D";
+  content: "\201D" / "";
+  right: 0.75rem;
+  bottom: -1.45rem;
+}
+
+/* CJK faces have no light weight worth using at this size — pin the copy to
+   body weight and let size and colour carry the step down. The locale lives
+   on the layout's [lang] wrapper, so `:lang()` (not `body:lang()`) matches. */
+:lang(zh) .mdx-article :where(blockquote) {
+  font-weight: 400;
+}
+
+/* Heading permalinks: the `#` after the heading text that links to that
+   section. It trails the last character of whatever language the heading is
+   written in — the arrangement GitBook and Docusaurus use — and fades in
+   with a short drift when the heading is hovered or the link focused. */
+.mdx-article :where(.heading-anchor) {
+  display: inline-block;
+  padding-inline-start: 0.4em;
+  font-weight: 500;
+  color: rgb(var(--brand) / 0.7);
+  text-decoration: none;
+  user-select: none;
+  opacity: 0;
+  transform: translateX(-0.3em);
+  transition:
+    opacity 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 150ms ease;
+}
+
+.mdx-article :where(h2, h3):hover :where(.heading-anchor),
+.mdx-article :where(.heading-anchor):focus {
+  opacity: 1;
+  transform: none;
+}
+
+.mdx-article :where(.heading-anchor):hover {
+  color: rgb(var(--brand));
+}
+
+/* Touch devices never hover: keep the mark faintly visible so a section
+   link stays within reach. */
+@media (hover: none) {
+  .mdx-article :where(.heading-anchor) {
+    opacity: 0.45;
+    transform: none;
+  }
+}
+
+/* @tailwindcss/typography wraps the first and last paragraphs of a quote in
+   its own glyphs; the card draws its marks in the corners instead. */
 .mdx-article :where(blockquote p:first-of-type)::before,
 .mdx-article :where(blockquote p:last-of-type)::after {
   content: none;
@@ -197,6 +295,21 @@ body:lang(zh-Hans) {
    inside drops the standalone margin and sits tight above its caption. */
 .mdx-article :where(figure) :where(img) {
   margin: 0 auto;
+}
+
+/* Pictures sit on the page rather than in it. The shadow is kept small so it
+   stays clear of the caption 10px below (offset 6 + spread -8 + blur/2 8 =
+   6px). Badges (shields.io, inline inside a paragraph) stay flat — only
+   images at the top level of the article, which is what the pipeline leaves
+   behind for a figure, get one. */
+.mdx-article > :where(img),
+.mdx-article > :where(figure) :where(img) {
+  box-shadow: 0 6px 16px -8px rgba(26, 33, 24, 0.35);
+}
+
+.dark .mdx-article > :where(img),
+.dark .mdx-article > :where(figure) :where(img) {
+  box-shadow: 0 6px 16px -8px rgba(0, 0, 0, 0.65);
 }
 
 .mdx-article :where(table) {

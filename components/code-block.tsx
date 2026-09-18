@@ -6,7 +6,7 @@ import { CheckIcon, CopyIcon } from "@/components/icons";
 import { MermaidDiagram } from "@/components/mermaid-diagram";
 import { PlotlyFigure } from "@/components/plotly-figure";
 
-type PreProps = ComponentPropsWithoutRef<"pre">;
+type PreProps = ComponentPropsWithoutRef<"pre"> & { "data-language"?: string };
 
 function extractText(node: ReactNode): string {
   if (node === null || node === undefined || typeof node === "boolean") return "";
@@ -23,18 +23,16 @@ function extractText(node: ReactNode): string {
  * interactive renderers; everything else gets a framed block with a header
  * bar (language label + copy button). Light surface in light mode, dark in
  * dark mode; the token colors come from Shiki via CSS variables.
+ *
+ * The language arrives as a prop of this element rather than being read from
+ * the <code> child: during SSR a client component's server-rendered children
+ * are still lazy, so a read from them comes back empty on the server and the
+ * label would hydrate from "text" to the real language. `rehypePreLanguage`
+ * in lib/mdx.ts copies it up.
  */
-export function CodeBlock({ children }: PreProps) {
+export function CodeBlock({ children, "data-language": language = "" }: PreProps) {
   const [copied, setCopied] = useState(false);
 
-  let language = "";
-  if (isValidElement(children)) {
-    const props = children.props as { className?: string; "data-language"?: string };
-    language =
-      /language-([\w-]+)/.exec(props.className ?? "")?.[1] ??
-      props["data-language"] ??
-      "";
-  }
   const raw = extractText(children).replace(/\n$/, "");
 
   if (language === "mermaid") {

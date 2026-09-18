@@ -18,6 +18,21 @@ function hasLocalePrefix(pathname: string) {
   return LOCALES.some((locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`));
 }
 
+// Paths the site has moved, keyed by their old path after the locale segment.
+// Request-time deployments get a redirect here; static exports fall back to
+// the page each old path keeps under app/(redirects) and app/(site).
+const RENAMED_PATHS: Record<string, string> = {
+  "/experience": "/story"
+};
+
+function renamedTarget(pathname: string): string | null {
+  for (const [from, to] of Object.entries(RENAMED_PATHS)) {
+    if (pathname === from) return to;
+    if (pathname.startsWith(`${from}/`)) return `${to}${pathname.slice(from.length)}`;
+  }
+  return null;
+}
+
 // This request-time redirect layer is intended for deployments that support
 // Next.js proxy/middleware behavior, such as Vercel.
 //
@@ -28,18 +43,29 @@ function hasLocalePrefix(pathname: string) {
 // traffic (e.g. /_layouts/*, /terraform.tfstate, /.well-known/*).
 function isSupportedRoute(pathname: string) {
   if (pathname === "/") return true;
-  const roots = ["/research", "/publications", "/projects", "/experience", "/blog", "/contact"] as const;
+  const roots = ["/research", "/publications", "/projects", "/story", "/blog", "/contact"] as const;
   return roots.some((root) => pathname === root || pathname.startsWith(`${root}/`));
 }
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Already localized: a moved path redirects straight to its new home.
   if (hasLocalePrefix(pathname)) {
+    for (const locale of LOCALES) {
+      if (pathname !== `/${locale}` && !pathname.startsWith(`/${locale}/`)) continue;
+      // +1 for the leading slash the locale sits behind.
+      const moved = renamedTarget(pathname.slice(locale.length + 1));
+      if (moved) {
+        return NextResponse.redirect(new URL(`/${locale}${moved}`, request.url), 308);
+      }
+      break;
+    }
     return NextResponse.next();
   }
 
-  if (!isSupportedRoute(pathname)) {
+  const moved = renamedTarget(pathname);
+  if (!moved && !isSupportedRoute(pathname)) {
     return NextResponse.next();
   }
 
@@ -51,7 +77,7 @@ export function proxy(request: NextRequest) {
   });
 
   const url = request.nextUrl.clone();
-  url.pathname = buildLocalePath(locale, pathname === "/" ? "" : pathname);
+  url.pathname = buildLocalePath(locale, moved ?? (pathname === "/" ? "" : pathname));
 
   const response = NextResponse.redirect(url);
   if (!cookieLocale) {

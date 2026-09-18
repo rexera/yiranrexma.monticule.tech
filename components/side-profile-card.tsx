@@ -60,7 +60,7 @@ export function SideProfileCard({ profile, locale = "en", avatarSrc = "/images/p
   return (
     <aside className="relative z-10 flex w-full flex-col gap-6 self-start rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_30px_60px_-45px_rgba(15,23,42,0.4)] dark:border-slate-800 dark:bg-slate-900 lg:self-stretch print:hidden">
       <div className="flex flex-col gap-4">
-        <div className="relative h-40 w-40 self-center overflow-hidden rounded-full border border-slate-200 dark:border-slate-700">
+        <div className="relative h-40 w-40 self-center overflow-hidden rounded-full border border-slate-200 shadow-[0_14px_30px_-14px_rgba(26,33,24,0.5)] dark:border-slate-700 dark:shadow-[0_14px_30px_-14px_rgba(0,0,0,0.8)]">
           <Image
             src={imageSrc}
             alt={profile.name}

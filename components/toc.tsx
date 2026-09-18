@@ -15,8 +15,10 @@ type TocGroup = {
   children: TocEntry[];
 };
 
-/** Pixels below the viewport top at which a heading counts as "current". */
-const ACTIVE_OFFSET = 112;
+/** Pixels below the viewport top at which a heading counts as "current".
+ *  Shared with the language switcher, which carries the reader to the same
+ *  section when they change locale. */
+export const ACTIVE_OFFSET = 112;
 
 function groupEntries(entries: TocEntry[]): TocGroup[] {
   const groups: TocGroup[] = [];
