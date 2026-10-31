@@ -1,8 +1,10 @@
 "use client";
 
+import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ACTIVE_OFFSET } from "@/components/toc";
@@ -27,15 +29,12 @@ function stripLocalePrefix(pathname: string) {
  * thing in both locales: the heading ids themselves are the localized heading
  * text. Prefer the section the reader jumped to; when they simply scrolled,
  * take the last heading past ACTIVE_OFFSET — the rule the table of contents
- * uses for its active item. `ScrollToHash` in the article turns the anchor
- * this produces into an actual jump.
+ * uses for its active item.
  */
 function currentSection() {
   const hash = decodeURIComponent(window.location.hash.slice(1));
   if (hash) {
     if (/^s\d+(-\d+)?$/.test(hash)) return hash;
-
-    // A heading link shared before sections were numbered.
     const legacy = document.getElementById(hash);
     if (legacy instanceof HTMLElement && legacy.dataset.s) return legacy.dataset.s;
   }
@@ -49,122 +48,217 @@ function currentSection() {
 }
 
 /**
- * Global horizontal navigation bar with language toggle and theme switcher.
- * Sticks to the top across desktop and mobile.
+ * Masthead that scrolls away with the page (deliberately not sticky): one
+ * hairline, a small wordmark, text navigation, and a menu panel on narrow
+ * screens. The active item keeps a short rule under it; hover draws one in.
  */
 export function SiteHeader({ navItems, profileName, currentLocale = "en" }: SiteHeaderProps) {
   const pathname = usePathname();
   const router = useRouter();
+  const [open, setOpen] = useState(false);
   const homeHref = navItems[0]?.href ?? "/";
+  const uiLabels =
+    currentLocale === "zh"
+      ? { here: "当前", language: "语言" }
+      : { here: "Here", language: "Language" };
 
-  const renderLink = (item: NavItem, variant: "desktop" | "mobile") => {
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  const isActive = (item: NavItem) => {
     const normalizedPathname = (pathname ?? "/").replace(/\/$/, "") || "/";
     const normalizedHref = String(item.href).replace(/\/$/, "") || "/";
     const isRootLike = normalizedHref === "/" || /^\/(en|zh)$/.test(normalizedHref);
-    const active = !item.external && (isRootLike
-      ? normalizedPathname === normalizedHref
-      : normalizedPathname === normalizedHref || normalizedPathname.startsWith(`${normalizedHref}/`));
-    const baseClasses =
-      variant === "desktop"
-        ? "rounded-full px-4 py-2 text-sm font-medium transition-colors"
-        : "whitespace-nowrap rounded-full px-3 py-1 text-sm font-medium transition-colors";
+    return (
+      !item.external &&
+      (isRootLike
+        ? normalizedPathname === normalizedHref
+        : normalizedPathname === normalizedHref || normalizedPathname.startsWith(`${normalizedHref}/`))
+    );
+  };
 
-    const activeClasses =
-      variant === "desktop"
-        ? "bg-slate-900 text-white shadow-sm hover:bg-slate-900 hover:text-white dark:bg-white dark:text-slate-900 dark:hover:bg-white dark:hover:text-slate-900"
-        : "bg-slate-900 text-white hover:bg-slate-900 hover:text-white dark:bg-white dark:text-slate-900 dark:hover:bg-white dark:hover:text-slate-900";
+  const localeButtons = (
+    <div className="flex items-center gap-1.5 text-xs font-medium">
+      {(
+        [
+          { label: "EN", value: "en" as Locale },
+          { label: "中文", value: "zh" as Locale }
+        ] as const
+      ).map((option, index) => {
+        const active = currentLocale === option.value;
+        return (
+          <span key={option.value} className="flex items-center gap-1.5">
+            {index > 0 ? <span className="text-line/30" aria-hidden="true">/</span> : null}
+            <button
+              type="button"
+              aria-pressed={active}
+              onClick={() => {
+                const current = pathname ?? "/";
+                const stripped = stripLocalePrefix(current);
+                const section = currentSection();
+                const nextPath = `${buildLocalePath(option.value, stripped)}${
+                  section ? `#${section}` : ""
+                }`;
+                document.cookie = `${LOCALE_COOKIE_NAME}=${option.value}; Path=/; Max-Age=${60 * 60 * 24 * 365}; SameSite=Lax`;
+                router.push(nextPath as any);
+              }}
+              className={clsx(
+                "transition-colors",
+                active ? "text-ink" : "text-muted hover:text-ink"
+              )}
+            >
+              {option.label}
+            </button>
+          </span>
+        );
+      })}
+    </div>
+  );
 
-    const inactiveClasses =
-      variant === "desktop"
-        ? "text-slate-600/80 hover:bg-slate-200/80 hover:text-slate-900 dark:text-slate-200/80 dark:hover:bg-white/10 dark:hover:text-white"
-        : "text-slate-600/80 hover:bg-slate-200/80 dark:text-slate-200/80 dark:hover:bg-white/10";
+  const renderDesktopLink = (item: NavItem) => {
+    const active = isActive(item);
+    // The active item keeps a persistent rule; only idle items get the
+    // draw-in hover underline, so hovering the current tab never shows two.
+    const classes = clsx(
+      "relative py-1 text-sm",
+      active ? "text-ink" : "link-underline text-muted hover:text-ink"
+    );
+    const underline = active ? (
+      <span aria-hidden="true" className="absolute inset-x-0 -bottom-0.5 h-px bg-ink" />
+    ) : null;
 
-    const className = `${baseClasses} ${active ? activeClasses : inactiveClasses}`;
-
-    // External items (standalone pages outside the locale tree) open in a new
-    // tab and never take over the current page.
     if (item.external) {
       return (
-        <a key={item.href} href={item.href} target="_blank" rel="noreferrer" className={className}>
+        <a key={item.href} href={item.href} target="_blank" rel="noreferrer" className={classes}>
           {item.label}
+          {underline}
         </a>
       );
     }
 
     return (
-      <Link key={item.href} href={item.href as any} className={className}>
+      <Link key={item.href} href={item.href as any} aria-current={active ? "page" : undefined} className={classes}>
         {item.label}
+        {underline}
+      </Link>
+    );
+  };
+
+  const renderMobileLink = (item: NavItem) => {
+    const active = isActive(item);
+    const classes = "flex items-baseline justify-between border-b border-line/10 py-3";
+    const body = (
+      <>
+        <span className={clsx("text-lg font-medium", active ? "text-ink" : "text-muted")}>
+          {item.label}
+        </span>
+        {active ? <span className="eyebrow">{uiLabels.here}</span> : null}
+      </>
+    );
+
+    if (item.external) {
+      return (
+        <a key={item.href} href={item.href} target="_blank" rel="noreferrer" className={classes} onClick={() => setOpen(false)}>
+          {body}
+        </a>
+      );
+    }
+
+    return (
+      <Link
+        key={item.href}
+        href={item.href as any}
+        aria-current={active ? "page" : undefined}
+        className={classes}
+        onClick={() => setOpen(false)}
+      >
+        {body}
       </Link>
     );
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 text-slate-700 shadow-[0_10px_40px_-30px_rgba(15,23,42,0.4)] backdrop-blur-lg dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-200">
-      <div className="mx-auto flex w-full max-w-[1500px] items-center justify-between px-4 py-3 sm:px-6 lg:px-10">
-        <div className="flex items-center gap-6">
+    <header id="top" className="relative z-30 border-b border-line/15">
+      <div className="container-page flex h-16 items-center justify-between gap-6">
+        <div className="flex min-w-0 items-center gap-8">
           <Link
             href={homeHref as any}
-            className="inline-flex items-baseline gap-2 text-sm font-semibold text-slate-700/90 hover:text-slate-900 dark:text-slate-200/90 dark:hover:text-white"
+            className="inline-flex items-baseline gap-2 text-sm font-semibold text-ink"
             aria-label={profileName ?? "Academic Homepage"}
           >
-            {/* viewBox cropped to the exact artwork bounds, so the colored
-                mark fills the box. h-[1cap] sizes it to the font's cap
-                height; with items-baseline the mark's bottom sits on the
-                text baseline and its top on the cap line — flush with the
-                glyphs on both edges. */}
-            <Image src="/images/monticule-icon.svg" alt="" width={874} height={272} className="h-[1cap] w-auto shrink-0" />
+            <Image
+              src="/images/monticule-icon.svg"
+              alt=""
+              width={874}
+              height={272}
+              className="h-[1cap] w-auto shrink-0"
+            />
             <span className="whitespace-nowrap">{profileName ?? "Academic Homepage"}</span>
           </Link>
-          <nav className="hidden items-center gap-3 md:flex">
-            {navItems.map((item) => renderLink(item, "desktop"))}
+
+          <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">
+            {navItems.map(renderDesktopLink)}
           </nav>
         </div>
-        <div className="flex items-center gap-3">
-          {IS_BILINGUAL ? (
-            <div className="flex items-center gap-1 rounded-full border border-slate-300 bg-white/70 p-1 text-xs font-semibold text-slate-600/80 dark:border-slate-600 dark:bg-slate-900/60 dark:text-slate-200/80">
-              {(
-                [
-                  { label: "EN", value: "en" as Locale },
-                  { label: "中文", value: "zh" as Locale }
-                ] as const
-              ).map((option) => {
-                const active = currentLocale === option.value;
-                return (
-                  <button
-                    key={option.value}
-                    type="button"
-                    onClick={() => {
-                      const current = pathname ?? "/";
-                      const stripped = stripLocalePrefix(current);
-                      // Carry the reading position across: sections are
-                      // numbered, so the anchor holds in either locale.
-                      const section = currentSection();
-                      const nextPath = `${buildLocalePath(option.value, stripped)}${
-                        section ? `#${section}` : ""
-                      }`;
 
-                      // Persist user preference for proxy redirects and future visits.
-                      document.cookie = `${LOCALE_COOKIE_NAME}=${option.value}; Path=/; Max-Age=${60 * 60 * 24 * 365}; SameSite=Lax`;
-                      router.push(nextPath as any);
-                    }}
-                    className={`rounded-full px-2.5 py-1 transition ${
-                      active
-                        ? "bg-slate-900 text-white shadow-sm dark:bg-white dark:text-slate-900"
-                        : "text-slate-600/80 hover:bg-slate-200/70 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white"
-                    }`}
-                  >
-                    {option.label}
-                  </button>
-                );
-              })}
-            </div>
-          ) : null}
-          <ThemeToggle variant="subtle" />
+        <div className="flex shrink-0 items-center gap-2">
+          {IS_BILINGUAL ? <div className="hidden md:block">{localeButtons}</div> : null}
+          <ThemeToggle />
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen((value) => !value)}
+            className="relative h-9 w-9 rounded-full text-muted transition-colors hover:bg-ink/[0.05] hover:text-ink md:hidden dark:hover:bg-white/[0.06]"
+          >
+            <span
+              aria-hidden="true"
+              className={clsx(
+                "absolute left-1/2 top-[14px] h-px w-4 -translate-x-1/2 bg-current transition-transform duration-300",
+                open && "translate-y-[3px] rotate-45"
+              )}
+            />
+            <span
+              aria-hidden="true"
+              className={clsx(
+                "absolute left-1/2 top-[20px] h-px w-4 -translate-x-1/2 bg-current transition-transform duration-300",
+                open && "-translate-y-[3px] -rotate-45"
+              )}
+            />
+          </button>
         </div>
       </div>
-      <nav className="flex items-center gap-2 overflow-x-auto border-t border-slate-200 px-4 py-2 scrollbar-hide sm:px-6 md:hidden dark:border-slate-800">
-        {navItems.map((item) => renderLink(item, "mobile"))}
-      </nav>
+
+      <div
+        id="mobile-nav"
+        className={clsx(
+          "grid transition-[grid-template-rows,opacity] duration-300 ease-out md:hidden",
+          open ? "grid-rows-[1fr] opacity-100" : "invisible grid-rows-[0fr] opacity-0"
+        )}
+      >
+        <div className="overflow-hidden">
+          <nav aria-label="Primary mobile" className="container-page flex flex-col pb-5 pt-1">
+            {navItems.map(renderMobileLink)}
+            {IS_BILINGUAL ? (
+              <div className="mt-4 flex items-center justify-between">
+                <span className="eyebrow">{uiLabels.language}</span>
+                {localeButtons}
+              </div>
+            ) : null}
+          </nav>
+        </div>
+      </div>
     </header>
   );
 }

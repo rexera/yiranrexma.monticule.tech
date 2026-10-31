@@ -53,7 +53,7 @@ export function PlotlyFigure({ spec }: PlotlyFigureProps) {
   return (
     <div
       ref={containerRef}
-      className="not-prose my-6 w-full rounded-xl border border-slate-200 bg-white/70 p-4 dark:border-slate-800 dark:bg-slate-900/60"
+      className="not-prose my-6 w-full border border-line/20 bg-paper p-4"
       style={{ minHeight: 460 }}
     />
   );

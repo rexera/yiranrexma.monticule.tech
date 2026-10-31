@@ -5,28 +5,28 @@ type TableProps = {
 };
 
 /**
- * Minimal table component for listing courses or skills.
- * Accepts plain string matrix data; replace with richer typing if needed.
+ * Minimal table for listing courses or skills. Hairlines only — no filled
+ * header, no outer card.
  */
 export function Table({ caption, headers, rows }: TableProps) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
-      <table className="min-w-full divide-y divide-slate-200 text-sm dark:divide-slate-700">
-        {caption ? <caption className="p-3 text-left text-xs text-slate-500">{caption}</caption> : null}
-        <thead className="bg-slate-50/80 dark:bg-slate-900/40">
-          <tr>
+    <div className="overflow-x-auto border-y border-line/15">
+      <table className="min-w-full text-sm">
+        {caption ? <caption className="py-2 text-left text-xs text-muted">{caption}</caption> : null}
+        <thead>
+          <tr className="border-b border-line/15">
             {headers.map((header) => (
-              <th key={header} scope="col" className="px-4 py-2 text-left font-semibold text-slate-600 dark:text-slate-300">
+              <th key={header} scope="col" className="px-3 py-2 text-left font-mono text-[0.68rem] font-medium uppercase tracking-[0.1em] text-muted">
                 {header}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+        <tbody>
           {rows.map((row, rowIndex) => (
-            <tr key={rowIndex} className="bg-white/80 dark:bg-slate-900/60">
+            <tr key={rowIndex} className="border-b border-line/10 last:border-b-0">
               {row.map((cell, cellIndex) => (
-                <td key={cellIndex} className="px-4 py-2 text-slate-600 dark:text-slate-300">
+                <td key={cellIndex} className="px-3 py-2 text-ink/80">
                   {cell}
                 </td>
               ))}

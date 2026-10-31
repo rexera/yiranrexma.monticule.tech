@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 
 import { ArticleShell } from "@/components/article-shell";
 import { TableOfContents } from "@/components/toc";
-import { Tag } from "@/components/tag";
 import { getAllBlogSlugs, getBlogPostWithFallback } from "@/lib/blog";
 import { extractToc, renderMdx } from "@/lib/mdx";
 import { LOCALES, normalizeLocale } from "@/lib/locale";
@@ -95,11 +94,10 @@ export default async function BlogPostPage({ params }: PageProps) {
         backHref={`/${locale}/blog`}
         title={post.title}
         meta={
-          <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
-            <time className="tabular-nums">{post.date}</time>
-            {post.tags.map((tag) => (
-              <Tag key={tag} label={tag} />
-            ))}
+          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-sm text-muted">
+            <span className="eyebrow">{locale === "zh" ? "写作" : "Writing"}</span>
+            <time className="font-mono text-[11px] tabular-nums tracking-[0.08em]">{post.date}</time>
+            {post.tags.length ? <span className="text-xs">{post.tags.join(" · ")}</span> : null}
           </div>
         }
         toc={<TableOfContents entries={toc} title={tocTitle} />}

@@ -46,7 +46,7 @@ export function MermaidDiagram({ code }: MermaidDiagramProps) {
 
   if (failed) {
     return (
-      <pre className="not-prose my-6 overflow-x-auto rounded-xl bg-slate-900 p-4 text-[0.85rem] leading-relaxed text-slate-100">
+      <pre className="not-prose my-6 overflow-x-auto bg-ink/[0.04] p-4 text-[0.85rem] leading-relaxed text-ink/80">
         {code}
       </pre>
     );
@@ -55,7 +55,7 @@ export function MermaidDiagram({ code }: MermaidDiagramProps) {
   return (
     <div
       ref={containerRef}
-      className="not-prose my-6 flex justify-center overflow-x-auto rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 [&_svg]:max-w-full"
+      className="not-prose my-6 flex justify-center overflow-x-auto border border-line/20 bg-paper p-6 [&_svg]:max-w-full"
     />
   );
 }

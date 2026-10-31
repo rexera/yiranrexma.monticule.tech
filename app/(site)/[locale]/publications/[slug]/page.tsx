@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 
 import { ArticleShell } from "@/components/article-shell";
 import { TableOfContents } from "@/components/toc";
-import { Tag } from "@/components/tag";
 import { extractToc, renderMdx } from "@/lib/mdx";
 import { LOCALES, normalizeLocale } from "@/lib/locale";
 import { getAllPublicationSlugs, getPublicationDetail } from "@/lib/publications";
@@ -92,23 +91,23 @@ export default async function PublicationDetailPage({ params }: PageProps) {
       backHref={`/${locale}/publications`}
       title={entry.title}
       meta={
-        <div className="space-y-2 text-sm text-slate-500 dark:text-slate-400">
-          <p className="text-base text-slate-700 dark:text-slate-200">
+        <div className="space-y-2 text-sm text-muted">
+          <p className="text-[15px] text-ink/80">
             {entry.authors} · <span className="tabular-nums">{entry.year}</span>
           </p>
-          <p className="flex flex-wrap items-center gap-2">
-            <Tag label={typeBadge} />
+          <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span className="eyebrow">{typeBadge}</span>
             <span>{entry.venue}</span>
           </p>
           {entry.links?.length ? (
-            <p className="flex flex-wrap gap-x-4 gap-y-1 font-medium">
+            <p className="flex flex-wrap gap-x-4 gap-y-1">
               {entry.links.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-brand hover:text-brand-foreground"
+                  className="link-underline hover:text-ink"
                 >
                   {link.label} ↗
                 </a>
@@ -120,7 +119,7 @@ export default async function PublicationDetailPage({ params }: PageProps) {
       toc={<TableOfContents entries={toc} title={tocTitle} />}
     >
       {content ?? (
-        <p className="text-slate-600 dark:text-slate-300">
+        <p className="text-muted">
           {entry.notes ?? (locale === "zh" ? "详细介绍即将上线。" : "A detailed write-up is coming soon.")}
         </p>
       )}

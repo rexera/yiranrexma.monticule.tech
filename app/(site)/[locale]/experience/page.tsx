@@ -21,11 +21,11 @@ export default function ExperiencePageMoved() {
   }, [target]);
 
   return (
-    <main className="mx-auto w-full max-w-[46rem] px-6 py-16 text-slate-700 dark:text-slate-200">
+    <main className="mx-auto w-full max-w-[46rem] px-6 py-16 text-ink">
       <h1 className="text-lg font-semibold">Redirecting…</h1>
-      <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+      <p className="mt-3 text-sm text-muted">
         The Story page moved.{" "}
-        <a className="underline underline-offset-4" href={target}>
+        <a className="link-underline" href={target}>
           Continue
         </a>
         .

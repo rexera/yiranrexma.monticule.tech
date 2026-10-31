@@ -116,6 +116,33 @@ const remarkUnwrapImages: Plugin<[], Root> = () => (tree) => {
   unwrap(tree);
 };
 
+/** Chinese typography: a "——" pair must never be split across two lines.
+ *  Unicode line breaking (UAX #14) classes an em dash as BA — "break after" —
+ *  so the second dash is allowed to start the next line. A word joiner
+ *  (U+2060, zero width) between the two removes that opportunity without
+ *  changing what is drawn. Code and math are left alone. */
+const remarkNoBreakEmDash: Plugin<[], Root> = () => (tree) => {
+  // Structural view of the tree: remark-math nodes ("math"/"inlineMath") are
+  // not in mdast's own union, so the walk keeps its own minimal shape.
+  type AnyNode = { type: string; value?: string; children?: AnyNode[] };
+  const walk = (node: AnyNode) => {
+    if (node.type === "text" && typeof node.value === "string") {
+      node.value = node.value.replace(/——/g, "—\u2060—");
+      return;
+    }
+    if (
+      node.type === "code" ||
+      node.type === "inlineCode" ||
+      node.type === "math" ||
+      node.type === "inlineMath"
+    ) {
+      return;
+    }
+    node.children?.forEach(walk);
+  };
+  walk(tree as unknown as AnyNode);
+};
+
 /** rehype-pretty-code hangs a fence's language on the inner <code>, but the
  *  <pre> override is a client component: React hands a client component its
  *  server-rendered children as unresolved lazy nodes, so a language read out
@@ -198,7 +225,7 @@ export async function renderMdx(source: string, locale: Locale = DEFAULT_LOCALE)
     components: MDX_COMPONENTS,
     options: {
       mdxOptions: {
-        remarkPlugins: [remarkGfm, remarkMath, remarkSmartQuotes, remarkUnwrapImages],
+        remarkPlugins: [remarkGfm, remarkMath, remarkSmartQuotes, remarkNoBreakEmDash, remarkUnwrapImages],
         rehypePlugins: [
           rehypeKatex,
           rehypeSlug,

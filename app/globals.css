@@ -2,11 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Self-hosted Maple Mono — the label/code face. Latin is the variable font
+   (one file, all weights); the CN files are static weight subsets keyed to
+   CJK unicode ranges, so browsers only download them for pages that render
+   Chinese glyphs. */
+@font-face {
+  font-family: "Maple Mono";
+  src: url("/fonts/maple-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+  /* Without this the Latin face claims every codepoint and CJK text falls
+     straight through to the system font, never fetching the CN subsets. */
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+0304, U+2000-206F, U+20A0-20CF, U+2100-214F,
+    U+2190-21FF, U+2200-22FF, U+25A0-25FF;
+}
+
+/* The CN files are static weight subsets available as their own family:
+   Chrome does not swap between faces of one family to cover a missing
+   glyph, so CJK text has to reach them through family fallback (the mono
+   stack lists "Maple Mono CN" right after "Maple Mono"). */
+@font-face {
+  font-family: "Maple Mono CN";
+  src: url("/fonts/maple-cn-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+3000-30FF, U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF;
+}
+
+@font-face {
+  font-family: "Maple Mono CN";
+  src: url("/fonts/maple-cn-regular.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+  unicode-range: U+3000-30FF, U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF;
+}
+
+@font-face {
+  font-family: "Maple Mono CN";
+  src: url("/fonts/maple-cn-bold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+  unicode-range: U+3000-30FF, U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF;
+}
+
+@font-face {
+  font-family: "Maple Mono CN";
+  src: url("/fonts/maple-cn-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+3000-30FF, U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF;
+}
+
 :root {
   color-scheme: light;
-  /* Apple system fonts everywhere; PingFang SC keeps CJK on the same family. */
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, Arial, sans-serif;
-  --font-mono: "Maple Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  /* Self-hosted Instrument Sans for Latin (variable, 400–700); system
+     fonts remain only as CJK fallbacks so Chinese never renders as
+     faux-Latin. */
+  --font-sans: "Instrument Sans Variable", "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: "Maple Mono", "Maple Mono CN", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
   /* Brand accent, swapped per theme.
      Light: olive green links/accents, near-black hover, white text on accent.
@@ -14,13 +68,23 @@
   --brand: 129 152 106;
   --brand-foreground: 26 33 24;
   --brand-on: 255 255 255;
+  /* Text-safe accent drawn from the VI Deep Olive (#5E6C53, 5.3:1 on paper):
+     small olive labels use this instead of --brand, which is decorative-only. */
+  --brand-text: 94 108 83;
 
-  /* Page canvas. html and body both paint it so rubber-band overscroll
-     never reveals a different-colored edge.
-     Light theme only: the background sits at 65% of its original saturation
-     (#fafbf0 → #f8f9f2) so the page reads calmer. Every other palette token
-     — text, links, borders, accents — keeps the original value. */
-  --canvas: #f8f9f2;
+  /* Editorial surface tokens. html and body both paint the page so
+     rubber-band overscroll never reveals a different-coloured edge. */
+  --paper: 248 249 242;
+  --ink: 23 19 14;
+  --muted: 107 101 87;
+  --line: 23 19 14;
+
+  /* Motion tokens. One curve for the whole site: long deceleration, no
+     overshoot — the motion equivalent of a hairline. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur-base: 320ms;
+  --dur-enter: 700ms;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -32,13 +96,17 @@
   --brand: 167 180 119;
   --brand-foreground: 201 210 163;
   --brand-on: 23 19 14;
-  --canvas: #0b0906;
+  /* VI Olive Light (#C1C989) — bright enough for small text on near-black. */
+  --brand-text: 193 201 137;
+  --paper: 11 9 6;
+  --ink: 246 242 231;
+  --muted: 166 158 139;
+  --line: 246 242 231;
 }
 
 html {
   font-family: var(--font-sans);
-  background-color: var(--canvas);
-}
+  background-color: rgb(var(--paper));}
 
 @media (prefers-reduced-motion: no-preference) {
   html {
@@ -47,17 +115,14 @@ html {
 }
 
 body {
-  @apply font-sans text-slate-900 antialiased;
-  background-color: var(--canvas);
+  @apply font-sans antialiased;
+  color: rgb(var(--ink));
+  background-color: rgb(var(--paper));
   line-height: 1.65;
   letter-spacing: -0.01em;
   text-rendering: optimizeLegibility;
   font-feature-settings: "liga", "clig", "kern";
   font-kerning: normal;
-}
-
-.dark body {
-  @apply text-slate-100;
 }
 
 body:lang(zh),
@@ -94,7 +159,7 @@ body:lang(zh-Hans) {
   --tw-prose-hr: #dee3bd;
   --tw-prose-quotes: #5c6651;
   --tw-prose-quote-borders: rgb(var(--brand) / 0.22);
-  --tw-prose-captions: #77815f;
+  --tw-prose-captions: #65745a;
   --tw-prose-kbd: #161b11;
   --tw-prose-kbd-shadows: 26 33 24;
   --tw-prose-code: #39442f;
@@ -144,8 +209,17 @@ body:lang(zh-Hans) {
 }
 
 .mdx-article :where(h2) {
-  margin-top: 2.4em;
+  margin-top: 2.6em;
+  padding-top: 1.1em;
+  border-top: 1px solid rgb(var(--line) / 0.12);
   font-weight: 650;
+}
+
+/* The article header already ends in a rule; don't stack a second one. */
+.mdx-article > :where(h2:first-child) {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
 }
 
 .mdx-article :where(h3) {
@@ -169,60 +243,18 @@ body:lang(zh-Hans) {
   font-weight: 650;
 }
 
-/* Pull quotes: a soft brand-tinted card with oversized quotation marks set
-   into the top-left and bottom-right corners. The copy inside steps down
-   from body text — smaller, lighter, quieter — so a quote reads as someone
-   else's voice rather than as the author's own. */
+/* Pull quotes: a single olive rule in the margin, no surface. The copy is
+   set slightly larger and quieter so it reads as someone else's voice
+   without becoming a card inside the article. */
 .mdx-article :where(blockquote) {
-  position: relative;
   margin-block: 2em;
-  padding: 1.5rem clamp(2.25rem, 8vw, 2.9rem);
-  border: 1px solid var(--tw-prose-quote-borders);
-  border-radius: 1rem;
-  background-color: rgb(var(--brand) / 0.05);
+  padding: 0.15rem 0 0.15rem 1.4rem;
+  border-left: 2px solid rgb(var(--brand) / 0.5);
   color: var(--tw-prose-quotes);
-  font-size: 1rem;
+  font-size: 1.04rem;
   font-style: normal;
-  font-weight: 350;
+  font-weight: 400;
   line-height: 1.75;
-}
-
-/* The marks themselves. The second `content` declaration carries an empty
-   alt string so screen readers skip them; browsers without that syntax
-   keep the plain declaration above it. */
-.mdx-article :where(blockquote)::before,
-.mdx-article :where(blockquote)::after {
-  position: absolute;
-  font-family: Georgia, "Times New Roman", "Songti SC", serif;
-  font-size: clamp(3.25rem, 11vw, 4.25rem);
-  font-weight: 400;
-  line-height: 1;
-  color: rgb(var(--brand) / 0.42);
-  pointer-events: none;
-  user-select: none;
-}
-
-.mdx-article :where(blockquote)::before {
-  content: "\201C";
-  content: "\201C" / "";
-  top: 0.15rem;
-  left: 0.75rem;
-}
-
-/* The closing mark hangs below the corner: the glyph's ink sits in the
-   upper part of its em box, so a flush `bottom` would float it. */
-.mdx-article :where(blockquote)::after {
-  content: "\201D";
-  content: "\201D" / "";
-  right: 0.75rem;
-  bottom: -1.45rem;
-}
-
-/* CJK faces have no light weight worth using at this size — pin the copy to
-   body weight and let size and colour carry the step down. The locale lives
-   on the layout's [lang] wrapper, so `:lang()` (not `body:lang()`) matches. */
-:lang(zh) .mdx-article :where(blockquote) {
-  font-weight: 400;
 }
 
 /* Heading permalinks: the `#` after the heading text that links to that
@@ -263,20 +295,13 @@ body:lang(zh-Hans) {
   }
 }
 
-/* @tailwindcss/typography wraps the first and last paragraphs of a quote in
-   its own glyphs; the card draws its marks in the corners instead. */
-.mdx-article :where(blockquote p:first-of-type)::before,
-.mdx-article :where(blockquote p:last-of-type)::after {
-  content: none;
-}
-
-/* Inline code pill; fenced blocks are rendered by CodeBlock (not-prose). */
+/* Inline code marks; fenced blocks are rendered by CodeBlock (not-prose).
+   Sharp corners — the site keeps an editorial, cut-paper edge. */
 .mdx-article :where(code):not(pre code) {
   font-family: var(--font-mono);
   font-size: 0.85em;
   font-weight: 500;
   padding: 0.14em 0.4em;
-  border-radius: 0.375rem;
   background-color: rgb(var(--brand) / 0.13);
 }
 
@@ -288,7 +313,6 @@ body:lang(zh-Hans) {
 .mdx-article :where(img) {
   display: block;
   margin: 1.75em auto;
-  border-radius: 0.75rem;
 }
 
 /* Captioned figures: the <figure> owns the block spacing, so the image
@@ -320,7 +344,6 @@ body:lang(zh-Hans) {
   font-family: var(--font-mono);
   font-size: 0.8em;
   padding: 0.15em 0.4em;
-  border-radius: 0.375rem;
   border: 1px solid rgb(var(--brand) / 0.35);
   box-shadow: 0 1px 0 rgb(var(--brand) / 0.35);
 }
@@ -426,8 +449,11 @@ body:lang(zh-Hans) {
   }
 }
 
+/* Links inherit by default; each surface decides its own colour so the
+   editorial pages can stay ink-on-paper and only tint on interaction. */
 a {
-  @apply text-brand hover:text-brand-foreground transition-colors;
+  color: inherit;
+  transition: color var(--dur-fast) ease;
 }
 
 section {
@@ -436,7 +462,213 @@ section {
 
 button:focus-visible,
 a:focus-visible {
-  @apply outline-none ring-2 ring-brand/60 ring-offset-2 ring-offset-white dark:ring-offset-slate-900;
+  @apply outline-none ring-2 ring-brand/60 ring-offset-2 ring-offset-paper;
+}
+
+/* CJK headings do not take the Latin negative tracking. */
+:lang(zh) h1,
+:lang(zh) h2,
+:lang(zh) h3,
+:lang(zh) h4,
+:lang(zh) .page-title,
+:lang(zh) .section-title {
+  letter-spacing: 0;
+}
+
+/* ── Editorial primitives ────────────────────────────────────── */
+
+.container-page {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .container-page {
+    padding-inline: 2rem;
+  }
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(var(--muted));
+}
+
+:lang(zh) .eyebrow {
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 639px) {
+  .eyebrow {
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+  }
+}
+
+.page-title {
+  font-size: clamp(1.9rem, 3.2vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: rgb(var(--ink));
+}
+
+.section-title {
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: rgb(var(--ink));
+}
+
+.section-index {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 0.22em;
+  margin-right: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  color: rgb(var(--brand-text));
+}
+
+/* An `hr` right before a section heading doubles the rule — the h2 already
+   draws one of its own. */
+.mdx-article :where(hr:has(+ h2)) {
+  display: none;
+}
+
+/* Underline that draws in from the left — used on every inline link.
+   No vertical padding: asymmetric padding breaks flex centering, sinking
+   the text a pixel and a half below its neighbours in the same row. */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition:
+    background-size 380ms var(--ease-out),
+    color var(--dur-fast) ease;
+}
+
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* ── Motion ──────────────────────────────────────────────────── */
+
+@media (scripting: enabled) {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity var(--dur-enter) var(--ease-out),
+      transform var(--dur-enter) var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+}
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .enter-up {
+    opacity: 0;
+    animation: enter-up 700ms var(--ease-out) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+
+  .enter-mask {
+    overflow: hidden;
+  }
+
+  .enter-mask > span {
+    display: block;
+    transform: translateY(110%);
+    animation: enter-mask 850ms var(--ease-out) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+
+  .enter-clip {
+    clip-path: inset(0 0 100% 0);
+    animation: enter-clip 1000ms var(--ease-out) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+}
+
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes enter-mask {
+  to {
+    transform: none;
+  }
+}
+
+@keyframes enter-clip {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .page-enter {
+    animation: page-enter 420ms var(--ease-out) both;
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Theme switch: the new canvas fades over the old one. The old snapshot
+   stays put so only one layer moves. */
+::view-transition-old(root) {
+  animation: none;
+}
+
+::view-transition-new(root) {
+  animation: theme-fade 240ms var(--ease-out);
+}
+
+@keyframes theme-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) {
+    animation: none;
+  }
 }
 
 /* Hide scrollbar for mobile navigation */
@@ -451,20 +683,52 @@ a:focus-visible {
 
 /* Reduced motion support - 尊重用户的无障碍设置 */
 @media (prefers-reduced-motion: reduce) {
+  html,
   .scroll-smooth {
     scroll-behavior: auto;
   }
 
-  * {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .enter-up,
+  .enter-mask > span,
+  .enter-clip {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
   }
 }
 
 @media print {
   body {
-    @apply bg-white text-black;
+    background: #fff;
+    color: #000;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .page-enter,
+  .enter-up,
+  .enter-mask > span,
+  .enter-clip {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
   }
 
   .print\:hidden {

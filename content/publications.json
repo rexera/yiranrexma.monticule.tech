@@ -39,7 +39,8 @@
           }
         ],
         "notes": "Co-first authors (*equal contribution). Hybrid, reference-free evaluation of stylistic fidelity in Chinese legal text, combining linguistic features with experience-guided LLM-as-a-judge scoring; experiments on 200 legal documents.",
-        "slug": "clase"
+        "slug": "clase",
+        "featured": true
       },
       {
         "id": "C.5",
@@ -60,7 +61,8 @@
             "href": "https://aclanthology.org/2026.findings-acl.1028/"
           }
         ],
-        "notes": "Dialogue modelled as a signalling game over communicative intents and strategies; human-expert evaluations in simulated courtrooms and debates show dialogue quality gains of 6.3%–20.1% across clarity, conciseness, argumentation, and tactics."
+        "notes": "Dialogue modelled as a signalling game over communicative intents and strategies; human-expert evaluations in simulated courtrooms and debates show dialogue quality gains of 6.3%–20.1% across clarity, conciseness, argumentation, and tactics.",
+        "featured": true
       },
       {
         "id": "S.1",
@@ -126,7 +128,8 @@
           }
         ],
         "notes": "Philosopher and Symposium frameworks simulate self- and group-reflection for multi-persona agents; identifies an \"overthinking threshold\" beyond which deliberation yields diminishing returns.",
-        "slug": "androids-question"
+        "slug": "androids-question",
+        "featured": true
       },
       {
         "id": "C.3",
@@ -196,7 +199,8 @@
           }
         ],
         "notes": "共同第一作者（*同等贡献）。Hybrid, reference-free evaluation of stylistic fidelity in Chinese legal text, combining linguistic features with experience-guided LLM-as-a-judge scoring; experiments on 200 legal documents.",
-        "slug": "clase"
+        "slug": "clase",
+        "featured": true
       },
       {
         "id": "C.5",
@@ -217,7 +221,8 @@
             "href": "https://aclanthology.org/2026.findings-acl.1028/"
           }
         ],
-        "notes": "将对话建模为关于交际意图与策略的信号博弈；在模拟庭审与辩论场景的专家评估中，清晰度、简洁性、论证性、策略性四个维度的对话质量提升 6.3%–20.1%。"
+        "notes": "将对话建模为关于交际意图与策略的信号博弈；在模拟庭审与辩论场景的专家评估中，清晰度、简洁性、论证性、策略性四个维度的对话质量提升 6.3%–20.1%。",
+        "featured": true
       },
       {
         "id": "S.1",
@@ -283,7 +288,8 @@
           }
         ],
         "notes": "Philosopher and Symposium frameworks simulate self- and group-reflection for multi-persona agents; identifies an \"overthinking threshold\" beyond which deliberation yields diminishing returns.",
-        "slug": "androids-question"
+        "slug": "androids-question",
+        "featured": true
       },
       {
         "id": "C.3",

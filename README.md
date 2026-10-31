@@ -14,7 +14,7 @@ content/
   profile.json            # name, affiliation, socials (incl. QR platforms), avatar
   updates.json            # Home "Updates" news timeline (hand-maintained!)
   publications.json       # papers / patents / preprints list
-  projects.json           # project groups on the Publication/Project tab
+  projects.json           # project groups on the Work tab
   pages/*.json            # per-page copy (home, blog, publications, story)
   blog/{en,zh}/*.mdx      # blog posts (missing locale falls back per slug)
   publications/*.mdx      # long-form bodies for publication detail pages
@@ -22,15 +22,15 @@ content/
 
 app/(site)/[locale]/     # all real pages, statically built per locale
 components/              # UI components (server; "-client" files are interactive)
-lib/                     # content loaders, MDX pipeline, GitHub commits fetch
+lib/                     # content loaders and the MDX pipeline
 scripts/new-post.mjs     # blog post scaffold
 public/images/           # avatar, QR codes, logo, post images
 ```
 
 A few things worth knowing:
 
-- **Home page** composes three zones: hero + At a Glance, the hand-curated **Updates** news timeline, and a **Latest commits** strip. The commits are fetched from the GitHub API **at build time** — every push redeploys, so the strip (and the footer's "last updated" date) are always current. `github-actions[bot]` commits are filtered out.
-- **Story** (`/[locale]/experience`) renders `content/about/*.mdx` through the same MDX pipeline and typography as blog posts.
+- **Home page** opens with a compact masthead, then four sections: **Now**, **Selected Work** (the first three publications), **News** (the five newest updates), and **Writing** (the three newest posts). The footer shows a single last-updated date taken from the newest curated update.
+- **Story** (`/[locale]/story`) renders `content/about/*.mdx` through the same MDX pipeline and typography as blog posts.
 - **Deployments**: Vercel by default (`proxy.ts` handles locale entry redirects). `EDGEONE=1 npm run build` produces a static export in `out/` for EdgeOne Pages.
 
 ## Managing the content
@@ -49,7 +49,7 @@ Edit [`content/updates.json`](./content/updates.json). Each entry:
 }
 ```
 
-Newest first is conventional; entries are sorted by date automatically. Only `date`, `title`, and `summary` are displayed. **This file is maintained by hand** — the nightly workflow that used to overwrite it with commit history has been removed (the commit history now lives in its own carousel instead).
+Newest first is conventional; entries are sorted by date automatically. The Home page shows the five newest entries (date, type, title, summary); the footer's "last updated" date comes from the newest one. **This file is maintained by hand.**
 
 ### Publications
 
@@ -74,7 +74,7 @@ To give a publication a full detail page, add `content/publications/<slug>.mdx` 
 
 ### Projects
 
-Projects are the second half of the **Publication/Project** tab, driven by [`content/projects.json`](./content/projects.json). Entries are grouped (`academic`, `venture`, …) and rendered as cards:
+Projects are the second half of the **Work** tab, driven by [`content/projects.json`](./content/projects.json). Entries are grouped (`academic`, `venture`, …) and rendered as editorial entries:
 
 ```json
 {
@@ -115,9 +115,9 @@ Draft posts are hidden from the index and their URLs 404. A post may exist in on
 
 Edit [`content/about/en.mdx`](./content/about/en.mdx) and [`zh.mdx`](./content/about/zh.mdx). These render with full blog typography (headings, links, images, math). Use `*italics*` rather than `_italics_` — underscores don't parse as emphasis next to CJK characters.
 
-### Profile & sidebar
+### Profile & footer
 
-Edit [`content/profile.json`](./content/profile.json). The `social` array drives the sidebar rows: entries with an `href` become external links; entries with a `qr` path (e.g. `/images/wechat_oa.JPG`) show a hover popover with that image instead of navigating — used for 微信公众号 / 小红书 / 抖音. Replace the QR images in `public/images/` directly.
+Edit [`content/profile.json`](./content/profile.json). The `social` array drives the footer links: entries with an `href` become external links; entries with a `qr` path (e.g. `/images/wechat_oa.JPG`) show a hover popover with that image instead of navigating — used for 微信公众号 / 小红书 / 抖音. Replace the QR images in `public/images/` directly. The contact email and Home copy live in [`content/pages/home.json`](./content/pages/home.json).
 
 ## Working on the site
 
@@ -129,9 +129,9 @@ npm run lint            # ESLint — run before every push
 npm run build           # production build; also the pre-deploy check
 ```
 
-Verification is `npm run lint && npm run build` — both must pass before pushing (there is no test suite). Pushing to `master` triggers the Vercel deployment and refreshes the commits strip.
+Verification is `npm run lint && npm run build` — both must pass before pushing (there is no test suite). Pushing to `master` triggers the Vercel deployment.
 
-Environment variables (see `.env.example`): `NEXT_PUBLIC_CONTACT_EMAIL_B64` (Base64-encoded contact email shown in the sidebar), `NEXT_PUBLIC_REPOSITORY_URL` (footer link + source for the commits API), and optionally `GITHUB_TOKEN` to lift GitHub API rate limits during builds.
+Environment variables (see `.env.example`): `NEXT_PUBLIC_REPOSITORY_URL` (the "Source" link in the footer). `NEXT_PUBLIC_SITE_URL` optionally overrides the canonical origin used in metadata and feeds.
 
 ## License
 

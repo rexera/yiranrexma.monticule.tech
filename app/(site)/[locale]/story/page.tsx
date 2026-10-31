@@ -5,8 +5,10 @@ import path from "node:path";
 import matter from "gray-matter";
 import { notFound } from "next/navigation";
 
+import { ArticleReveal } from "@/components/article-reveal";
+import { PageHeader } from "@/components/page-header";
+import { ReadingProgress } from "@/components/reading-progress";
 import { ScrollToHash } from "@/components/scroll-to-hash";
-import { Section } from "@/components/section";
 import { getStoryPageCopy } from "@/lib/content";
 import { normalizeLocale, type Locale } from "@/lib/locale";
 import { renderMdx } from "@/lib/mdx";
@@ -61,13 +63,20 @@ export default async function StoryPage({ params }: PageProps) {
   const storyContent = story ? await renderMdx(story, locale) : null;
 
   return (
-    <div className="mx-auto w-full max-w-[46rem] space-y-16">
+    <div className="container-page py-10 sm:py-14">
+      <ReadingProgress />
+      <ArticleReveal />
       <ScrollToHash />
-      {storyContent ? (
-        <Section title={copy.story.title}>
-          <div className="prose mdx-article max-w-none">{storyContent}</div>
-        </Section>
-      ) : null}
+      <div className="mx-auto w-full max-w-[46rem]">
+        <PageHeader
+          eyebrow={locale === "zh" ? "故事" : "Story"}
+          title={copy.story.title}
+        />
+        <div className="mt-8 border-t border-line/15" />
+        {storyContent ? (
+          <div className="prose mdx-article mt-8 max-w-none">{storyContent}</div>
+        ) : null}
+      </div>
     </div>
   );
 }

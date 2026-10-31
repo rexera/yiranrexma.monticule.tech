@@ -26,6 +26,7 @@ export type PublicationEntry = {
   id: string;
   type: "C" | "J" | "P" | "S";
   slug?: string;
+  featured?: boolean;
   title: string;
   authors: string;
   venue: string;
@@ -79,6 +80,8 @@ export type UpdatesContent = Localized<{
 
 export type BlogPageCopy = Localized<{
   title: string;
+  eyebrow: string;
+  description: string;
   filters: {
     type: string;
     year: string;
@@ -92,25 +95,22 @@ export type BlogPageCopy = Localized<{
 }>;
 
 export type HomePageCopy = Localized<{
-  heroIntro: string;
-  buttons: {
-    publications: string;
-    blog: string;
+  /** Short lead lines under the name — one statement each, no links. */
+  leads: string[];
+  email: string;
+  sections: {
+    work: string;
+    news: string;
+    writing: string;
+    all: string;
   };
-  highlights: {
-    title: string;
-    focusLabel: string;
-    focusValue: string;
-    contactLabel: string;
-    contactValue: string;
-    locationLabel: string;
-  };
-  timeline: { title: string };
-  commits: { title: string };
 }>;
 
 export type PublicationsPageCopy = Localized<{
   title: string;
+  eyebrow: string;
+  description: string;
+  publicationsTitle: string;
   filters: {
     type: string;
     year: string;

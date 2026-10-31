@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { HomeClient } from "./home-client";
+import { HomeView } from "./home-view";
 
-import { getHomePageCopy, getProfileContent, getUpdatesContent } from "@/lib/content";
-import { getRecentCommits } from "@/lib/commits";
-import { normalizeLocale } from "@/lib/locale";
+import { getBlogPostMetas } from "@/lib/blog";
+import {
+  getHomePageCopy,
+  getProfileContent,
+  getPublicationsContent,
+  getUpdatesContent
+} from "@/lib/content";
+import { getFallbackLocale, normalizeLocale } from "@/lib/locale";
 
 type PageProps = {
   params: { locale: string } | Promise<{ locale: string }>;
@@ -38,7 +43,14 @@ export default async function HomePage({ params }: PageProps) {
   const profile = getProfileContent()[locale];
   const updates = getUpdatesContent()[locale].updates;
   const copy = getHomePageCopy()[locale];
-  const commits = await getRecentCommits();
+  const publications = [...getPublicationsContent()[locale].entries]
+    .filter((entry) => entry.featured)
+    .sort((a, b) => Number(b.year) - Number(a.year));
+
+  let posts = await getBlogPostMetas(locale);
+  if (posts.length === 0) {
+    posts = await getBlogPostMetas(getFallbackLocale(locale));
+  }
 
   const personJsonLd = {
     "@context": "https://schema.org",
@@ -48,7 +60,7 @@ export default async function HomePage({ params }: PageProps) {
     jobTitle: profile.title,
     affiliation: { "@type": "Organization", name: profile.affiliation },
     url: locale === "zh" ? `${SITE_URL}/zh` : `${SITE_URL}/en`,
-    email: `mailto:${copy.highlights.contactValue}`,
+    email: `mailto:${copy.email}`,
     sameAs: profile.social.filter((link) => link.href).map((link) => link.href)
   };
   const websiteJsonLd = {
@@ -65,12 +77,13 @@ export default async function HomePage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([personJsonLd, websiteJsonLd]) }}
       />
-      <HomeClient
+      <HomeView
         locale={locale}
         profile={profile}
-        updates={updates}
+        updates={updates.slice(0, 5)}
+        publications={publications}
+        posts={posts.slice(0, 3)}
         copy={copy}
-        commits={commits}
       />
     </>
   );

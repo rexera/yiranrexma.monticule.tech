@@ -65,11 +65,16 @@ Anything requiring request-time server behavior must be avoided or gated for the
 - `lib/blog.ts` — reads `content/blog/<locale>/` from disk with gray-matter; slugs must be kebab-case (`^[a-z0-9-]+$`), `draft: true` hides a post, `type: research|note`.
 - `lib/publications.ts` — joins `content/publications.json` entries (which have an optional `slug`) with `content/publications/<slug>.mdx` bodies for `/[locale]/publications/[slug]` detail pages.
 - `lib/mdx.ts` — the single MDX pipeline (`renderMdx`): compileMDX with remark-gfm, remark-math, typographic quotes (`lib/smart-quotes.ts`), image unwrapping, then rehype-katex, rehype-slug, rehype-pretty-code (Shiki dual themes), per-heading permalinks and section anchors; maps `pre`→`CodeBlock`, plus `Callout` and `Table` components. `extractToc` numbers sections by structure (`s2`, `s2-1`), the same anchors the headings carry, so TOC links and the language switcher agree in both locales. `MermaidDiagram` and `PlotlyFigure` are client components imported inside MDX.
-- `lib/commits.ts` — build-time fetch of recent commits (GitHub API) for the Home commits strip and the footer's last-updated date; bot commits filtered, returns null on failure.
-
 ### Server/client split
 
-Pages are server components that read content at build time; interactivity lives in separate `"use client"` files (`home-client.tsx`, `blog/blog-client.tsx`, `publications/publications-client.tsx`, `components/site-shell.tsx`). `SiteShell` shows the profile sidebar only on the home route and decodes the contact email from `NEXT_PUBLIC_CONTACT_EMAIL_B64` (Base64 to avoid scraping).
+Pages are server components that read content at build time; interactivity lives in separate `"use client"` files (`blog/blog-client.tsx`, `publications/publications-client.tsx`, `components/site-shell.tsx`, `components/site-header.tsx`, `components/reveal.tsx`, `components/theme-toggle.tsx`). `SiteShell` is the masthead–page–footer frame; the footer reads `content/pages/home.json`'s `email` and `content/profile.json`'s `social` array directly.
+
+### Visual system and motion
+
+- Design tokens live in `app/globals.css` (`--paper`, `--ink`, `--muted`, `--line`, `--ease-out`, durations) and are exposed to Tailwind as `paper` / `ink` / `muted` / `line` in `tailwind.config.ts`. Prefer these over the legacy `slate-*` utilities in new work.
+- Layout primitives are plain CSS classes in `globals.css`: `.container-page`, `.page-title`, `.section-title`, `.section-index`, `.eyebrow`, `.link-underline`.
+- Scroll reveals use `components/reveal.tsx` (IntersectionObserver + `[data-reveal]`), `components/reading-progress.tsx` for long-form pages, and `app/(site)/[locale]/template.tsx` for the page-level fade. Hero entrance classes (`.enter-up`, `.enter-mask`, `.enter-clip`) are CSS-only.
+- All motion is disabled under `prefers-reduced-motion`; content is never hidden when scripting is off (`@media (scripting: enabled)`). No animation library.
 
 ### Automation
 

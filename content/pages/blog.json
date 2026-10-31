@@ -4,6 +4,8 @@
   },
   "en": {
     "title": "Blog",
+    "eyebrow": "Writing",
+    "description": "Essays and notes on language, models, and the work in between.",
     "filters": {
       "type": "Type",
       "year": "Year",
@@ -17,6 +19,8 @@
   },
   "zh": {
     "title": "博客",
+    "eyebrow": "写作",
+    "description": "关于语言、模型，以及两者之间那些工作的文章与笔记。",
     "filters": {
       "type": "类型",
       "year": "年份",

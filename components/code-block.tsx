@@ -63,16 +63,16 @@ export function CodeBlock({ children, "data-language": language = "" }: PreProps
   };
 
   return (
-    <div className="code-block not-prose group relative my-6 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
-      <div className="flex items-center justify-between border-b border-slate-200 bg-slate-100/60 py-1.5 pl-4 pr-2 dark:border-white/[0.06] dark:bg-white/[0.03]">
-        <span className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
+    <div className="code-block not-prose group relative my-6 overflow-hidden border border-line/20 bg-ink/[0.025] dark:bg-white/[0.03]">
+      <div className="flex items-center justify-between border-b border-line/15 py-1.5 pl-4 pr-2">
+        <span className="font-mono text-[0.68rem] uppercase tracking-[0.12em] text-muted">
           {language || "text"}
         </span>
         <button
           type="button"
           onClick={copy}
           aria-label={copied ? "Copied" : "Copy code"}
-          className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[0.7rem] font-medium text-slate-500 transition hover:bg-slate-200/70 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-white/[0.06] dark:hover:text-slate-200"
+          className="inline-flex items-center gap-1.5 px-2 py-1 text-[0.7rem] font-medium text-muted transition hover:bg-ink/[0.05] hover:text-ink dark:hover:bg-white/[0.06]"
         >
           {copied ? (
             <CheckIcon aria-hidden="true" className="h-3.5 w-3.5 text-brand" />
@@ -82,7 +82,7 @@ export function CodeBlock({ children, "data-language": language = "" }: PreProps
           {copied ? "Copied" : "Copy"}
         </button>
       </div>
-      <pre className="soft-scroll overflow-x-auto p-4 font-mono text-[0.85rem] leading-relaxed text-slate-700 dark:text-slate-100 [&_code]:bg-transparent [&_code]:p-0">
+      <pre className="soft-scroll overflow-x-auto p-4 font-mono text-[0.85rem] leading-relaxed text-ink/80 [&_code]:bg-transparent [&_code]:p-0">
         {children}
       </pre>
     </div>

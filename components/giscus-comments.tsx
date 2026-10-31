@@ -26,7 +26,7 @@ export function GiscusComments({ locale }: GiscusCommentsProps) {
   }, []);
 
   return (
-    <section className="mt-12 border-t border-slate-200 pt-8 dark:border-slate-800">
+    <section className="mt-12 border-t border-line/15 pt-8">
       <Giscus
         repo="rexera/yiranrexma.monticule.tech"
         repoId="R_kgDOUEgnBg"

@@ -53,17 +53,17 @@ export function LocaleRedirect({
   const fallbackTarget = buildLocalePath(DEFAULT_LOCALE, pathAfterLocale);
 
   return (
-    <main className="mx-auto max-w-xl px-6 py-16 text-slate-700 dark:text-slate-200">
+    <main className="mx-auto max-w-xl px-6 py-16 text-ink">
       <h1 className="text-lg font-semibold">{title}</h1>
-      <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+      <p className="mt-3 text-sm text-muted">
         If you are not redirected automatically,{" "}
-        <a className="underline underline-offset-4" href={fallbackTarget}>
+        <a className="link-underline" href={fallbackTarget}>
           continue
         </a>
         .
       </p>
       <noscript>
-        <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+        <p className="mt-3 text-sm text-muted">
           JavaScript is required for locale auto-detection on this entry route.
         </p>
       </noscript>

@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import "katex/dist/katex.min.css";
-import "@fontsource/maple-mono/400.css";
-import "@fontsource/maple-mono/500.css";
-import "@fontsource/maple-mono/700.css";
+import "@fontsource-variable/instrument-sans";
 import { Providers } from "@/components/providers";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yiranrexma.monticule.tech";
@@ -52,7 +50,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <body className="font-sans">
         <Providers>
           {children}

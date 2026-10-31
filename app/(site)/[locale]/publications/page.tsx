@@ -14,7 +14,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yiranrexma.monticu
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const locale = normalizeLocale(resolvedParams.locale) ?? "en";
-  const title = locale === "zh" ? "成果与项目" : "Publications & Projects";
+  const title = locale === "zh" ? "成果" : "Work";
   return {
     title,
     alternates: {

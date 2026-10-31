@@ -88,18 +88,16 @@ export function TableOfContents({ entries, title = "On this page" }: TableOfCont
 
   const linkClasses = (active: boolean) =>
     clsx(
-      "-ml-px block border-l-2 py-1 pr-2 text-[0.8125rem] leading-snug transition-colors",
+      "-ml-px block border-l py-1 pr-2 text-[0.8125rem] leading-snug transition-colors",
       active
-        ? "border-brand font-medium text-brand"
-        : "border-transparent text-slate-500 hover:border-slate-400 hover:text-slate-800 dark:text-slate-400 dark:hover:border-slate-600 dark:hover:text-slate-200"
+        ? "border-brand font-medium text-brand-text"
+        : "border-transparent text-muted hover:border-line/40 hover:text-ink"
     );
 
   return (
-    <nav aria-label="Table of contents" className="sticky top-24 w-full pb-8">
-      <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">
-        {title}
-      </p>
-      <ul className="mt-4 border-l border-slate-200 dark:border-slate-800">
+    <nav aria-label="Table of contents" className="sticky top-8 w-full pb-8">
+      <p className="eyebrow">{title}</p>
+      <ul className="mt-4 border-l border-line/15">
         {groups.map((group) => {
           const open = group === openGroup;
           return (

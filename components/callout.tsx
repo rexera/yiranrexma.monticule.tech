@@ -4,12 +4,15 @@ type CalloutProps = {
 };
 
 /**
- * Highlighted note block for important remarks inside articles.
+ * Highlighted note: an olive margin rule, no card, so it reads as a
+ * marginal remark rather than a box inside the text.
  */
 export function Callout({ title, children }: CalloutProps) {
   return (
-    <div className="space-y-2 rounded-2xl border border-brand/20 bg-brand/5 p-4 text-sm text-slate-700 dark:border-brand/30 dark:bg-brand/10 dark:text-slate-200">
-      {title ? <p className="font-semibold text-brand">{title}</p> : null}
+    <div className="space-y-1.5 border-l-2 border-brand/50 py-0.5 pl-4 text-sm leading-relaxed text-ink/80">
+      {title ? (
+        <p className="font-semibold text-brand-text">{title}</p>
+      ) : null}
       <div>{children}</div>
     </div>
   );

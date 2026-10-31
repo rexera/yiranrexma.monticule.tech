@@ -3,8 +3,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { SiteShell } from "@/components/site-shell";
-import { getProfileContent, getUpdatesContent } from "@/lib/content";
-import { getRecentCommits } from "@/lib/commits";
+import { getHomePageCopy, getProfileContent, getUpdatesContent } from "@/lib/content";
 import { buildLocalePath, LOCALES, normalizeLocale, type Locale } from "@/lib/locale";
 import type { NavItem } from "@/types/navigation";
 
@@ -35,7 +34,7 @@ const NAV_ITEMS: Record<Locale, NavItem[]> = {
   en: [
     { label: "Home", href: buildLocalePath("en") },
     { label: "Blog", href: buildLocalePath("en", "/blog") },
-    { label: "Publication/Project", href: buildLocalePath("en", "/publications") },
+    { label: "Work", href: buildLocalePath("en", "/publications") },
     { label: "Story", href: buildLocalePath("en", "/story") }
   ],
   zh: [
@@ -61,19 +60,22 @@ export default async function LocaleLayout({
 
   const profile = getProfileContent()[locale];
   const navItems = NAV_ITEMS[locale];
-  // "Last updated" mirrors the newest commit on this repository — the same
-  // source as the Home page commits strip. Falls back to the newest curated
-  // update if the GitHub API is unreachable at build time.
-  const lastUpdated =
-    (await getRecentCommits())?.[0]?.date ??
-    getUpdatesContent()[locale]?.updates?.[0]?.date;
+  // One quiet date is enough provenance: the newest curated update.
+  const lastUpdated = getUpdatesContent()[locale]?.updates?.[0]?.date;
+  const email = getHomePageCopy()[locale].email;
 
   return (
     // lang on the wrapper (display:contents keeps layout untouched) gives
     // the zh pages a correct language signal even though the root <html>
     // is shared with the locale-less redirect stubs.
     <div lang={locale} className="contents">
-      <SiteShell navItems={navItems} profile={profile} locale={locale} lastUpdated={lastUpdated}>
+      <SiteShell
+        navItems={navItems}
+        profile={profile}
+        locale={locale}
+        email={email}
+        lastUpdated={lastUpdated}
+      >
         {children}
       </SiteShell>
     </div>

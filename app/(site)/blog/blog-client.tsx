@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useMemo, useState } from "react";
 
 import { FilterToolbar } from "@/components/filter-toolbar";
-import { Section } from "@/components/section";
-import { Tag } from "@/components/tag";
+import { PageHeader } from "@/components/page-header";
+import { Reveal } from "@/components/reveal";
 import type { BlogPostMeta, BlogPostType } from "@/lib/blog-types";
 import type { BlogPageCopy } from "@/lib/content-types";
 import type { Locale } from "@/lib/locale";
@@ -19,6 +19,14 @@ type BlogClientProps = {
 };
 
 const ALL_FILTER_VALUE = "all" as const;
+
+// Decorative scan aid only — the text label beside the dot stays muted so
+// contrast never depends on the accent palette (raw VI tones are not AA-safe
+// as text on paper).
+const TYPE_MARKERS: Record<BlogPostType, string> = {
+  research: "bg-brand",
+  note: "bg-vi-ground"
+};
 
 export function BlogClient({ copy, posts, locale }: BlogClientProps) {
   const [typeFilter, setTypeFilter] = useState<string>(ALL_FILTER_VALUE);
@@ -41,6 +49,34 @@ export function BlogClient({ copy, posts, locale }: BlogClientProps) {
     return [ALL_FILTER_VALUE, ...uniqueYears];
   }, [normalizedPosts]);
 
+  const typeOptions = (Object.keys(copy.types) as BlogPostType[]).map((type) => ({
+    value: type,
+    label: copy.types[type]
+  }));
+
+  const typeCounts = useMemo(() => {
+    const pool = normalizedPosts.filter((post) => yearFilter === ALL_FILTER_VALUE || post.year === yearFilter);
+    return Object.fromEntries([
+      [ALL_FILTER_VALUE, pool.length],
+      ...typeOptions.map((option) => [
+        option.value,
+        pool.filter((post) => post.type === option.value).length
+      ])
+    ]) as Record<string, number>;
+  }, [normalizedPosts, typeOptions, yearFilter]);
+
+  const yearCounts = useMemo(() => {
+    const pool = normalizedPosts.filter(
+      (post) => typeFilter === ALL_FILTER_VALUE || post.type === typeFilter
+    );
+    return Object.fromEntries(
+      yearOptions.map((year) => [
+        year,
+        year === ALL_FILTER_VALUE ? pool.length : pool.filter((post) => post.year === year).length
+      ])
+    ) as Record<string, number>;
+  }, [normalizedPosts, typeFilter, yearOptions]);
+
   const filteredPosts = useMemo(() => {
     return normalizedPosts.filter((post) => {
       const matchesType = typeFilter === ALL_FILTER_VALUE || post.type === typeFilter;
@@ -49,21 +85,24 @@ export function BlogClient({ copy, posts, locale }: BlogClientProps) {
     });
   }, [normalizedPosts, typeFilter, yearFilter]);
 
-  const typeOptions = (Object.keys(copy.types) as BlogPostType[]).map((type) => ({
-    value: type,
-    label: copy.types[type]
-  }));
-
   return (
-    <div className="space-y-16">
-      <Section title={copy.title}>
+    <div className="container-page py-10 sm:py-14">
+      <PageHeader eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
+
+      <div className="mt-8">
         <FilterToolbar
           groups={[
             {
               id: "type",
               label: copy.filters.type,
               value: typeFilter,
-              options: [{ value: ALL_FILTER_VALUE, label: copy.filters.all }, ...typeOptions],
+              options: [
+                { value: ALL_FILTER_VALUE, label: copy.filters.all, count: typeCounts[ALL_FILTER_VALUE] },
+                ...typeOptions.map((option) => ({
+                  ...option,
+                  count: typeCounts[option.value]
+                }))
+              ],
               onChange: setTypeFilter
             },
             {
@@ -72,50 +111,63 @@ export function BlogClient({ copy, posts, locale }: BlogClientProps) {
               value: yearFilter,
               options: yearOptions.map((year) => ({
                 value: year,
-                label: year === ALL_FILTER_VALUE ? copy.filters.all : year
+                label: year === ALL_FILTER_VALUE ? copy.filters.all : year,
+                count: yearCounts[year]
               })),
               onChange: setYearFilter
             }
           ]}
         />
+      </div>
 
-        <div className="mt-4 space-y-5">
-          {filteredPosts.length ? (
-            filteredPosts.map((post) => (
-              <article
-                key={post.slug}
-                className="rounded-2xl border border-slate-200 bg-white/90 p-6 dark:border-slate-800 dark:bg-slate-900/70"
-              >
-                <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300">
-                  <span>{post.date}</span>
-                  <span aria-hidden="true">·</span>
-                  <span>{copy.types[post.type]}</span>
-                </div>
-                <h3 className="mt-2 text-xl font-semibold text-slate-900 dark:text-slate-50">
-                  <Link
-                    href={`${base}/blog/${post.slug}` as any}
-                    className="hover:text-brand"
-                  >
-                    {post.title}
-                  </Link>
-                </h3>
-                {post.summary ? <p className="mt-2 text-base text-slate-600 dark:text-slate-300">{post.summary}</p> : null}
-                {post.tags.length ? (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {post.tags.map((tag) => (
-                      <Tag key={`${post.slug}-${tag}`} label={tag} />
-                    ))}
+      {filteredPosts.length ? (
+        <div className="mt-2 border-t border-line/15">
+          {filteredPosts.map((post, index) => {
+            return (
+              <Reveal key={post.slug} delay={Math.min(index, 5) * 40} className="border-b border-line/15">
+                <article className="-mx-3 px-3 py-6 transition-colors duration-200 hover:bg-ink/[0.03] dark:hover:bg-white/[0.04] sm:-mx-4 sm:px-4">
+                  <div className="grid gap-1.5 sm:grid-cols-[108px_minmax(0,1fr)] sm:gap-8">
+                    <div className="flex items-baseline gap-2 sm:block">
+                      <time className="font-mono text-[11px] tabular-nums tracking-[0.08em] text-muted">
+                        {post.date}
+                      </time>
+                      <span className="inline-flex items-center gap-1.5 sm:mt-1.5 sm:block">
+                        <span
+                          aria-hidden="true"
+                          className={`h-1.5 w-1.5 shrink-0 rounded-full ${TYPE_MARKERS[post.type]}`}
+                        />
+                        <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
+                          {copy.types[post.type]}
+                        </span>
+                      </span>
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="text-[1.05rem] font-semibold leading-snug text-ink">
+                        <Link
+                          href={`${base}/blog/${post.slug}` as any}
+                          className="link-underline transition-colors hover:text-brand-text"
+                        >
+                          {post.title}
+                        </Link>
+                      </h3>
+                      {post.summary ? (
+                        <p className="mt-1 line-clamp-2 max-w-[68ch] text-sm leading-relaxed text-muted">
+                          {post.summary}
+                        </p>
+                      ) : null}
+                      {post.tags.length ? (
+                        <p className="mt-2 text-xs text-muted">{post.tags.join(" · ")}</p>
+                      ) : null}
+                    </div>
                   </div>
-                ) : null}
-              </article>
-            ))
-          ) : (
-            <p className="rounded-2xl border border-dashed border-slate-200 bg-white/70 p-6 text-sm text-slate-600 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-300">
-              {copy.empty}
-            </p>
-          )}
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
-      </Section>
+      ) : (
+        <p className="mt-6 text-sm text-muted">{copy.empty}</p>
+      )}
     </div>
   );
 }

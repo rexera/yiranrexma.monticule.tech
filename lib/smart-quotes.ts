@@ -147,3 +147,26 @@ export function remarkSmartQuotes() {
 export function smartQuotes(input: string): string {
   return convert(input, undefined, { double: false, single: false }).text;
 }
+
+/** Link-ish values are left alone; everything else is prose. */
+const LINK_LIKE = /^(https?:|mailto:|\/|#)/;
+
+/**
+ * Curly quotes for every string in a JSON-ish value — the deep walk used at
+ * every content boundary (lib/content.ts loaders, component-local copy) so a
+ * straight apostrophe never reaches the page from data or literals.
+ */
+export function typographic<T>(value: T): T {
+  if (typeof value === "string") {
+    return (LINK_LIKE.test(value) ? value : smartQuotes(value)) as unknown as T;
+  }
+  if (Array.isArray(value)) {
+    return value.map(typographic) as unknown as T;
+  }
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, entry]) => [key, typographic(entry)])
+    ) as T;
+  }
+  return value;
+}

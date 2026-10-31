@@ -19,29 +19,9 @@ import type {
   StoryPageCopy
 } from "./content-types";
 import { DEFAULT_LOCALE, type Locale } from "./locale";
-import { smartQuotes } from "./smart-quotes";
+import { typographic } from "./smart-quotes";
 
 type PartialLocalized<T> = Partial<Record<Locale, T>>;
-
-/** Link-ish values are left alone; everything else is prose. */
-const LINK_LIKE = /^(https?:|mailto:|\/|#)/;
-
-/** Curly quotes for every string in the JSON copy, the same way the MDX
- *  pipeline does it for article bodies. */
-function typographic<T>(value: T): T {
-  if (typeof value === "string") {
-    return (LINK_LIKE.test(value) ? value : smartQuotes(value)) as unknown as T;
-  }
-  if (Array.isArray(value)) {
-    return value.map(typographic) as unknown as T;
-  }
-  if (value && typeof value === "object") {
-    return Object.fromEntries(
-      Object.entries(value).map(([key, entry]) => [key, typographic(entry)])
-    ) as T;
-  }
-  return value;
-}
 
 function resolveLocalized<T>(value: unknown, label: string) {
   const data = value as PartialLocalized<T>;
