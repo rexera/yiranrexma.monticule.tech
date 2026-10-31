@@ -198,7 +198,7 @@
             "href": "https://aclanthology.org/2026.lrec-1.46/"
           }
         ],
-        "notes": "共同第一作者（*同等贡献）。Hybrid, reference-free evaluation of stylistic fidelity in Chinese legal text, combining linguistic features with experience-guided LLM-as-a-judge scoring; experiments on 200 legal documents.",
+        "notes": "Hybrid, reference-free evaluation of stylistic fidelity in Chinese legal text, combining linguistic features with experience-guided LLM-as-a-judge scoring; experiments on 200 legal documents.",
         "slug": "clase",
         "featured": true
       },
