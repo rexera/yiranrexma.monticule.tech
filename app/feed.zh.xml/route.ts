@@ -40,7 +40,7 @@ export async function GET() {
     <title>马义然 — 博客</title>
     <link>${SITE_URL}/zh/blog</link>
     <atom:link href="${SITE_URL}/feed.zh.xml" rel="self" type="application/rss+xml"/>
-    <description>基础语言模型、持续学习与个人模型的研究笔记。</description>
+    <description>基础语言模型、持续学习与个性模型的研究笔记。</description>
     <language>zh-CN</language>
 ${items}
   </channel>

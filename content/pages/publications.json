@@ -5,8 +5,8 @@
   "en": {
     "title": "Work",
     "eyebrow": "Publications · Projects",
-    "description": "Papers, preprints, and projects — ordered by year.",
-    "publicationsTitle": "Papers & Preprints",
+    "description": "",
+    "publicationsTitle": "Papers",
     "filters": {
       "type": "Type",
       "year": "Year",
@@ -24,8 +24,8 @@
   "zh": {
     "title": "成果",
     "eyebrow": "论文 · 项目",
-    "description": "论文、预印本与项目，按年份排列。",
-    "publicationsTitle": "论文与预印本",
+    "description": "",
+    "publicationsTitle": "论文",
     "filters": {
       "type": "类型",
       "year": "年份",

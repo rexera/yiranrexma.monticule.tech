@@ -207,7 +207,7 @@
         "type": "C",
         "slug": "linguagame",
         "title": "LinguaGame: A Linguistically Grounded Game-Theoretic Paradigm for Multi-Agent Dialogue Generation",
-        "authors": "Yuxiao Ye, Yiming Zhang, Yiran Rex Ma, Huiyuan Xie, Huining Zhu, and Zhiyuan Liu",
+        "authors": "Yuxiao Ye, Yiming Zhang*, Yiran Rex Ma*, Huiyuan Xie, Huining Zhu, and Zhiyuan Liu",
         "venue": "ACL 2026 Findings",
         "year": "2026",
         "tags": [

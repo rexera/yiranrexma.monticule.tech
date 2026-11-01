@@ -28,8 +28,8 @@ export function SiteFooter({ profile, email, lastUpdated, locale = "en" }: SiteF
   const copy = {
     en: {
       contact: "Contact",
-      talk: "Let's talk.",
-      elsewhere: "Elsewhere",
+      talk: "Let's get in touch!",
+      elsewhere: "Find me here",
       copyright: `© ${year} Yiran Rex Ma`,
       viewSource: "Source",
       lastUpdated: "Last updated",
@@ -39,7 +39,7 @@ export function SiteFooter({ profile, email, lastUpdated, locale = "en" }: SiteF
     zh: {
       contact: "联系",
       talk: "不吝珠玉",
-      elsewhere: "别处",
+      elsewhere: "来这里找我",
       copyright: `© ${year} 马义然`,
       viewSource: "源码",
       lastUpdated: "最近更新",
