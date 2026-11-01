@@ -208,38 +208,38 @@ body:lang(zh-Hans) {
 }
 
 .contour-band-1 {
-  --fill-low: 0.025;
-  --fill-high: 0.1;
+  --fill-low: 0.12;
+  --fill-high: 0.34;
   --band-delay: 0s;
 }
 
 .contour-band-2 {
-  --fill-low: 0.04;
-  --fill-high: 0.14;
+  --fill-low: 0.1;
+  --fill-high: 0.29;
   --band-delay: 1.25s;
 }
 
 .contour-band-3 {
-  --fill-low: 0.06;
-  --fill-high: 0.19;
+  --fill-low: 0.08;
+  --fill-high: 0.24;
   --band-delay: 2.5s;
 }
 
 .contour-band-4 {
-  --fill-low: 0.08;
-  --fill-high: 0.24;
+  --fill-low: 0.06;
+  --fill-high: 0.19;
   --band-delay: 3.75s;
 }
 
 .contour-band-5 {
-  --fill-low: 0.1;
-  --fill-high: 0.29;
+  --fill-low: 0.04;
+  --fill-high: 0.14;
   --band-delay: 5s;
 }
 
 .contour-band-6 {
-  --fill-low: 0.12;
-  --fill-high: 0.34;
+  --fill-low: 0.025;
+  --fill-high: 0.1;
   --band-delay: 6.25s;
 }
 

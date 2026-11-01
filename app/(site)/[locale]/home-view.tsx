@@ -73,13 +73,8 @@ export function HomeView({ locale, profile, updates, publications, posts, copy }
             className="enter-up mt-7 max-w-[62ch] space-y-2.5"
             style={{ "--enter-delay": "220ms" } as CSSProperties}
           >
-            {copy.leads.map((lead, index) => (
-              <p
-                key={lead}
-                className={index === 0
-                  ? "text-[18px] font-medium leading-[1.65] text-ink"
-                  : "text-[16px] leading-[1.7] text-ink/75"}
-              >
+            {copy.leads.map((lead) => (
+              <p key={lead} className="text-[16px] leading-[1.7] text-ink/75">
                 {lead}
               </p>
             ))}
