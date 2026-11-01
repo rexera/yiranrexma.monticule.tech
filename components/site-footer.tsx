@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { ArrowUpIcon } from "@/components/icons";
 import type { LocaleProfile } from "@/lib/content-types";
 import { typographic } from "@/lib/smart-quotes";
 
@@ -38,7 +39,7 @@ export function SiteFooter({ profile, email, lastUpdated, locale = "en" }: SiteF
     },
     zh: {
       contact: "联系",
-      talk: "不吝珠玉",
+      talk: "虚左以待",
       elsewhere: "来这里找我",
       copyright: `© ${year} 马义然`,
       viewSource: "源码",
@@ -50,12 +51,12 @@ export function SiteFooter({ profile, email, lastUpdated, locale = "en" }: SiteF
   const t = typographic(copy)[locale];
 
   return (
-    <footer className="mt-20 border-t border-line/15 pb-10 pt-12 print:hidden">
+    <footer className="relative z-10 mt-24 border-t border-line/10 pb-10 pt-12 print:hidden">
       <div className="container-page">
         <div className="grid gap-10 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start">
           <div>
             <p className="eyebrow">{t.contact}</p>
-            <p className="mt-3 text-[clamp(1.6rem,2.6vw,2.25rem)] font-semibold leading-tight tracking-[-0.02em] text-ink">
+            <p className="mt-3 font-display text-[clamp(1.9rem,3vw,2.6rem)] font-medium leading-tight tracking-[-0.025em] text-ink">
               {t.talk}
             </p>
             {email ? (
@@ -118,7 +119,7 @@ export function SiteFooter({ profile, email, lastUpdated, locale = "en" }: SiteF
           </nav>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-line/15 pt-5 text-xs text-muted sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5">
+        <div className="mt-12 flex flex-col gap-2 border-t border-line/10 pt-5 text-xs text-muted sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5">
           <span>{t.copyright}</span>
           {repositoryUrl ? (
             <a href={repositoryUrl} target="_blank" rel="noreferrer" className="link-underline hover:text-ink">
@@ -130,9 +131,10 @@ export function SiteFooter({ profile, email, lastUpdated, locale = "en" }: SiteF
               {t.lastUpdated} <span className="font-mono tabular-nums">{lastUpdated}</span>
             </span>
           ) : null}
-          <span className="sm:ml-auto">{t.tagline}</span>
-          <a href="#top" className="link-underline hover:text-ink">
-            {t.top} ↑
+          <span className="font-display text-sm italic text-brand-text sm:ml-auto">{t.tagline}</span>
+          <a href="#top" className="link-underline inline-flex items-center gap-1 hover:text-ink">
+            {t.top}
+            <ArrowUpIcon className="h-3 w-3" />
           </a>
         </div>
       </div>

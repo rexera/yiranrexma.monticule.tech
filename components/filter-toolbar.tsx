@@ -30,7 +30,7 @@ export function FilterToolbar({ groups, className }: FilterToolbarProps) {
   return (
     <div
       className={clsx(
-        "flex flex-col gap-2 border-t border-line/15 py-3 text-sm sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-10",
+        "flex flex-col gap-2 border-t border-line/10 py-4 text-sm sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-10",
         className
       )}
     >

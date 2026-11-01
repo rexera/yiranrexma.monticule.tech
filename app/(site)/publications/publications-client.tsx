@@ -83,7 +83,10 @@ export function PublicationsClient({ entries, projects, locale, copy }: Publicat
     <div className="container-page py-10 sm:py-14">
       <PageHeader eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
 
-      <SectionHeading index="01" title={copy.publicationsTitle} />
+      <SectionHeading
+        title={copy.publicationsTitle}
+        note={locale === "zh" ? "Research output" : "研究成果"}
+      />
 
       <div className="mt-4">
         <FilterToolbar
@@ -121,9 +124,9 @@ export function PublicationsClient({ entries, projects, locale, copy }: Publicat
               <h2 className="font-mono text-xs tabular-nums tracking-[0.12em] text-muted sm:pt-6">
                 {year}
               </h2>
-              <div className="border-t border-line/15">
+              <div className="border-t border-line/10">
                 {items.map((entry, index) => (
-                  <Reveal key={entry.id} delay={Math.min(index, 5) * 40} className="border-b border-line/15">
+                  <Reveal key={entry.id} delay={Math.min(index, 5) * 40} className="border-b border-line/10">
                     <PublicationRow item={entry} locale={locale} />
                   </Reveal>
                 ))}
@@ -138,7 +141,10 @@ export function PublicationsClient({ entries, projects, locale, copy }: Publicat
       {projects.length > 0 ? (
         <section className="mt-16">
           <Reveal>
-            <SectionHeading index="02" title={copy.projectsTitle} />
+            <SectionHeading
+              title={copy.projectsTitle}
+              note={locale === "zh" ? "Projects" : "项目"}
+            />
           </Reveal>
           <div className="mt-4 grid gap-x-10 gap-y-8 md:grid-cols-2">
             {projects.map((project, index) => (

@@ -1,4 +1,4 @@
-import { StarIcon } from "@/components/icons";
+import { ExternalLinkIcon, StarIcon } from "@/components/icons";
 import type { ProjectEntry } from "@/lib/content-types";
 
 type ProjectCardProps = {
@@ -15,7 +15,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     : [];
 
   return (
-    <article className="border-t border-line/15 pt-5">
+    <article className="border-t border-line/10 pt-6">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h3 className="text-[1.05rem] font-semibold text-ink">{project.name}</h3>
         <span className="font-mono text-[11px] tracking-[0.1em] text-muted">{project.period}</span>
@@ -44,9 +44,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 key={link.label}
                 href={link.href}
                 {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className="link-underline text-muted transition-colors hover:text-brand-text"
+                className="link-underline inline-flex items-center gap-1 text-muted transition-colors hover:text-brand-text"
               >
-                {link.label} ↗
+                {link.label}
+                <ExternalLinkIcon className="h-3 w-3" />
               </a>
             );
           })}

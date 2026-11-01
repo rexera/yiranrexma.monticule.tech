@@ -2,6 +2,8 @@
 
 import { useId, useState } from "react";
 
+import { MinusIcon, PlusIcon } from "@/components/icons";
+
 type AbstractToggleProps = {
   text: string;
   labels: { open: string; close: string };
@@ -22,9 +24,7 @@ export function AbstractToggle({ text, labels }: AbstractToggleProps) {
         className="group inline-flex items-center gap-1.5 text-xs font-medium text-muted transition-colors hover:text-brand-text"
       >
         <span className="link-underline">{open ? labels.close : labels.open}</span>
-        <span aria-hidden="true" className="text-[0.9em]">
-          {open ? "−" : "+"}
-        </span>
+        {open ? <MinusIcon className="h-3 w-3" /> : <PlusIcon className="h-3 w-3" />}
       </button>
       <div
         id={id}

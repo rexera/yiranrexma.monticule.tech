@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { CloseIcon, MenuIcon } from "@/components/icons";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ACTIVE_OFFSET } from "@/components/toc";
 import { buildLocalePath, IS_BILINGUAL, LOCALE_COOKIE_NAME, type Locale } from "@/lib/locale";
@@ -13,7 +14,6 @@ import type { NavItem } from "@/types/navigation";
 
 type SiteHeaderProps = {
   navItems: NavItem[];
-  profileName?: string;
   currentLocale?: Locale;
 };
 
@@ -52,7 +52,7 @@ function currentSection() {
  * hairline, a small wordmark, text navigation, and a menu panel on narrow
  * screens. The active item keeps a short rule under it; hover draws one in.
  */
-export function SiteHeader({ navItems, profileName, currentLocale = "en" }: SiteHeaderProps) {
+export function SiteHeader({ navItems, currentLocale = "en" }: SiteHeaderProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -130,11 +130,11 @@ export function SiteHeader({ navItems, profileName, currentLocale = "en" }: Site
     // The active item keeps a persistent rule; only idle items get the
     // draw-in hover underline, so hovering the current tab never shows two.
     const classes = clsx(
-      "relative py-1 text-sm",
-      active ? "text-ink" : "link-underline text-muted hover:text-ink"
+      "relative py-1 text-sm leading-[14px]",
+      active ? "text-brand-text" : "link-underline text-muted hover:text-ink"
     );
     const underline = active ? (
-      <span aria-hidden="true" className="absolute inset-x-0 -bottom-0.5 h-px bg-ink" />
+      <span aria-hidden="true" className="absolute inset-x-0 -bottom-0.5 h-px bg-brand-text" />
     ) : null;
 
     if (item.external) {
@@ -188,22 +188,22 @@ export function SiteHeader({ navItems, profileName, currentLocale = "en" }: Site
   };
 
   return (
-    <header id="top" className="relative z-30 border-b border-line/15">
-      <div className="container-page flex h-16 items-center justify-between gap-6">
+    <header id="top" className="relative z-30 border-b border-line/10">
+      <div className="container-page flex h-[68px] items-center justify-between gap-6">
         <div className="flex min-w-0 items-center gap-8">
           <Link
             href={homeHref as any}
-            className="inline-flex items-baseline gap-2 text-sm font-semibold text-ink"
-            aria-label={profileName ?? "Academic Homepage"}
+            className="inline-flex shrink-0 items-center leading-none"
+            aria-label="Monticule"
           >
             <Image
-              src="/images/monticule-icon.svg"
-              alt=""
-              width={874}
+              src="/images/monticule-logo-horizontal-color.svg"
+              alt="Monticule"
+              width={2934}
               height={272}
-              className="h-[1cap] w-auto shrink-0"
+              loading="eager"
+              className="h-3.5 w-auto"
             />
-            <span className="whitespace-nowrap">{profileName ?? "Academic Homepage"}</span>
           </Link>
 
           <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">
@@ -220,22 +220,9 @@ export function SiteHeader({ navItems, profileName, currentLocale = "en" }: Site
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((value) => !value)}
-            className="relative h-9 w-9 rounded-full text-muted transition-colors hover:bg-ink/[0.05] hover:text-ink md:hidden dark:hover:bg-white/[0.06]"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full text-muted transition-colors hover:bg-ink/[0.05] hover:text-ink md:hidden dark:hover:bg-white/[0.06]"
           >
-            <span
-              aria-hidden="true"
-              className={clsx(
-                "absolute left-1/2 top-[14px] h-px w-4 -translate-x-1/2 bg-current transition-transform duration-300",
-                open && "translate-y-[3px] rotate-45"
-              )}
-            />
-            <span
-              aria-hidden="true"
-              className={clsx(
-                "absolute left-1/2 top-[20px] h-px w-4 -translate-x-1/2 bg-current transition-transform duration-300",
-                open && "-translate-y-[3px] -rotate-45"
-              )}
-            />
+            {open ? <CloseIcon className="h-5 w-5" /> : <MenuIcon className="h-5 w-5" />}
           </button>
         </div>
       </div>

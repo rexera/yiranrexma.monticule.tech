@@ -121,11 +121,11 @@ export function BlogClient({ copy, posts, locale }: BlogClientProps) {
       </div>
 
       {filteredPosts.length ? (
-        <div className="mt-2 border-t border-line/15">
+        <div className="mt-3 border-t border-line/10">
           {filteredPosts.map((post, index) => {
             return (
-              <Reveal key={post.slug} delay={Math.min(index, 5) * 40} className="border-b border-line/15">
-                <article className="-mx-3 px-3 py-6 transition-colors duration-200 hover:bg-ink/[0.03] dark:hover:bg-white/[0.04] sm:-mx-4 sm:px-4">
+              <Reveal key={post.slug} delay={Math.min(index, 5) * 40} className="border-b border-line/10">
+                <article className="-mx-3 px-3 py-7 transition-colors duration-200 hover:bg-brand/[0.05] sm:-mx-4 sm:px-4 dark:hover:bg-brand/[0.08]">
                   <div className="grid gap-1.5 sm:grid-cols-[108px_minmax(0,1fr)] sm:gap-8">
                     <div className="flex items-baseline gap-2 sm:block">
                       <time className="font-mono text-[11px] tabular-nums tracking-[0.08em] text-muted">
@@ -134,7 +134,7 @@ export function BlogClient({ copy, posts, locale }: BlogClientProps) {
                       <span className="inline-flex items-center gap-1.5 sm:mt-1.5 sm:block">
                         <span
                           aria-hidden="true"
-                          className={`h-1.5 w-1.5 shrink-0 rounded-full ${TYPE_MARKERS[post.type]}`}
+                          className={`h-1.5 w-1.5 shrink-0 ${TYPE_MARKERS[post.type]}`}
                         />
                         <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
                           {copy.types[post.type]}
@@ -142,7 +142,7 @@ export function BlogClient({ copy, posts, locale }: BlogClientProps) {
                       </span>
                     </div>
                     <div className="min-w-0">
-                      <h3 className="text-[1.05rem] font-semibold leading-snug text-ink">
+                      <h3 className="text-[1.0625rem] font-medium leading-[1.55] text-ink">
                         <Link
                           href={`${base}/blog/${post.slug}` as any}
                           className="link-underline transition-colors hover:text-brand-text"

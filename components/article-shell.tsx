@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import { ArticleReveal } from "@/components/article-reveal";
 import { GiscusComments } from "@/components/giscus-comments";
+import { ArrowLeftIcon } from "@/components/icons";
 import { ReadingProgress } from "@/components/reading-progress";
 import { ScrollToHash } from "@/components/scroll-to-hash";
 
@@ -44,14 +45,12 @@ export function ArticleShell({ locale, backLabel, backHref, title, meta, toc, ch
             href={backHref as any}
             className="group inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-ink"
           >
-            <span aria-hidden="true" className="transition-transform duration-200 group-hover:-translate-x-0.5">
-              ←
-            </span>
+            <ArrowLeftIcon className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" />
             <span className="link-underline">{backLabel}</span>
           </Link>
 
-          <header className="mt-8 border-b border-line/15 pb-6">
-            <h1 className="text-[clamp(1.75rem,3vw,2.35rem)] font-semibold leading-[1.12] tracking-[-0.03em] text-ink">
+          <header className="mt-8 border-b border-line/10 pb-6">
+            <h1 className="font-display text-[clamp(2rem,3.4vw,2.75rem)] font-medium leading-[1.12] tracking-[-0.03em] text-ink">
               {title}
             </h1>
             {meta ? <div className="mt-4">{meta}</div> : null}

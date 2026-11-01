@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ArticleShell } from "@/components/article-shell";
+import { ExternalLinkIcon } from "@/components/icons";
 import { TableOfContents } from "@/components/toc";
 import { extractToc, renderMdx } from "@/lib/mdx";
 import { LOCALES, normalizeLocale } from "@/lib/locale";
@@ -107,9 +108,10 @@ export default async function PublicationDetailPage({ params }: PageProps) {
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="link-underline hover:text-ink"
+                  className="link-underline inline-flex items-center gap-1 hover:text-ink"
                 >
-                  {link.label} ↗
+                  {link.label}
+                  <ExternalLinkIcon className="h-3 w-3" />
                 </a>
               ))}
             </p>

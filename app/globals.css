@@ -60,31 +60,23 @@
      fonts remain only as CJK fallbacks so Chinese never renders as
      faux-Latin. */
   --font-sans: "Instrument Sans Variable", "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: "Palatino", "Palatino Linotype", "Book Antiqua", "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", STSong, serif;
   --font-mono: "Maple Mono", "Maple Mono CN", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
-  /* Brand accent, swapped per theme.
-     Light: olive green links/accents, near-black hover, white text on accent.
-     Dark:  pale yellow links/accents, very light green hover, dark text on accent. */
-  --brand: 129 152 106;
-  --brand-foreground: 26 33 24;
+  --brand: 125 149 105;
+  --brand-foreground: 35 42 28;
   --brand-on: 255 255 255;
-  /* Text-safe accent drawn from the VI Deep Olive (#5E6C53, 5.3:1 on paper):
-     small olive labels use this instead of --brand, which is decorative-only. */
   --brand-text: 94 108 83;
 
-  /* Editorial surface tokens. html and body both paint the page so
-     rubber-band overscroll never reveals a different-coloured edge. */
-  --paper: 248 249 242;
-  --ink: 23 19 14;
-  --muted: 107 101 87;
-  --line: 23 19 14;
+  --paper: 246 247 234;
+  --ink: 35 42 28;
+  --muted: 101 116 90;
+  --line: 125 149 105;
 
-  /* Motion tokens. One curve for the whole site: long deceleration, no
-     overshoot — the motion equivalent of a hairline. */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --dur-fast: 160ms;
-  --dur-base: 320ms;
-  --dur-enter: 700ms;
+  --dur-base: 240ms;
+  --dur-enter: 450ms;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -93,15 +85,14 @@
 
 .dark {
   color-scheme: dark;
-  --brand: 167 180 119;
-  --brand-foreground: 201 210 163;
-  --brand-on: 23 19 14;
-  /* VI Olive Light (#C1C989) — bright enough for small text on near-black. */
+  --brand: 193 201 137;
+  --brand-foreground: 224 231 160;
+  --brand-on: 35 42 28;
   --brand-text: 193 201 137;
-  --paper: 11 9 6;
-  --ink: 246 242 231;
-  --muted: 166 158 139;
-  --line: 246 242 231;
+  --paper: 24 30 20;
+  --ink: 242 244 214;
+  --muted: 159 178 150;
+  --line: 159 178 150;
 }
 
 html {
@@ -118,8 +109,8 @@ body {
   @apply font-sans antialiased;
   color: rgb(var(--ink));
   background-color: rgb(var(--paper));
-  line-height: 1.65;
-  letter-spacing: -0.01em;
+  line-height: 1.7;
+  letter-spacing: -0.005em;
   text-rendering: optimizeLegibility;
   font-feature-settings: "liga", "clig", "kern";
   font-kerning: normal;
@@ -140,6 +131,186 @@ body:lang(zh-Hans) {
 
 ::selection {
   background: rgb(var(--brand) / 0.28);
+}
+
+.site-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: rgb(var(--brand) / 0.2);
+}
+
+.site-atmosphere::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 48% at 88% 0%, rgb(var(--brand) / 0.09), transparent 72%),
+    radial-gradient(ellipse 58% 46% at 0% 100%, rgb(var(--brand-foreground) / 0.08), transparent 74%);
+}
+
+.site-atmosphere::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.55'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  opacity: 0.035;
+}
+
+.dark .site-atmosphere {
+  color: rgb(var(--brand) / 0.16);
+}
+
+.dark .site-atmosphere::before {
+  background:
+    radial-gradient(ellipse 70% 48% at 88% 0%, rgb(var(--brand) / 0.055), transparent 72%),
+    radial-gradient(ellipse 58% 46% at 0% 100%, rgb(var(--brand-foreground) / 0.04), transparent 74%);
+}
+
+.dark .site-atmosphere::after {
+  mix-blend-mode: screen;
+  opacity: 0.025;
+}
+
+.contour-field {
+  position: absolute;
+  width: min(52rem, 65vw);
+  height: auto;
+  overflow: visible;
+}
+
+.contour-field-a {
+  --field-phase: -7s;
+  top: -7rem;
+  right: -15rem;
+  transform: rotate(-14deg);
+}
+
+.contour-field-b {
+  --field-phase: -13.5s;
+  bottom: -15rem;
+  left: -17rem;
+  color: rgb(var(--brand) / 0.14);
+  transform: rotate(155deg);
+}
+
+.contour-band {
+  --fill-low: 0.04;
+  --fill-high: 0.16;
+  --band-delay: 0s;
+  fill-opacity: var(--fill-low);
+  stroke-opacity: 0.2;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.contour-band-1 {
+  --fill-low: 0.025;
+  --fill-high: 0.1;
+  --band-delay: 0s;
+}
+
+.contour-band-2 {
+  --fill-low: 0.04;
+  --fill-high: 0.14;
+  --band-delay: 1.25s;
+}
+
+.contour-band-3 {
+  --fill-low: 0.06;
+  --fill-high: 0.19;
+  --band-delay: 2.5s;
+}
+
+.contour-band-4 {
+  --fill-low: 0.08;
+  --fill-high: 0.24;
+  --band-delay: 3.75s;
+}
+
+.contour-band-5 {
+  --fill-low: 0.1;
+  --fill-high: 0.29;
+  --band-delay: 5s;
+}
+
+.contour-band-6 {
+  --fill-low: 0.12;
+  --fill-high: 0.34;
+  --band-delay: 6.25s;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contour-field-a {
+    animation: contour-drift-a 22s ease-in-out infinite alternate;
+  }
+
+  .contour-field-b {
+    animation: contour-drift-b 26s ease-in-out infinite alternate;
+  }
+
+  .contour-band {
+    animation: contour-shimmer 14s ease-in-out infinite;
+    animation-delay: calc(var(--field-phase) + var(--band-delay));
+  }
+}
+
+@keyframes contour-shimmer {
+  0%,
+  100% {
+    fill-opacity: var(--fill-low);
+    stroke-opacity: 0.18;
+    transform: scale(0.996);
+  }
+
+  45% {
+    fill-opacity: var(--fill-high);
+    stroke-opacity: 0.9;
+    transform: scale(1.006);
+  }
+
+  68% {
+    fill-opacity: var(--fill-low);
+    stroke-opacity: 0.34;
+    transform: scale(1.001);
+  }
+}
+
+@keyframes contour-drift-a {
+  to {
+    transform: translate3d(-16px, 12px, 0) rotate(-11deg);
+  }
+}
+
+@keyframes contour-drift-b {
+  to {
+    transform: translate3d(14px, -10px, 0) rotate(151deg);
+  }
+}
+
+@media (max-width: 767px) {
+  .contour-field {
+    width: 42rem;
+  }
+
+  .contour-field-a {
+    top: -5rem;
+    right: -23rem;
+  }
+
+  .contour-field-b {
+    bottom: -8rem;
+    left: -25rem;
+  }
+}
+
+@media print {
+  .site-atmosphere {
+    display: none;
+  }
 }
 
 /* ── Long-form article typography (MDX pages) ────────────────────
@@ -173,24 +344,24 @@ body:lang(zh-Hans) {
 }
 
 .dark .mdx-article {
-  --tw-prose-body: #c9c2ae;
-  --tw-prose-headings: #f6f2e7;
-  --tw-prose-lead: #c4bda6;
-  --tw-prose-links: #a7b477;
-  --tw-prose-bold: #f6f2e7;
-  --tw-prose-counters: #857c64;
-  --tw-prose-bullets: #57503f;
-  --tw-prose-hr: #292219;
-  --tw-prose-quotes: #b3ab95;
+  --tw-prose-body: #c4cdb7;
+  --tw-prose-headings: #f2f4d6;
+  --tw-prose-lead: #9fb296;
+  --tw-prose-links: #c1c989;
+  --tw-prose-bold: #f2f4d6;
+  --tw-prose-counters: #9fb296;
+  --tw-prose-bullets: #7d9569;
+  --tw-prose-hr: #39432f;
+  --tw-prose-quotes: #b8c4aa;
   --tw-prose-quote-borders: rgb(var(--brand) / 0.28);
-  --tw-prose-captions: #948b74;
-  --tw-prose-kbd: #f6f2e7;
-  --tw-prose-kbd-shadows: 246 242 231;
-  --tw-prose-code: #f6f2e7;
-  --tw-prose-pre-code: #e5dfcc;
-  --tw-prose-pre-bg: #0b0906;
-  --tw-prose-th-borders: #3d3527;
-  --tw-prose-td-borders: #292219;
+  --tw-prose-captions: #9fb296;
+  --tw-prose-kbd: #f2f4d6;
+  --tw-prose-kbd-shadows: 242 244 214;
+  --tw-prose-code: #f2f4d6;
+  --tw-prose-pre-code: #e0e7d2;
+  --tw-prose-pre-bg: #141a10;
+  --tw-prose-th-borders: #4a5842;
+  --tw-prose-td-borders: #39432f;
 }
 
 .mdx-article :where(p, li) {
@@ -475,6 +646,10 @@ a:focus-visible {
   letter-spacing: 0;
 }
 
+:lang(zh) .home-name {
+  letter-spacing: 0.04em;
+}
+
 /* ── Editorial primitives ────────────────────────────────────── */
 
 .container-page {
@@ -512,32 +687,36 @@ a:focus-visible {
 }
 
 .page-title {
-  font-size: clamp(1.9rem, 3.2vw, 2.75rem);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(2.35rem, 4vw, 3.5rem);
+  font-weight: 500;
   line-height: 1.08;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   color: rgb(var(--ink));
 }
 
 .section-title {
-  font-size: clamp(1.25rem, 2vw, 1.6rem);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.2vw, 1.85rem);
+  font-weight: 500;
   line-height: 1.2;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   color: rgb(var(--ink));
 }
 
-.section-index {
-  display: inline-block;
-  vertical-align: top;
-  padding-top: 0.22em;
-  margin-right: 0.75rem;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
+.section-note {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
   font-weight: 400;
-  letter-spacing: 0.12em;
-  line-height: 1.2;
-  color: rgb(var(--brand-text));
+  letter-spacing: 0;
+  line-height: 1.5;
+  color: rgb(var(--muted) / 0.78);
+}
+
+.dot-separator {
+  display: inline-block;
+  margin-inline: 0.75rem;
+  color: rgb(var(--muted) / 0.6);
 }
 
 /* An `hr` right before a section heading doubles the rule — the h2 already
@@ -555,7 +734,7 @@ a:focus-visible {
   background-position: 0 100%;
   background-size: 0% 1px;
   transition:
-    background-size 380ms var(--ease-out),
+    background-size 240ms var(--ease-out),
     color var(--dur-fast) ease;
 }
 
@@ -569,7 +748,7 @@ a:focus-visible {
 @media (scripting: enabled) {
   [data-reveal] {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(6px);
     transition:
       opacity var(--dur-enter) var(--ease-out),
       transform var(--dur-enter) var(--ease-out);
@@ -587,7 +766,7 @@ a:focus-visible {
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
   .enter-up {
     opacity: 0;
-    animation: enter-up 700ms var(--ease-out) both;
+    animation: enter-up 450ms var(--ease-out) both;
     animation-delay: var(--enter-delay, 0ms);
   }
 
@@ -598,13 +777,13 @@ a:focus-visible {
   .enter-mask > span {
     display: block;
     transform: translateY(110%);
-    animation: enter-mask 850ms var(--ease-out) both;
+    animation: enter-mask 600ms var(--ease-out) both;
     animation-delay: var(--enter-delay, 0ms);
   }
 
   .enter-clip {
     clip-path: inset(0 0 100% 0);
-    animation: enter-clip 1000ms var(--ease-out) both;
+    animation: enter-clip 650ms var(--ease-out) both;
     animation-delay: var(--enter-delay, 0ms);
   }
 }
@@ -612,7 +791,7 @@ a:focus-visible {
 @keyframes enter-up {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -634,14 +813,14 @@ a:focus-visible {
 
 @media (prefers-reduced-motion: no-preference) {
   .page-enter {
-    animation: page-enter 420ms var(--ease-out) both;
+    animation: page-enter 300ms var(--ease-out) both;
   }
 }
 
 @keyframes page-enter {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(4px);
   }
   to {
     opacity: 1;
