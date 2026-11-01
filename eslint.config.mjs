@@ -12,7 +12,9 @@ const config = [
   {
     rules: {
       "react-hooks/set-state-in-effect": "off",
-      "@next/next/no-html-link-for-pages": "off"
+      "@next/next/no-html-link-for-pages": "off",
+      // App Router root layout loads fonts site-wide; the rule only models Pages Router.
+      "@next/next/no-page-custom-font": "off"
     }
   }
 ];
