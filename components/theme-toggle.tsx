@@ -1,6 +1,5 @@
 "use client";
 
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 
@@ -10,27 +9,48 @@ type ViewTransitionDocument = Document & {
   startViewTransition?: (callback: () => void) => { finished: Promise<void> };
 };
 
-export function ThemeToggle() {
-  const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  const isDark = resolvedTheme === "dark";
+type ThemeWindow = Window & {
+  __applyTheme?: () => void;
+  __themeOverride?: "light" | "dark";
+};
 
-  useEffect(() => setMounted(true), []);
+/**
+ * Light/dark follows the system colour scheme, applied before first paint by
+ * the inline script in app/layout.tsx. The button pins a scheme for the
+ * current visit only — the override lives in memory, so a reload (or a new
+ * tab) goes back to whatever the system is set to. Nothing is stored.
+ */
+export function ThemeToggle() {
+  const [isDark, setIsDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    setIsDark(document.documentElement.classList.contains("dark"));
+  }, []);
 
   const toggle = () => {
-    const next = isDark ? "light" : "dark";
+    const next: "light" | "dark" = isDark ? "light" : "dark";
+    const win = window as ThemeWindow;
+    win.__themeOverride = next;
+
+    const apply = () => {
+      win.__applyTheme?.();
+      setIsDark(next === "dark");
+    };
+
     const doc = document as ViewTransitionDocument;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (!doc.startViewTransition || reduceMotion) {
-      setTheme(next);
+      apply();
       return;
     }
 
     // `finished` rejects when a newer transition interrupts this one (rapid
     // toggling); the theme is already applied either way, so just swallow it.
     doc.startViewTransition(() => {
-      flushSync(() => setTheme(next));
+      flushSync(apply);
     }).finished.catch(() => {});
   };
 

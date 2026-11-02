@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "katex/dist/katex.min.css";
 import "@fontsource-variable/instrument-sans";
-import { Providers } from "@/components/providers";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://yiranrexma.monticule.tech";
 const SITE_NAME = "Yiran Rex Ma";
@@ -52,6 +51,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
+        {/* Theme follows the system colour scheme on every visit — nothing
+            is stored. `__themeOverride` lets the toggle button pin light or
+            dark for the current visit only; a reload clears it. This script
+            runs before first paint so the correct scheme is there up front. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var d=document.documentElement,m=matchMedia("(prefers-color-scheme: dark)");window.__applyTheme=function(){var t=window.__themeOverride||(m.matches?"dark":"light");d.classList.toggle("dark",t==="dark")};window.__applyTheme();m.addEventListener("change",function(){if(!window.__themeOverride)window.__applyTheme()})})()`
+          }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -60,9 +68,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans">
-        <Providers>
-          {children}
-        </Providers>
+        {children}
       </body>
     </html>
   );

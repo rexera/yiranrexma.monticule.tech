@@ -38,7 +38,6 @@ export const LOCALES =
       ? (["zh"] as const)
       : ALL_LOCALES;
 
-export const LOCALE_COOKIE_NAME = "locale";
 export const IS_BILINGUAL = LOCALES.length > 1;
 
 export function isLocale(value: unknown): value is Locale {
@@ -70,17 +69,10 @@ export function buildLocalePath(locale: Locale, pathAfterLocale = "") {
 
 
 export function resolveEntryLocale({
-  cookieLocale,
   detectedLocale
 }: {
-  cookieLocale?: Locale | null;
   detectedLocale?: Locale | null;
 }): Locale {
-  const normalizedCookie = normalizeLocale(cookieLocale);
-  if (normalizedCookie) {
-    return normalizedCookie;
-  }
-
   if (AUTO_DETECT_LOCALE) {
     const normalizedDetected = normalizeLocale(detectedLocale);
     if (normalizedDetected) {

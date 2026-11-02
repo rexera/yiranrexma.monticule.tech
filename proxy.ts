@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { buildLocalePath, LOCALES, LOCALE_COOKIE_NAME, normalizeLocale, resolveEntryLocale, type Locale } from "@/lib/locale";
+import { buildLocalePath, LOCALES, resolveEntryLocale, type Locale } from "@/lib/locale";
 
 function detectLocaleFromAcceptLanguage(value: string | null): Locale | null {
   if (!value) return null;
@@ -69,25 +69,16 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const cookieLocale = normalizeLocale(request.cookies.get(LOCALE_COOKIE_NAME)?.value);
-  const headerLocale = detectLocaleFromAcceptLanguage(request.headers.get("accept-language"));
+  // No locale cookie: the entry redirect follows the system language on
+  // every visit, so no preference is stored anywhere.
   const locale = resolveEntryLocale({
-    cookieLocale,
-    detectedLocale: headerLocale
+    detectedLocale: detectLocaleFromAcceptLanguage(request.headers.get("accept-language"))
   });
 
   const url = request.nextUrl.clone();
   url.pathname = buildLocalePath(locale, moved ?? (pathname === "/" ? "" : pathname));
 
-  const response = NextResponse.redirect(url);
-  if (!cookieLocale) {
-    response.cookies.set(LOCALE_COOKIE_NAME, locale, {
-      path: "/",
-      maxAge: 60 * 60 * 24 * 365,
-      sameSite: "lax"
-    });
-  }
-  return response;
+  return NextResponse.redirect(url);
 }
 
 export const config = {

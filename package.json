@@ -22,7 +22,6 @@
     "mermaid": "^11.17.2",
     "next": "^16.1.6",
     "next-mdx-remote": "^6.0.0",
-    "next-themes": "^0.2.1",
     "plotly.js-dist-min": "^4.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

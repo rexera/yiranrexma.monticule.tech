@@ -30,6 +30,22 @@
   unicode-range: U+3000-30FF, U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF;
 }
 
+/* Chinese punctuation drawn by a CJK face. The Latin faces otherwise claim
+   these codepoints first, and their glyphs are narrow with side bearings:
+   "——" comes out as two short dashes with a gap instead of one joined line,
+   and adjacent quoted phrases (“”“”) clump into what reads as a heap of
+   stray quote marks. A face scoped to just these codepoints, placed ahead
+   of the Latin one, redraws only the punctuation. On systems without these
+   fonts the src falls through and nothing changes. */
+@font-face {
+  font-family: "CJK Punctuation";
+  src: local("PingFang SC"), local("Hiragino Sans GB"), local("Microsoft YaHei"),
+    local("Noto Sans CJK SC"), local("WenQuanYi Micro Hei"), local("Noto Sans SC");
+  font-weight: 100 900;
+  font-style: normal;
+  unicode-range: U+2014, U+2026, U+201C-201D;
+}
+
 @font-face {
   font-family: "Maple Mono CN";
   src: url("/fonts/maple-cn-regular.woff2") format("woff2");
@@ -597,7 +613,8 @@ body:lang(zh-Hans) {
   h4 {
     font-feature-settings: "liga", "clig", "kern";
     text-rendering: optimizeLegibility;
-    text-wrap: balance;
+    /* No text-wrap: balance here — it evens out line lengths, which makes a
+       title break early even when the first line has room left. */
   }
 
   h1 {
@@ -644,6 +661,13 @@ a:focus-visible {
 :lang(zh) .page-title,
 :lang(zh) .section-title {
   letter-spacing: 0;
+}
+
+/* The locale wrapper carries lang={locale} (the html element stays "en"),
+   so zh punctuation routing hangs off it. Elements that set their own
+   family — display titles, mono labels, code — override this as before. */
+[lang="zh"] {
+  font-family: "CJK Punctuation", var(--font-sans);
 }
 
 :lang(zh) .home-name {

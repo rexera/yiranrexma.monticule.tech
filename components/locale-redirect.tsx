@@ -2,12 +2,7 @@
 
 import { useEffect } from "react";
 
-import { buildLocalePath, DEFAULT_LOCALE, LOCALE_COOKIE_NAME, normalizeLocale, resolveEntryLocale, type Locale } from "@/lib/locale";
-
-function readCookie(name: string): string | null {
-  const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
-  return match ? decodeURIComponent(match[1]) : null;
-}
+import { buildLocalePath, DEFAULT_LOCALE, resolveEntryLocale, type Locale } from "@/lib/locale";
 
 function detectLocaleFromNavigator(): Locale {
   const language = (navigator.languages?.[0] ?? navigator.language ?? "").toLowerCase();
@@ -36,18 +31,12 @@ export function LocaleRedirect({
   useEffect(() => {
     // Static-export platforms cannot run proxy.ts at request time, so these
     // fallback pages detect locale in the browser and redirect on the client.
-    const cookieLocale = normalizeLocale(readCookie(LOCALE_COOKIE_NAME));
+    // Nothing is stored: every visit re-reads the system language.
     const locale = resolveEntryLocale({
-      cookieLocale,
       detectedLocale: detectLocaleFromNavigator()
     });
 
-    if (!cookieLocale) {
-      document.cookie = `${LOCALE_COOKIE_NAME}=${locale}; Path=/; Max-Age=${60 * 60 * 24 * 365}; SameSite=Lax`;
-    }
-
-    const target = buildLocalePath(locale, pathAfterLocale);
-    window.location.replace(target);
+    window.location.replace(buildLocalePath(locale, pathAfterLocale));
   }, [pathAfterLocale]);
 
   const fallbackTarget = buildLocalePath(DEFAULT_LOCALE, pathAfterLocale);

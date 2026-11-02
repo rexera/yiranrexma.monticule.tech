@@ -143,9 +143,13 @@ export function remarkSmartQuotes() {
   };
 }
 
-/** The same conversion for a plain string, with no block context. */
+/** The same conversion for a plain string, with no block context. The em-dash
+ *  pair also gets the word joiner the MDX pipeline applies (lib/mdx.ts), so
+ *  JSON/frontmatter copy — list summaries, updates — cannot break a "——"
+ *  across two lines either. */
 export function smartQuotes(input: string): string {
-  return convert(input, undefined, { double: false, single: false }).text;
+  return convert(input, undefined, { double: false, single: false })
+    .text.replace(/——/g, "—\u2060—");
 }
 
 /** Link-ish values are left alone; everything else is prose. */

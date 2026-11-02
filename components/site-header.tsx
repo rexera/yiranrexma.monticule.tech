@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { CloseIcon, MenuIcon } from "@/components/icons";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ACTIVE_OFFSET } from "@/components/toc";
-import { buildLocalePath, IS_BILINGUAL, LOCALE_COOKIE_NAME, type Locale } from "@/lib/locale";
+import { buildLocalePath, IS_BILINGUAL, type Locale } from "@/lib/locale";
 import type { NavItem } from "@/types/navigation";
 
 type SiteHeaderProps = {
@@ -109,7 +109,8 @@ export function SiteHeader({ navItems, currentLocale = "en" }: SiteHeaderProps) 
                 const nextPath = `${buildLocalePath(option.value, stripped)}${
                   section ? `#${section}` : ""
                 }`;
-                document.cookie = `${LOCALE_COOKIE_NAME}=${option.value}; Path=/; Max-Age=${60 * 60 * 24 * 365}; SameSite=Lax`;
+                // Deliberately not persisted: the choice lives in the URL for
+                // this visit only, and the next open re-reads the system language.
                 router.push(nextPath as any);
               }}
               className={clsx(
